@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider, alpha } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 
 const fontFamily = [
-  "Mulish",
+  "Oswald",
   "-apple-system",
   "BlinkMacSystemFont",
   '"Segoe UI"',
@@ -41,58 +41,78 @@ const defaultTheme = createTheme({
   typography: {
     fontFamily,
     h1: {
-      fontSize: "6rem",
+      fontSize: "3.583rem",
+      lineHeight: "5.309rem",
+      fontWeight: 400,
     },
     h2: {
-      fontSize: "3.75rem",
+      fontSize: "2.986rem",
+      lineHeight: "4.425rem",
+      fontWeight: 400,
     },
     h3: {
-      fontSize: "3rem",
+      fontSize: "2.488rem",
+      lineHeight: "3.688rem",
+      fontWeight: 400,
     },
     h4: {
-      fontSize: "2.125rem",
+      fontSize: "2.074rem",
+      lineHeight: "3.073rem",
+      fontWeight: 400,
     },
     h5: {
-      fontSize: "1.5rem",
+      fontSize: "1.728rem",
+      lineHeight: "2.561rem",
+      fontWeight: 400,
     },
     h6: {
-      fontSize: "1.25rem",
+      fontSize: "1.44rem",
+      lineHeight: "2.134rem",
+      fontWeight: 400,
     },
     subtitle1: {
       fontSize: "1rem",
     },
-    subtitle2: {
-      fontSize: "0.875rem",
+    body_large: {
+      fontSize: "1.2rem",
+      lineHeight: "1.778rem",
+      fontWeight: 500,
     },
     body1: {
       fontSize: "1rem",
+      lineHeight: "1.482rem",
+      fontWeight: 300,
     },
-    body2: {
-      fontSize: "0.875rem",
+    body_small: {
+      fontSize: "0.833rem",
+      lineHeight: "1.235rem",
+      fontWeight: 200,
+    },
+    body_small_bold: {
+      fontSize: "0.694rem",
+      lineHeight: "1.029rem",
+      fontWeight: 600,
     },
     button: {
       fontSize: "0.875rem",
     },
-    caption: {
-      fontSize: "0.75rem",
-    },
-    overline: {
-      fontSize: "0.75rem",
-    },
   },
   palette: {
     primary: {
-      main: "#1074BA",
-      light: "#5ba2ed",
-      dark: "#00498a",
+      main: "#cb0101",
+      light: "#ff4f30",
+      dark: "#920000",
     },
-    secondary: {
-      main: "#EE4F2D",
-      light: "#ff8259",
-      dark: "#b41100",
-    },
+
     text: {
       primary: "#2b2b2b",
+    },
+    common: {
+      black: "#131313",
+      neutral1: "#777E90",
+      neutral2: "#B1B5C3",
+      neutral3: "#E6E8EC",
+      neutral4: "#F4F5F6",
     },
   },
 });

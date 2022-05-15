@@ -58,14 +58,10 @@ const HomePage = () => {
           <Typography variant="h4">Title 4: {example}</Typography>
           <Typography variant="h5">Title 5: {example}</Typography>
           <Typography variant="h6">Title 6: {example}</Typography>
-          <Typography variant="subtitle1">Subtitle 1: {example}</Typography>
-          <Typography variant="subtitle2">SubTitle 2: {example}</Typography>
+          <Typography variant="body_large">body Large: {example}</Typography>
           <Typography variant="body1">Body 1: {example}</Typography>
-          <Typography variant="body2">Body 2: {example}</Typography>
-          <Typography variant="button">Button: {example}</Typography>
-          <br />
-          <Typography variant="caption">Caption: {example}</Typography> <br />
-          <Typography variant="overline">Overline: {example}</Typography>
+          <Typography variant="body_small">Body small: {example}</Typography>
+          <Typography variant="body_small_bold">Body small bold: {example}</Typography>
         </Box>
       </Grid>
       <Grid item xs={6}>
@@ -291,6 +287,43 @@ const HomePage = () => {
             <FormHelperText error children="Có lỗi xảy ra" />
           </FormControl>
         </Box>
+      </Grid>
+
+      <Grid item xs={6}>
+        <Section title="Neutral Color">
+          <Stack direction="row" spacing={2} marginBottom={2}>
+            <Box
+              sx={{
+                backgroundColor: "common.neutral1",
+                height: "5rem",
+                width: "5rem",
+              }}
+            ></Box>
+            <Box
+              sx={{
+                backgroundColor: "common.neutral2",
+                height: "5rem",
+                width: "5rem",
+              }}
+            ></Box>
+
+            <Box
+              sx={{
+                backgroundColor: "common.neutral3",
+                height: "5rem",
+                width: "5rem",
+              }}
+            ></Box>
+
+            <Box
+              sx={{
+                backgroundColor: "common.neutral4",
+                height: "5rem",
+                width: "5rem",
+              }}
+            ></Box>
+          </Stack>
+        </Section>
       </Grid>
     </Grid>
   );
