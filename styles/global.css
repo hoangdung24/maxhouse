@@ -10,7 +10,8 @@ html {
 .loading {
   width: 50px;
   height: 12px;
-  background: radial-gradient(circle closest-side, #011021 90%, #0000) 0 0/33% 100% space;
+  background: radial-gradient(circle closest-side, #011021 90%, #0000) 0 0/33%
+    100% space;
   clip-path: inset(0 100% 0 0);
   animation: d1 1s steps(4) infinite;
 }
@@ -79,4 +80,49 @@ html {
     transform: scaleY(1);
     -webkit-transform: scaleY(1);
   }
+}
+
+.slick-slider .slick-dots {
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+  text-align: left;
+}
+
+.slick-slider .slick-dots li button:before {
+  font-size: 18px;
+  color: #b1b5c3;
+}
+.slick-dots li.slick-active button:before {
+  color: black;
+}
+
+.MuiTabs-flexContainer {
+  width: 100%;
+  justify-content: center;
+}
+.MuiButtonBase-root {
+  width: 50%;
+  max-width: 50%;
+  color: black;
+  font-weight: 400;
+  font-size: 20px;
+  min-height: 0;
+  height: 40px;
+}
+.Mui-selected {
+  padding: 5px;
+  border-radius: 0 10px 10px 0;
+  color: white !important;
+  background-color: black;
+}
+.Mui-selected:first-child {
+  padding: 5px;
+  border-radius: 10px 0 0 10px;
+  color: white !important;
+  background-color: black;
+}
+
+.MuiTabs-indicator {
+  display: none;
 }

@@ -9,6 +9,9 @@ import { Theme as CustomMuiTheme, Cache as EmotionCache } from "../hoc";
 import "../styles/global.css";
 import "../node_modules/nprogress/nprogress.css";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import axios from "../axios.config";
 import { useRouting } from "../hooks";
 

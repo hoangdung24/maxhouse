@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 // import { SettingConfig, GlobalConfig } from "../../contexts";
 
 const Layout = ({ children }) => {
-  return <Container>{children}</Container>;
+  return children;
 };
 
 export default Layout;

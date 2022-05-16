@@ -61,7 +61,9 @@ const HomePage = () => {
           <Typography variant="body_large">body Large: {example}</Typography>
           <Typography variant="body1">Body 1: {example}</Typography>
           <Typography variant="body_small">Body small: {example}</Typography>
-          <Typography variant="body_small_bold">Body small bold: {example}</Typography>
+          <Typography variant="body_small_bold">
+            Body small bold: {example}
+          </Typography>
         </Box>
       </Grid>
       <Grid item xs={6}>
@@ -205,7 +207,11 @@ const HomePage = () => {
               <LoadingButton loading variant="outlined">
                 Submit
               </LoadingButton>
-              <LoadingButton loading loadingIndicator="Loading..." variant="outlined">
+              <LoadingButton
+                loading
+                loadingIndicator="Loading..."
+                variant="outlined"
+              >
                 Fetch data
               </LoadingButton>
               <LoadingButton
