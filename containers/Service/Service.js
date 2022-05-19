@@ -55,12 +55,28 @@ export default function Service() {
         }}
       >
         <Tabs
+          TabScrollButtonProps={{ style: { height: "100%", display: "none" } }}
+          TabIndicatorProps={{
+            style: {
+              display: "none",
+            },
+          }}
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab className="btnService" label="GIỚI THIỆU" {...a11yProps(0)} />
-          <Tab className="btnService" label="DỊCH VỤ" {...a11yProps(1)} />
+          <Tab
+            className="btnService"
+            label="GIỚI THIỆU"
+            {...a11yProps(0)}
+            sx={{ width: "50%" }}
+          />
+          <Tab
+            className="btnService"
+            label="DỊCH VỤ"
+            {...a11yProps(1)}
+            sx={{ width: "50%" }}
+          />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>

@@ -141,19 +141,6 @@ html {
   box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
 }
 
-.popopopopo .slick-track {
-  display: flex;
-  gap: 25px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-.popopopopo .slick-track .slick-slide {
-  display: flex;
-  gap: 15px;
-  flex-direction: column;
-  width: 230px !important;
-}
-
 .slick .slick-dots {
   text-align: center;
   position: static;
@@ -165,10 +152,6 @@ html {
 }
 .slideImg .slick-track {
   height: 200px;
-}
-.popopopopo.slideImg .slick-track {
-  gap: 0;
-  height: 100%;
 }
 
 .MuiBox-root .slideImg .slick-prevs {
