@@ -88,20 +88,26 @@ html {
   left: 10px;
   text-align: left;
 }
-
+.slick-dots li button {
+  color: #e6e8ec !important;
+}
 .slick-slider .slick-dots li button:before {
   font-size: 18px;
-  color: #b1b5c3;
+  opacity: 1;
+  color: #e6e8ec !important;
 }
 .slick-dots li.slick-active button:before {
-  color: black;
+  color: #b1b5c3 !important;
 }
-
-.MuiTabs-flexContainer {
+.slickHome .slick-list {
+  height: 100vh;
+}
+/* .MuiTabs-flexContainer {
   width: 100%;
   justify-content: center;
-}
-.MuiButtonBase-root {
+} */
+
+/* .btnService {
   width: 50%;
   max-width: 50%;
   color: black;
@@ -109,8 +115,9 @@ html {
   font-size: 20px;
   min-height: 0;
   height: 40px;
-}
-.Mui-selected {
+} */
+
+/* .Mui-selected {
   padding: 5px;
   border-radius: 0 10px 10px 0;
   color: white !important;
@@ -121,8 +128,68 @@ html {
   border-radius: 10px 0 0 10px;
   color: white !important;
   background-color: black;
+} */
+
+/* .MuiTabs-indicator {
+  display: none;
+} */
+
+.activeHeader {
+  transition: ease-in 0.5s;
+  background-color: white;
+  border-bottom: 1px solid #e6e8ec;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
 }
 
-.MuiTabs-indicator {
-  display: none;
+.popopopopo .slick-track {
+  display: flex;
+  gap: 25px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.popopopopo .slick-track .slick-slide {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  width: 230px !important;
+}
+
+.slick .slick-dots {
+  text-align: center;
+  position: static;
+}
+
+.slideImg,
+.slideImg .slick-list {
+  height: 100%;
+}
+.slideImg .slick-track {
+  height: 200px;
+}
+.popopopopo.slideImg .slick-track {
+  gap: 0;
+  height: 100%;
+}
+
+.MuiBox-root .slideImg .slick-prevs {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 5;
+}
+.MuiBox-root .slideImg .slick-nexts {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 5;
+}
+/* animation */
+
+@keyframes mouse {
+  from {
+    top: 5%;
+  }
+  to {
+    top: 80%;
+  }
 }

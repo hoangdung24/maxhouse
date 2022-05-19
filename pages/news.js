@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import React from "react";
-import Contact from "../containers/Contact/Contact";
+import News from "../containers/News/News";
 
-export default function PageContact() {
+export default function PageNews() {
   const router = useRouter();
   console.log("first", router.pathname);
-  return <Contact />;
+  return <News></News>;
 }

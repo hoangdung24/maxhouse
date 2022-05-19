@@ -1,28 +1,52 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Button,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import Footer from "./Footer";
+import { useWindowScroll } from "react-use";
+import { SignalWifiStatusbarNullTwoTone } from "@mui/icons-material";
 
 const pages2 = [
   { name: "THIẾT KẾ", link: "/design" },
   { name: "SẢN PHẨM", link: "/product" },
   { name: "DỊCH VỤ", link: "/service" },
-  { name: "TIN TỨC", link: "/new" },
+  { name: "TIN TỨC", link: "/news" },
   { name: "LIÊN HỆ", link: "/contact" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+// const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const NavBars = ({ children }) => {
+  const [navCSS, setNavCSS] = useState({
+    zIndex: 2,
+    background: "none",
+    boxShadow: "none",
+    position: "fixed",
+    py: "15px",
+  });
 
-const NavBar = ({ children }) => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [navCSSS, setNavCSSS] = useState({
+    zIndex: 2,
+    position: "fixed",
+    backgroundColor: "white",
+    transition: "ease-in 0.2s",
+    borderBottom: "1px solid #e6e8ec",
+    boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.15)",
+    py: "15px",
+  });
+
+  const { x, y } = useWindowScroll();
+  const router = useRouter();
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,32 +59,28 @@ const NavBar = ({ children }) => {
   return (
     <React.Fragment>
       <AppBar
+        className="momo"
         position="static"
-        className="asdasdasdadasdasd"
-        sx={{
-          zIndex: 1,
-          background: "none",
-          boxShadow: "none",
-          position: "fixed",
-          mt: "20px",
-        }}
+        sx={y > 50 ? navCSSS : y < 5 ? navCSS : navCSS}
       >
+        {/* {renderheader()} */}
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
-            className="asdasdad"
             sx={{ gap: "60px", justifyContent: "center" }}
           >
             {/* PC navBar */}
-            <Image src="/img/Logo.png" width="100%" height="100%"></Image>
-            <Box sx={{ display: "flex", gap: "60px", width: "60%" }}>
-              {pages2.map((page) => (
-                <Link key={page} href={page.link}>
+            <img src="/img/Logo.png" width="5%" height="auto"></img>
+            <Box sx={{ display: "flex", gap: "60px", width: "48%" }}>
+              {pages2.map((page, index) => (
+                <Link key={index} href={page.link}>
                   <Button
                     onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: "black", display: "block" }}
                   >
-                    <Typography variant="body_large">{page.name}</Typography>
+                    <Typography variant="body_large" sx={{ fontSize: "17px" }}>
+                      {page.name}
+                    </Typography>
                   </Button>
                 </Link>
               ))}
@@ -96,8 +116,8 @@ const NavBar = ({ children }) => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {pages2.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                {pages2.map((page, index) => (
+                  <MenuItem key={index} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">{page.name}</Typography>
                   </MenuItem>
                 ))}
@@ -126,8 +146,15 @@ const NavBar = ({ children }) => {
           </Toolbar>
         </Container>
       </AppBar>
+
       {children}
+      {router.pathname == "/contact" ||
+      router.pathname == "/service" ||
+      router.pathname == "/news" ||
+      router.pathname == "/design" ? (
+        <Footer />
+      ) : null}
     </React.Fragment>
   );
 };
-export default NavBar;
+export default NavBars;

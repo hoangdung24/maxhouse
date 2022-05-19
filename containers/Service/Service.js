@@ -6,7 +6,7 @@ function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -18,7 +18,7 @@ function TabPanel(props) {
           <Typography>{children}</Typography>
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 
@@ -43,7 +43,7 @@ export default function Service() {
   };
 
   return (
-    <Box sx={{ width: "80vw", pt: "200px", margin: "0 auto" }}>
+    <Box sx={{ width: "80vw", pt: "130px", margin: "0 auto" }}>
       <Box
         sx={{
           height: "40px",
@@ -59,8 +59,8 @@ export default function Service() {
           onChange={handleChange}
           aria-label="basic tabs example"
         >
-          <Tab label="GIỚI THIỆU" {...a11yProps(0)} />
-          <Tab label="DỊCH VỤ" {...a11yProps(1)} />
+          <Tab className="btnService" label="GIỚI THIỆU" {...a11yProps(0)} />
+          <Tab className="btnService" label="DỊCH VỤ" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
