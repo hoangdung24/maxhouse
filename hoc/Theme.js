@@ -139,6 +139,13 @@ const theme = createTheme({
           ),
         },
 
+        outlined: {
+          "&:hover": {
+            color: defaultTheme.palette.common.white,
+            backgroundColor: defaultTheme.palette.primary.main,
+          },
+        },
+
         text: {
           transition: `color ${defaultTheme.transitions.duration.standard}ms ${defaultTheme.transitions.easing.easeOut}`,
           "&:hover": {

@@ -1,6 +1,5 @@
 import { SWRConfig } from "swr";
 import { ErrorBoundary } from "react-error-boundary";
-import CssBaseline from "@mui/material/CssBaseline";
 
 import { createEmotionCache } from "../libs";
 import { ErrorFallback, Layout } from "../components";
@@ -37,7 +36,6 @@ function MyApp(props) {
             }}
           >
             <Layout>
-              <CssBaseline />
               <Component {...pageProps} />
             </Layout>
           </SWRConfig>

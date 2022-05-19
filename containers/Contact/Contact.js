@@ -7,8 +7,19 @@ import {
   Stack,
   TextareaAutosize,
   Typography,
+  FormHelperText,
 } from "@mui/material";
 import React from "react";
+
+const FormInput = ({ label, FormControlProps, InputLabelProps, ...props }) => {
+  return (
+    <FormControl fullWidth {...FormControlProps} {...props}>
+      <FormLabel>{label}</FormLabel>
+      <Input {...InputLabelProps} />
+      <FormHelperText children="Form Helper Text" />
+    </FormControl>
+  );
+};
 
 export default function Contact(props) {
   return (
@@ -31,9 +42,9 @@ export default function Contact(props) {
         <Box sx={{ width: "50%", textAlign: "right" }}>
           <Box sx={{ textAlign: "left", width: " 80%", marginLeft: "20%" }}>
             <Typography variant="body_large">
-              Nếu bạn có câu hỏi hoặc muốn biết thêm thông tin về các tác phẩm
-              của chúng tôi, Vui lòng hoàn thành biểu mẫu và chúng tôi sẽ liên
-              hệ lại với bạn sau 24 giờ.
+              Nếu bạn có câu hỏi hoặc muốn biết thêm thông tin về các tác phẩm của chúng
+              tôi, Vui lòng hoàn thành biểu mẫu và chúng tôi sẽ liên hệ lại với bạn sau 24
+              giờ.
             </Typography>
             <Box sx={{ width: "100%", mt: "20px" }}>
               <FormLabel>Tên</FormLabel>
@@ -60,6 +71,8 @@ export default function Contact(props) {
                 placeholder="Vui lòng nhập nội dung"
                 style={{ width: "100%", height: "200px", resize: "none" }}
               />
+
+              <FormInput label="Email" />
             </Box>
           </Box>
         </Box>
