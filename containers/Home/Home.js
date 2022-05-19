@@ -1,50 +1,69 @@
-import React from "react";
+import { useMemo, Fragment } from "react";
 import Slider from "react-slick";
-import { Box } from "@mui/system";
-import { Button, Typography } from "@mui/material";
-import Image from "next/image";
+import { Button, Typography, Box, useTheme } from "@mui/material";
 
-const carousel = [
-  "/img/background 3.jpg",
-  "/img/Rectangle 2.jpg",
-  "/img/background 3.jpg",
-];
+import { Image } from "../../components";
 
-export default function Home() {
-  const renderCarousel = () => {
-    return carousel.map((img, index) => {
+const settings = {
+  arrows: false,
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+};
+
+export default function Home({ initData }) {
+  const theme = useTheme();
+  const { items } = initData?.[0];
+  const data = items?.[0];
+
+  const renderCarousel = useMemo(() => {
+    if (!data?.banners) {
+      return null;
+    }
+
+    return data.banners.map((el, index) => {
       return (
-        <Box
-          key={index}
-          sx={{ height: "100vh", width: "100vw", position: "relative" }}
-        >
-          <Image src={img} layout="fill" objectFit="cover" />
-        </Box>
+        <Fragment key={index}>
+          <Image
+            src={el.value}
+            layout="fill"
+            objectFit="cover"
+            width="100vw"
+            height="100vh"
+          />
+        </Fragment>
       );
     });
-  };
+  }, [data]);
 
-  const settings = {
-    arrows: false,
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
+  if (!data) {
+    return null;
+  }
+
   return (
-    <Box sx={{ height: "100vh", p: 0, textAlign: "center" }}>
-      <Slider {...settings} className="slickHome" style={{ height: "100vh" }}>
-        {renderCarousel()}
-      </Slider>
+    <Box
+      sx={{
+        overflow: "hidden",
+        height: "100vh",
+        ["& .slick-dots"]: {
+          textAlign: "left",
+          bottom: "1rem",
+          marginLeft: "1rem",
+        },
+      }}
+    >
+      <Slider {...settings}>{renderCarousel}</Slider>
 
       <Box
         sx={{
-          p: "30px 50px",
+          padding: "2.5rem 3rem",
           position: "fixed",
-          bottom: "50px",
+          bottom: "3rem",
           textAlign: "right",
-          right: "70px",
+          right: "4rem",
           "&::before": {
             content: '""',
             backgroundColor: "#F4F5F6",
@@ -54,25 +73,25 @@ export default function Home() {
             top: 0,
             left: 0,
             zIndex: -1,
-            opacity: 0.2,
+            opacity: 0.4,
           },
+          pointerEvent: "none",
+          userSelect: "none",
         }}
       >
-        <Typography variant="h2" sx={{ color: "#CB0101", mb: "20px" }}>
-          THIẾT KẾ NỘI THẤT
+        <Typography variant="h2" sx={{ color: theme.palette.primary.main, mb: 3 }}>
+          {data.title}
         </Typography>
-        <Typography variant="body1" sx={{ mb: "20px" }}>
-          Quyền lựa chọn của chúng ta là không có khuôn mẫu và khi không có gì
-          ngăn cản
-          <br /> chúng ta có thể làm những gì chúng ta thích nhất
+        <Typography variant="body1" sx={{ mb: 3 }}>
+          {data.subtitle}
         </Typography>
         <Button
           variant="outlined"
           sx={{
-            borderRadius: "0",
-            fontWeight: "400",
-            color: "black",
-            border: "1px solid #131313",
+            borderRadius: 0,
+            borderColor: theme.palette.common.black,
+            color: theme.palette.common.black,
+            fontWeight: 300,
           }}
         >
           CHI TIẾT
