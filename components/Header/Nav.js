@@ -30,15 +30,15 @@ const NavBars = ({ children }) => {
     zIndex: 2,
     background: "none",
     boxShadow: "none",
-    position: "fixed",
+    position: "absolute",
     py: "15px",
   });
 
-  const [navCSSS, setNavCSSS] = useState({
+  const [navCSS2, setNavCSSS2] = useState({
     zIndex: 2,
     position: "fixed",
     backgroundColor: "white",
-    transition: "ease-in 0.2s",
+    transition: "ease-in 2s",
     borderBottom: "1px solid #e6e8ec",
     boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.15)",
     py: "15px",
@@ -61,7 +61,7 @@ const NavBars = ({ children }) => {
       <AppBar
         className="momo"
         position="static"
-        sx={y > 50 ? navCSSS : y < 5 ? navCSS : navCSS}
+        sx={y > 200 ? navCSS2 : navCSS}
       >
         {/* {renderheader()} */}
         <Container maxWidth="xl">

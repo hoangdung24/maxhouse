@@ -7,8 +7,20 @@ import {
   Stack,
   TextareaAutosize,
   Typography,
+  styled,
+  TextField,
+  FormHelperText,
 } from "@mui/material";
-import React from "react";
+import { Fragment } from "react";
+
+const TextInput = ({ label, ...props }) => {
+  return (
+    <FormControl fullWidth={true} error={true}>
+      <FormLabel>Email</FormLabel>
+      <Input placeholder="Vui lòng nhập email" {...props} />
+    </FormControl>
+  );
+};
 
 export default function Contact(props) {
   return (
@@ -36,30 +48,15 @@ export default function Contact(props) {
               hệ lại với bạn sau 24 giờ.
             </Typography>
             <Box sx={{ width: "100%", mt: "20px" }}>
-              <FormLabel>Tên</FormLabel>
-              <Input
-                placeholder="Vui lòng nhập tên của ban"
-                sx={{ width: "100%", mb: "20px" }}
+              <TextInput label={"Email"} placeholder="Day la email" />
+              <TextInput label={"Email"} placeholder="Day la " />
+              <TextInput
+                label={"Email"}
+                placeholder="Day la email"
+                multiline={true}
+                rows={10}
               />
-              <FormLabel>Email</FormLabel>
-              <Input
-                placeholder="Vui lòng nhập email"
-                sx={{ width: "100%", mb: "20px" }}
-              />
-
-              <FormLabel>Số Điện Thoại</FormLabel>
-              <Input
-                placeholder="Vui lòng nhập số điện thoại"
-                sx={{ width: "100%", mb: "20px" }}
-              />
-
-              <FormLabel>Nội Dung</FormLabel>
-              <TextareaAutosize
-                aria-label="minimum height"
-                minRows={3}
-                placeholder="Vui lòng nhập nội dung"
-                style={{ width: "100%", height: "200px", resize: "none" }}
-              />
+              <TextInput label={"Email"} placeholder="Day la email" />
             </Box>
           </Box>
         </Box>

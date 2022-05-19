@@ -32,7 +32,7 @@ export default function ImgNews(props) {
     draggable: false,
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 3000,
     slidesToShow: 1,
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
