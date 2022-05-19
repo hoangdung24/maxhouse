@@ -10,7 +10,8 @@ html {
 .loading {
   width: 50px;
   height: 12px;
-  background: radial-gradient(circle closest-side, #011021 90%, #0000) 0 0/33% 100% space;
+  background: radial-gradient(circle closest-side, #011021 90%, #0000) 0 0/33%
+    100% space;
   clip-path: inset(0 100% 0 0);
   animation: d1 1s steps(4) infinite;
 }
@@ -97,4 +98,81 @@ html {
 }
 .slick-dots li.slick-active button:before {
   color: #b1b5c3 !important;
+}
+.slickHome .slick-list {
+  height: 100vh;
+}
+/* .MuiTabs-flexContainer {
+  width: 100%;
+  justify-content: center;
+} */
+
+/* .btnService {
+  width: 50%;
+  max-width: 50%;
+  color: black;
+  font-weight: 400;
+  font-size: 20px;
+  min-height: 0;
+  height: 40px;
+} */
+
+/* .Mui-selected {
+  padding: 5px;
+  border-radius: 0 10px 10px 0;
+  color: white !important;
+  background-color: black;
+}
+.Mui-selected:first-child {
+  padding: 5px;
+  border-radius: 10px 0 0 10px;
+  color: white !important;
+  background-color: black;
+} */
+
+/* .MuiTabs-indicator {
+  display: none;
+} */
+
+.activeHeader {
+  transition: ease-in 0.5s;
+  background-color: white;
+  border-bottom: 1px solid #e6e8ec;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+}
+
+.slick .slick-dots {
+  text-align: center;
+  position: static;
+}
+
+.slideImg,
+.slideImg .slick-list {
+  height: 100%;
+}
+.slideImg .slick-track {
+  height: 200px;
+}
+
+.MuiBox-root .slideImg .slick-prevs {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 5;
+}
+.MuiBox-root .slideImg .slick-nexts {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 5;
+}
+/* animation */
+
+@keyframes mouse {
+  from {
+    top: 5%;
+  }
+  to {
+    top: 80%;
+  }
 }

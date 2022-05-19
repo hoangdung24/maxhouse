@@ -58,7 +58,7 @@ export default function Contact(props) {
                 aria-label="minimum height"
                 minRows={3}
                 placeholder="Vui lòng nhập nội dung"
-                style={{ width: "100%", height: "200px" }}
+                style={{ width: "100%", height: "200px", resize: "none" }}
               />
             </Box>
           </Box>
