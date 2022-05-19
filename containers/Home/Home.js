@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
+import Image from "next/image";
 
 const carousel = [
   "/img/background 3.jpg",
@@ -13,8 +14,11 @@ export default function Home() {
   const renderCarousel = () => {
     return carousel.map((img, index) => {
       return (
-        <Box key={index} sx={{ height: "100vh" }}>
-          <img src={img} width="100%" height="100%" />
+        <Box
+          key={index}
+          sx={{ height: "100vh", width: "100vw", position: "relative" }}
+        >
+          <Image src={img} layout="fill" objectFit="cover" />
         </Box>
       );
     });
@@ -29,10 +33,11 @@ export default function Home() {
     slidesToScroll: 1,
   };
   return (
-    <Box sx={{ height: "100vh", p: 0, textAlign: "center" }} className="lolol">
-      <Slider {...settings} className="lolol2">
+    <Box sx={{ height: "100vh", p: 0, textAlign: "center" }}>
+      <Slider {...settings} className="slickHome" style={{ height: "100vh" }}>
         {renderCarousel()}
       </Slider>
+
       <Box
         sx={{
           p: "30px 50px",

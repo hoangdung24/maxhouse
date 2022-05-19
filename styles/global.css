@@ -87,11 +87,14 @@ html {
   left: 10px;
   text-align: left;
 }
-
+.slick-dots li button {
+  color: #e6e8ec !important;
+}
 .slick-slider .slick-dots li button:before {
   font-size: 18px;
-  color: #b1b5c3;
+  opacity: 1;
+  color: #e6e8ec !important;
 }
 .slick-dots li.slick-active button:before {
-  color: black;
+  color: #b1b5c3 !important;
 }

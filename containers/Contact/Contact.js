@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   FormControl,
-  FormHelperText,
   FormLabel,
   Input,
   Stack,
@@ -11,10 +10,10 @@ import {
 } from "@mui/material";
 import React from "react";
 
-export default function Contact() {
+export default function Contact(props) {
   return (
-    <Box sx={{ textAlign: "center", flexDirection: "row" }}>
-      <Typography variant="h2" sx={{ my: "40px" }}>
+    <Box sx={{ textAlign: "center", flexDirection: "row", pt: "150px" }}>
+      <Typography variant="h3" sx={{ mb: "60px" }}>
         LIÊN HỆ VỚI CHÚNG TÔI
       </Typography>
       <Stack sx={{ width: "80%", flexDirection: "row", m: "0 auto" }}>
@@ -36,7 +35,7 @@ export default function Contact() {
               của chúng tôi, Vui lòng hoàn thành biểu mẫu và chúng tôi sẽ liên
               hệ lại với bạn sau 24 giờ.
             </Typography>
-            <FormControl sx={{ width: "100%", mt: "20px" }}>
+            <Box sx={{ width: "100%", mt: "20px" }}>
               <FormLabel>Tên</FormLabel>
               <Input
                 placeholder="Vui lòng nhập tên của ban"
@@ -61,12 +60,17 @@ export default function Contact() {
                 placeholder="Vui lòng nhập nội dung"
                 style={{ width: "100%", height: "200px" }}
               />
-            </FormControl>
+            </Box>
           </Box>
         </Box>
       </Stack>
       <Box
-        sx={{ textAlign: "right", width: "80%", m: "0 auto", fontSize: "10px" }}
+        sx={{
+          textAlign: "right",
+          width: "80%",
+          m: "20px auto",
+          fontSize: "10px",
+        }}
       >
         <Button variant="contained" sx={{ width: "10%", fontSize: "10px" }}>
           GỬI THÔNG TIN
