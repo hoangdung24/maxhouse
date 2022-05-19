@@ -185,13 +185,22 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           marginTop: "0.5rem !important",
-          borderWidth: "0.0625rem",
-          borderColor: defaultTheme.palette.primary.light,
+          borderWidth: "0.125rem",
+          borderColor: defaultTheme.palette.common.neutral2,
           borderStyle: "solid",
-          borderRadius: "0.25rem",
-
+          borderRadius: "0.75rem",
+          transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
           ["& input"]: {
-            padding: "0.5rem 0.75rem",
+            padding: "0.75rem 1rem",
+          },
+          ["&.Mui-focused"]: {
+            borderColor: defaultTheme.palette.common.neutral1,
+          },
+
+          ["& input::placeholder"]: {
+            ...defaultTheme.typography.body1,
+            color: defaultTheme.palette.common.neutral3,
+            opacity: 1,
           },
         },
       },
@@ -203,9 +212,14 @@ const theme = createTheme({
     MuiFormLabel: {
       styleOverrides: {
         root: {
-          ...defaultTheme.typography.subtitle2,
-          color: defaultTheme.palette.text.primary,
+          ...defaultTheme.typography.body_small_bold,
+          fontWeight: 600,
+          textTransform: "uppercase",
+          color: defaultTheme.palette.common.neutral2,
           transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
+          "&.Mui-focused": {
+            color: defaultTheme.palette.common.neutral1,
+          },
         },
       },
     },
