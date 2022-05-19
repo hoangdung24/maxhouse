@@ -1,41 +1,48 @@
+import { useMemo, Fragment } from "react";
 import Slider from "react-slick";
 import { Button, Typography, Box, useTheme } from "@mui/material";
 
 import { Image } from "../../components";
 
-const carousel = [
-  "/img/background 3.jpg",
-  "/img/Rectangle 2.jpg",
-  "/img/background 3.jpg",
-];
+const settings = {
+  arrows: false,
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+};
 
-export default function Home() {
+export default function Home({ initData }) {
   const theme = useTheme();
+  const { items } = initData?.[0];
+  const data = items?.[0];
 
-  const renderCarousel = () => {
-    return carousel.map((img, index) => {
+  const renderCarousel = useMemo(() => {
+    if (!data?.banners) {
+      return null;
+    }
+
+    return data.banners.map((el, index) => {
       return (
-        <Image
-          key={index}
-          src={img}
-          layout="fill"
-          objectFit="cover"
-          width="100vw"
-          height="100vh"
-        />
+        <Fragment key={index}>
+          <Image
+            src={el.value}
+            layout="fill"
+            objectFit="cover"
+            width="100vw"
+            height="100vh"
+          />
+        </Fragment>
       );
     });
-  };
+  }, [data]);
 
-  const settings = {
-    arrows: false,
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-  };
+  if (!data) {
+    return null;
+  }
+
   return (
     <Box
       sx={{
@@ -48,7 +55,7 @@ export default function Home() {
         },
       }}
     >
-      <Slider {...settings}>{renderCarousel()}</Slider>
+      <Slider {...settings}>{renderCarousel}</Slider>
 
       <Box
         sx={{
@@ -73,11 +80,10 @@ export default function Home() {
         }}
       >
         <Typography variant="h2" sx={{ color: theme.palette.primary.main, mb: 3 }}>
-          THIẾT KẾ NỘI THẤT
+          {data.title}
         </Typography>
         <Typography variant="body1" sx={{ mb: 3 }}>
-          Quyền lựa chọn của chúng ta là không có khuôn mẫu và khi không có gì ngăn cản
-          <br /> chúng ta có thể làm những gì chúng ta thích nhất
+          {data.subtitle}
         </Typography>
         <Button
           variant="outlined"

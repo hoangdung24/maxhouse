@@ -8,14 +8,14 @@ import {
   Menu,
   Container,
   Button,
+  MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import { useWindowScroll } from "react-use";
-import { SignalWifiStatusbarNullTwoTone } from "@mui/icons-material";
 
 const pages2 = [
   { name: "THIẾT KẾ", link: "/design" },
@@ -65,10 +65,7 @@ const NavBars = ({ children }) => {
       >
         {/* {renderheader()} */}
         <Container maxWidth="xl">
-          <Toolbar
-            disableGutters
-            sx={{ gap: "60px", justifyContent: "center" }}
-          >
+          <Toolbar disableGutters sx={{ gap: "60px", justifyContent: "center" }}>
             {/* PC navBar */}
             <img src="/img/Logo.png" width="5%" height="auto"></img>
             <Box sx={{ display: "flex", gap: "60px", width: "48%" }}>
