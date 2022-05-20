@@ -20,7 +20,7 @@ export async function getServerSideProps({ params, query }) {
       },
     };
   } catch (err) {
-    console.log(err);
+    console.log("🚀 ~ file: index.js ~ line 23 ~ getServerSideProps ~ err", err);
 
     return {
       redirect: {
