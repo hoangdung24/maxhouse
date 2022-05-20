@@ -11,15 +11,12 @@ const useRouting = () => {
       });
       NProgress.start();
     };
-
     const handleRouteComplete = (url, { shallow }) => {
       NProgress.done();
     };
-
     Router.events.on("routeChangeStart", handleRouteChange);
     Router.events.on("routeChangeComplete", handleRouteComplete);
     Router.events.on("routeChangeError", handleRouteComplete);
-
     return () => {
       Router.events.off("routeChangeStart", handleRouteChange);
       Router.events.off("routeChangeComplete", handleRouteComplete);

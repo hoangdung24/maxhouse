@@ -6,6 +6,7 @@ import {
   Input,
   Stack,
   Typography,
+  FormHelperText,
 } from "@mui/material";
 
 const TextInput = ({ text, label, ...props }) => {
@@ -23,6 +24,16 @@ const TextInput = ({ text, label, ...props }) => {
     >
       <FormLabel>{text}</FormLabel>
       <Input placeholder="Vui lòng nhập email" {...props} />
+    </FormControl>
+  );
+};
+
+const FormInput = ({ label, FormControlProps, InputLabelProps, ...props }) => {
+  return (
+    <FormControl fullWidth {...FormControlProps} {...props}>
+      <FormLabel>{label}</FormLabel>
+      <Input {...InputLabelProps} />
+      <FormHelperText children="Form Helper Text" />
     </FormControl>
   );
 };
@@ -47,7 +58,7 @@ export default function Contact(props) {
         </Box>
         <Box sx={{ width: "50%", textAlign: "right" }}>
           <Box sx={{ textAlign: "left", width: " 80%", marginLeft: "20%" }}>
-            <Typography variant="body_large" sx={{ mb: "32px" }}>
+            <Typography variant="body_large">
               Nếu bạn có câu hỏi hoặc muốn biết thêm thông tin về các tác phẩm
               của chúng tôi, Vui lòng hoàn thành biểu mẫu và chúng tôi sẽ liên
               hệ lại với bạn sau 24 giờ.
@@ -75,6 +86,8 @@ export default function Contact(props) {
                 rows={10}
                 text="nội dung"
               />
+
+              <FormInput label="Email" />
             </Box>
           </Box>
         </Box>

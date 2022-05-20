@@ -9,14 +9,15 @@ import {
   Container,
   Button,
   useTheme,
+  MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import { keyframes } from "@emotion/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import { useWindowScroll } from "react-use";
-import { SignalWifiStatusbarNullTwoTone } from "@mui/icons-material";
+import Image from "next/image";
 
 const pages2 = [
   { name: "THIẾT KẾ", link: "/design" },
@@ -26,43 +27,41 @@ const pages2 = [
   { name: "LIÊN HỆ", link: "/contact" },
 ];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const fadeIn = keyframes({
+  "0%": { top: "-50%" },
+
+  "100%": { top: 0 },
+});
+
 const NavBars = ({ children }) => {
   const theme = useTheme();
   const [scroll, setScroll] = useState();
-  const [navCSS, setNavCSS] = useState({
-    zIndex: 2,
-    background: "none",
-    boxShadow: "none",
-    position: "absolute",
-    py: "15px",
-  });
 
   const [navCSS2, setNavCSSS2] = useState({
-    zIndex: 2,
-    position: "fixed",
+    zIndex: 5,
+    position: "absolute",
+    background: "none",
+    borderBottom: "none",
+    boxShadow: "none",
+    py: "15px",
+  });
+
+  const [navCSS4, setNavCSSS3] = useState({
+    zIndex: 5,
     backgroundColor: "white",
-    transition: "ease-in 2s",
-    borderBottom: "1px solid #e6e8ec",
-    boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.15)",
-    py: "15px",
-  });
-
-  const [navCSS3, setNavCSSS3] = useState({
-    zIndex: 2,
     position: "fixed",
-    backgroundColor: "red",
     transition: "ease-in 2s",
     borderBottom: "1px solid #e6e8ec",
     boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.15)",
     py: "15px",
+    animation: `${fadeIn}`,
+    animationDuration: "2s",
   });
-
   const { x, y } = useWindowScroll(() => {
     console.log("hello");
   });
   useEffect(() => {
     setScroll(y);
-    console.log("bien", y);
   });
 
   const router = useRouter();
@@ -76,23 +75,19 @@ const NavBars = ({ children }) => {
     setAnchorElNav(null);
   };
 
-  console.log("render lai");
   return (
     <React.Fragment>
-      <AppBar
-        className="momo"
-        position="static"
-        // sx={y > 200 ? navCSS3 : y > 300 ? navCSS2 : navCSS}
-        sx={scroll > 200 ? navCSS3 : scroll > 300 ? navCSS : navCSS}
-      >
-        {console.log("reder html")}
+      <AppBar position="static" sx={scroll > 150 ? navCSS4 : navCSS2}>
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
             sx={{ gap: "60px", justifyContent: "center" }}
           >
             {/* PC navBar */}
-            <img src="/img/Logo.png" width="5%" height="auto"></img>
+            <Link href="/">
+              <Image src="/img/Logo.png" width="70%" height="70%"></Image>
+            </Link>
+
             <Box sx={{ display: "flex", gap: "60px", width: "48%" }}>
               {pages2.map((page, index) => (
                 <Link key={index} href={page.link}>
@@ -177,7 +172,8 @@ const NavBars = ({ children }) => {
       {router.pathname == "/contact" ||
       router.pathname == "/service" ||
       router.pathname == "/news" ||
-      router.pathname == "/design" ? (
+      router.pathname == "/design" ||
+      router.pathname == "/product" ? (
         <Footer />
       ) : null}
     </React.Fragment>

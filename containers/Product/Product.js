@@ -38,7 +38,7 @@ function a11yProps(index) {
 }
 const tabName = ["nhà phố", "căn hộ", "biệt thự", "khác"];
 
-export default function Design() {
+export default function Product() {
   const [cssOpacity, setCssOpacity] = useState(0);
   const [value, setValue] = useState(0);
   const theme = useTheme();
