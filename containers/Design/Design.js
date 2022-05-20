@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Tab, Tabs, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
@@ -38,7 +38,7 @@ function a11yProps(index) {
 
 export default function Design() {
   const [value, setValue] = React.useState(0);
-
+  const theme = useTheme();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -76,7 +76,7 @@ export default function Design() {
             bottom: "4%",
             textAlign: "center",
             transform: "translateX(-50%)",
-            color: "black",
+            color: theme.palette.common.black,
             fontSize: "20px",
             zIndex: 2,
           }}
@@ -91,7 +91,7 @@ export default function Design() {
           sx={{
             width: "28px",
             height: "45px",
-            border: "2px solid black",
+            border: `2px solid ${theme.palette.common.black}`,
             borderRadius: "15px",
             position: "absolute",
             left: "3%",
@@ -106,7 +106,7 @@ export default function Design() {
               transform: "translateX(-50%)",
               position: "absolute",
               borderRadius: "50%",
-              backgroundColor: "black",
+              backgroundColor: theme.palette.common.black,
               animation: "mouse 1.3s infinite",
             },
           }}

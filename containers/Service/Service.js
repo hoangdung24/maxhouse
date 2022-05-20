@@ -61,11 +61,17 @@ export default function Service() {
             width: "22%",
             m: "40px auto",
             borderRadius: "10px",
-            backgroundColor: "white",
+            backgroundColor: theme.palette.common.neutral4,
             boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
             ["& .Mui-selected"]: {
               backgroundColor: theme.palette.common.black,
               color: `${theme.palette.common.neutral4} !important`,
+            },
+            ["& .MuiTabs-flexContainer"]: {
+              width: "100%",
+            },
+            ["& .MuiButtonBase-root"]: {
+              width: "50%",
             },
           }}
         >

@@ -1,13 +1,13 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer(props) {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -22,7 +22,7 @@ export default function Footer(props) {
           <Typography variant="h6">
             CÔNG TY TNHH{" "}
             <Typography
-              sx={{ color: "#CB0101" }}
+              sx={{ color: theme.palette.primary.main }}
               variant="span"
               component="span"
             >
@@ -37,7 +37,7 @@ export default function Footer(props) {
                 cursor: "pointer",
                 transition: "all 0.5s",
                 "&:hover": {
-                  color: "#920000",
+                  color: theme.palette.primary.dark,
                 },
               }}
               variant="body1"
@@ -45,11 +45,7 @@ export default function Footer(props) {
               Chính sách và Quy định
             </Typography>
           </Link>
-          <img
-            src="/img/IMGicon/download (4) 1.png"
-            width="40%"
-            height="auto"
-          />
+          <img src="/img/download (4) 1.png" width="40%" height="auto" />
         </Box>
 
         <Box>

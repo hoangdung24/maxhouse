@@ -1,7 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
 import { Box } from "@mui/system";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 
 const carousel = [
@@ -11,6 +11,7 @@ const carousel = [
 ];
 
 export default function Home() {
+  const theme = useTheme();
   const renderCarousel = () => {
     return carousel.map((img, index) => {
       return (
@@ -71,7 +72,7 @@ export default function Home() {
           sx={{
             borderRadius: "0",
             fontWeight: "400",
-            color: "black",
+            color: theme.palette.common.black,
             border: "1px solid #131313",
           }}
         >

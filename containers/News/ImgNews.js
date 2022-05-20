@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { useTheme } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import Slider from "react-slick";
@@ -6,6 +6,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
 export default function ImgNews(props) {
+  const theme = useTheme();
   const { item } = props;
   //\///Biến của slick
   const SamplePrevArrow = (props) => {
@@ -24,7 +25,12 @@ export default function ImgNews(props) {
       <NavigateNextIcon
         onClick={onClick}
         className="slick-nexts"
-        sx={{ color: "white", top: "50%", zIndex: 5, right: 0 }}
+        sx={{
+          color: theme.palette.common.black,
+          top: "50%",
+          zIndex: 5,
+          right: 0,
+        }}
       />
     );
   };

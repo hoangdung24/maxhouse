@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -8,6 +8,7 @@ import {
   Menu,
   Container,
   Button,
+  useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -26,6 +27,8 @@ const pages2 = [
 ];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const NavBars = ({ children }) => {
+  const theme = useTheme();
+  const [scroll, setScroll] = useState();
   const [navCSS, setNavCSS] = useState({
     zIndex: 2,
     background: "none",
@@ -44,7 +47,24 @@ const NavBars = ({ children }) => {
     py: "15px",
   });
 
-  const { x, y } = useWindowScroll();
+  const [navCSS3, setNavCSSS3] = useState({
+    zIndex: 2,
+    position: "fixed",
+    backgroundColor: "red",
+    transition: "ease-in 2s",
+    borderBottom: "1px solid #e6e8ec",
+    boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.15)",
+    py: "15px",
+  });
+
+  const { x, y } = useWindowScroll(() => {
+    console.log("hello");
+  });
+  useEffect(() => {
+    setScroll(y);
+    console.log("bien", y);
+  });
+
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -56,14 +76,16 @@ const NavBars = ({ children }) => {
     setAnchorElNav(null);
   };
 
+  console.log("render lai");
   return (
     <React.Fragment>
       <AppBar
         className="momo"
         position="static"
-        sx={y > 200 ? navCSS2 : navCSS}
+        // sx={y > 200 ? navCSS3 : y > 300 ? navCSS2 : navCSS}
+        sx={scroll > 200 ? navCSS3 : scroll > 300 ? navCSS : navCSS}
       >
-        {/* {renderheader()} */}
+        {console.log("reder html")}
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
@@ -76,7 +98,11 @@ const NavBars = ({ children }) => {
                 <Link key={index} href={page.link}>
                   <Button
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "black", display: "block" }}
+                    sx={{
+                      my: 2,
+                      color: theme.palette.common.black,
+                      display: "block",
+                    }}
                   >
                     <Typography variant="body_large" sx={{ fontSize: "17px" }}>
                       {page.name}

@@ -102,37 +102,6 @@ html {
 .slickHome .slick-list {
   height: 100vh;
 }
-/* .MuiTabs-flexContainer {
-  width: 100%;
-  justify-content: center;
-} */
-
-/* .btnService {
-  width: 50%;
-  max-width: 50%;
-  color: black;
-  font-weight: 400;
-  font-size: 20px;
-  min-height: 0;
-  height: 40px;
-} */
-
-/* .Mui-selected {
-  padding: 5px;
-  border-radius: 0 10px 10px 0;
-  color: white !important;
-  background-color: black;
-}
-.Mui-selected:first-child {
-  padding: 5px;
-  border-radius: 10px 0 0 10px;
-  color: white !important;
-  background-color: black;
-} */
-
-/* .MuiTabs-indicator {
-  display: none;
-} */
 
 .activeHeader {
   transition: ease-in 0.5s;
@@ -166,8 +135,8 @@ html {
   right: 0;
   z-index: 5;
 }
-/* animation */
 
+/* animation */
 @keyframes mouse {
   from {
     top: 5%;
