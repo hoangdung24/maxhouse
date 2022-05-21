@@ -1,6 +1,6 @@
 import { useMemo, Fragment } from "react";
 import Slider from "react-slick";
-import { Button, Typography, Box, useTheme } from "@mui/material";
+import { Button, Typography, Box, useTheme, useMediaQuery } from "@mui/material";
 
 import { Image } from "../../components";
 
@@ -11,11 +11,13 @@ const settings = {
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
-  autoplay: true,
+  autoplay: false,
 };
 
 export default function Home({ initData }) {
   const theme = useTheme();
+  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+
   const { items } = initData?.[0];
   const data = items?.[0];
 
@@ -43,15 +45,24 @@ export default function Home({ initData }) {
     return null;
   }
 
+  console.log(isMdUp);
+
   return (
     <Box
       sx={{
+        position: "relative",
         overflow: "hidden",
         height: "100vh",
         ["& .slick-dots"]: {
           textAlign: "left",
           bottom: "1rem",
           marginLeft: "1rem",
+          [theme.breakpoints.up("xs")]: {
+            display: "none !important",
+          },
+          [theme.breakpoints.up("md")]: {
+            display: "block !important",
+          },
         },
       }}
     >
@@ -59,46 +70,101 @@ export default function Home({ initData }) {
 
       <Box
         sx={{
-          padding: "2.5rem 3rem",
-          position: "fixed",
-          bottom: "3rem",
-          textAlign: "right",
-          right: "4rem",
-          "&::before": {
-            content: '""',
-            backgroundColor: "#F4F5F6",
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            zIndex: -1,
-            opacity: 0.4,
-          },
-          pointerEvent: "none",
+          position: "absolute",
           userSelect: "none",
+          [theme.breakpoints.up("xs")]: {
+            left: "2rem",
+            bottom: "2rem",
+            right: "2rem",
+          },
+          [theme.breakpoints.up("md")]: {
+            right: "4.5rem",
+            bottom: "4.5rem",
+            left: "unset",
+          },
         }}
       >
-        <Typography
-          variant="h2"
-          sx={{ color: theme.palette.primary.main, mb: 3 }}
-        >
-          {data.title}
-        </Typography>
-        <Typography variant="body1" sx={{ mb: 3 }}>
-          {data.subtitle}
-        </Typography>
-        <Button
-          variant="outlined"
+
           sx={{
-            borderRadius: 0,
-            borderColor: theme.palette.common.black,
-            color: theme.palette.common.black,
-            fontWeight: 300,
+            borderRadius: "1rem",
+
+            backdropFilter: "blur(2px)",
+            // boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            [theme.breakpoints.up("xs")]: {
+              border: "1.25px solid rgba(255, 255, 255, 0.6)",
+              background:
+                "linear-gradient(145.36deg, rgba(244, 244, 244, 0.6) -4.23%, rgba(244, 244, 244, 0.1) 102.57%, rgba(244, 244, 244, 0.3) 102.58%)",
+            },
+            [theme.breakpoints.up("md")]: {
+              border: "1.25px solid rgba(255, 255, 255, 0.2)",
+            },
           }}
         >
-          CHI TIẾT
-        </Button>
+          <Box
+            sx={{
+              [theme.breakpoints.up("xs")]: {
+                padding: "1.5rem 1rem",
+              },
+              [theme.breakpoints.up("md")]: {
+                padding: "4rem 3rem",
+              },
+            }}
+          >
+            <Typography
+              variant={isMdUp ? "h1" : "h3"}
+              sx={{
+                color: theme.palette.primary.main,
+                [theme.breakpoints.up("xs")]: {
+                  marginBottom: 1,
+                },
+                [theme.breakpoints.up("md")]: {
+                  marginBottom: 3,
+                  textAlign: "right",
+                },
+              }}
+            >
+              {data.title}
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                [theme.breakpoints.up("xs")]: {
+                  marginBottom: 1,
+                },
+                [theme.breakpoints.up("md")]: {
+                  marginBottom: 3,
+                  textAlign: "right",
+                  maxWidth: "50ch",
+                },
+              }}
+            >
+              {data.subtitle}
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                [theme.breakpoints.up("xs")]: {
+                  justifyContent: "flex-start",
+                },
+                [theme.breakpoints.up("md")]: {
+                  justifyContent: "flex-end",
+                },
+              }}
+            >
+              <Button
+                variant={"outlined"}
+                sx={{
+                  borderRadius: 0,
+                  borderColor: theme.palette.common.black,
+                  color: theme.palette.common.black,
+                  fontWeight: 300,
+                }}
+              >
+                CHI TIẾT
+              </Button>
+            </Box>
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
