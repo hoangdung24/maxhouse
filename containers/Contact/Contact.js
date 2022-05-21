@@ -41,7 +41,7 @@ const FormInput = ({ label, FormControlProps, InputLabelProps, ...props }) => {
 export default function Contact(props) {
   return (
     <Box sx={{ textAlign: "center", flexDirection: "row", pt: "150px" }}>
-      <Typography variant="h3" sx={{ mb: "60px" }}>
+      <Typography variant="h1" sx={{ mb: "60px" }}>
         LIÊN HỆ VỚI CHÚNG TÔI
       </Typography>
       <Stack sx={{ width: "80%", flexDirection: "row", m: "0 auto" }}>
@@ -87,7 +87,7 @@ export default function Contact(props) {
                 text="nội dung"
               />
 
-              <FormInput label="Email" />
+              {/* <FormInput label="Email" /> */}
             </Box>
           </Box>
         </Box>

@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import { Footer } from "../../components";
 
 // import { SettingConfig, GlobalConfig } from "../../contexts";
 

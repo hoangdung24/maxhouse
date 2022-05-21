@@ -2,7 +2,7 @@ import { Box, Modal, Stack, Typography } from "@mui/material";
 import React, { Fragment } from "react";
 import Image from "next/image";
 import ImgNews from "./ImgNews";
-import Catelory from "../../components/Catelogy/Catelory";
+import Category from "../../components/Category/Category";
 
 const arrNews = [
   {
@@ -149,28 +149,14 @@ export default function News() {
       <Box sx={{ mb: "54px", position: "relative" }}>
         <Box sx={{ pt: "130px", zIndex: "3" }}>
           <Typography
-            variant="h3"
+            variant="h1"
             sx={{ mb: "60px", textAlign: "center", zIndex: "3" }}
           >
             TIN TỨC
           </Typography>
         </Box>
 
-        <Catelory />
-        {/* slideNew */}
-        {/* <Box>
-          <Slider
-            className="slick"
-            {...settings}
-            style={{
-              width: "65vw",
-              margin: "0 auto",
-              zIndex: "2",
-            }}
-          >
-            {rednerNews()}
-          </Slider>
-        </Box> */}
+        <Category />
 
         <Box
           sx={{
@@ -194,45 +180,6 @@ export default function News() {
             <Image src="/img/imgNews/Group 33 1.jpg" layout="fill" />
           </Box>
         </Box>
-
-        {/* modal */}
-        {/* <Modal
-          keepMounted
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="keep-mounted-modal-title"
-          aria-describedby="keep-mounted-modal-description"
-        >
-          <Box sx={style}>
-            <Stack direction="row" justifyContent="space-between" mb={4}>
-              <Box>
-                <Typography variant="h3">Aqua Đồng Nai Sài Gòn</Typography>
-                <Typography variant="h6">Đồng Nai / Việt Nam</Typography>
-              </Box>
-              <CloseIcon onClick={handleClose} sx={{ fontSize: "45px" }} />
-            </Stack>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              sx={{ width: "100%", gap: "20px" }}
-            >
-              <Box sx={{ width: "70%" }}>
-                <NewsPaper />
-              </Box>
-              <Box sx={{ width: "30%" }}>
-                <iframe
-                  width="100%"
-                  height={315}
-                  src="https://www.youtube.com/embed/uzQNR1moRlo"
-                  title="YouTube video player"
-                  frameBorder={0}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </Box>
-            </Stack>
-          </Box>
-        </Modal> */}
       </Box>
     </Fragment>
   );
