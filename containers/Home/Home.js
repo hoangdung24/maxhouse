@@ -1,6 +1,12 @@
 import { useMemo, Fragment } from "react";
 import Slider from "react-slick";
-import { Button, Typography, Box, useTheme, useMediaQuery } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Box,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 
 import { Image } from "../../components";
 
@@ -84,7 +90,7 @@ export default function Home({ initData }) {
           },
         }}
       >
-
+        <Box
           sx={{
             borderRadius: "1rem",
 

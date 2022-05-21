@@ -1,12 +1,12 @@
 import { Box, Stack, Typography, useTheme } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function Footer(props) {
+const Footer = (props) => {
   const router = useRouter();
   const [offFooter, setOffFooter] = useState("block");
   const theme = useTheme();
@@ -104,4 +104,5 @@ export default function Footer(props) {
       </Stack>
     </Box>
   );
-}
+};
+export default Footer;
