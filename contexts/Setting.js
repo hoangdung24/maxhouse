@@ -6,9 +6,9 @@ import { SETTINGS } from "../api";
 export const Context = createContext({});
 
 const Setting = ({ children }) => {
-  const { data } = useSWR(SETTINGS);
+  // const { data } = useSWR(SETTINGS);
 
-  return <Context.Provider value={{ ...data }}>{children}</Context.Provider>;
+  return <Context.Provider value={{}}>{children}</Context.Provider>;
 };
 
 export default Setting;

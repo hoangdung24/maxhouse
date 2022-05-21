@@ -53,7 +53,10 @@ html {
   height: 100%;
 }
 .slideImg .slick-track {
-  height: 200px;
+  height: 100%;
+}
+.slideImg .slick-list .slick-track .slick-slide div {
+  height: 100%;
 }
 
 .MuiBox-root .slideImg .slick-prevs {
@@ -68,8 +71,8 @@ html {
   right: 0;
   z-index: 5;
 }
-/* animation */
 
+/* animation */
 @keyframes mouse {
   from {
     top: 5%;

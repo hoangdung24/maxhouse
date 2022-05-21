@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Box,
@@ -8,14 +8,16 @@ import {
   Menu,
   Container,
   Button,
+  useTheme,
   MenuItem,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import { keyframes } from "@emotion/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Footer from "./Footer";
 import { useWindowScroll } from "react-use";
+import Image from "next/image";
 
 const pages2 = [
   { name: "THIẾT KẾ", link: "/design" },
@@ -25,26 +27,43 @@ const pages2 = [
   { name: "LIÊN HỆ", link: "/contact" },
 ];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const fadeIn = keyframes({
+  "0%": { top: "-50%" },
+
+  "100%": { top: 0 },
+});
+
 const NavBars = ({ children }) => {
-  const [navCSS, setNavCSS] = useState({
-    zIndex: 2,
+  const theme = useTheme();
+  const [scroll, setScroll] = useState();
+
+  const [navCSS2, setNavCSSS2] = useState({
+    zIndex: 5,
+    position: "absolute",
     background: "none",
+    borderBottom: "none",
     boxShadow: "none",
-    position: "fixed",
     py: "15px",
   });
 
-  const [navCSSS, setNavCSSS] = useState({
-    zIndex: 2,
-    position: "fixed",
+  const [navCSS4, setNavCSSS3] = useState({
+    zIndex: 5,
     backgroundColor: "white",
-    transition: "ease-in 0.2s",
+    position: "fixed",
+    transition: "ease-in 2s",
     borderBottom: "1px solid #e6e8ec",
     boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.15)",
     py: "15px",
+    animation: `${fadeIn}`,
+    animationDuration: "2s",
+  });
+  const { x, y } = useWindowScroll(() => {
+    console.log("hello");
+  });
+  useEffect(() => {
+    setScroll(y);
   });
 
-  const { x, y } = useWindowScroll();
   const router = useRouter();
   const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -58,22 +77,27 @@ const NavBars = ({ children }) => {
 
   return (
     <React.Fragment>
-      <AppBar
-        className="momo"
-        position="static"
-        sx={y > 50 ? navCSSS : y < 5 ? navCSS : navCSS}
-      >
-        {/* {renderheader()} */}
+      <AppBar position="static" sx={scroll > 150 ? navCSS4 : navCSS2}>
         <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ gap: "60px", justifyContent: "center" }}>
+          <Toolbar
+            disableGutters
+            sx={{ gap: "60px", justifyContent: "center" }}
+          >
             {/* PC navBar */}
-            <img src="/img/Logo.png" width="5%" height="auto"></img>
+            <Link href="/">
+              <Image src="/img/Logo.png" width="70%" height="70%"></Image>
+            </Link>
+
             <Box sx={{ display: "flex", gap: "60px", width: "48%" }}>
               {pages2.map((page, index) => (
                 <Link key={index} href={page.link}>
                   <Button
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "black", display: "block" }}
+                    sx={{
+                      my: 2,
+                      color: theme.palette.common.black,
+                      display: "block",
+                    }}
                   >
                     <Typography variant="body_large" sx={{ fontSize: "17px" }}>
                       {page.name}
@@ -148,7 +172,8 @@ const NavBars = ({ children }) => {
       {router.pathname == "/contact" ||
       router.pathname == "/service" ||
       router.pathname == "/news" ||
-      router.pathname == "/design" ? (
+      router.pathname == "/design" ||
+      router.pathname == "/product" ? (
         <Footer />
       ) : null}
     </React.Fragment>

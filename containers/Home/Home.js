@@ -84,7 +84,7 @@ export default function Home({ initData }) {
           },
         }}
       >
-        <Box
+
           sx={{
             borderRadius: "1rem",
 

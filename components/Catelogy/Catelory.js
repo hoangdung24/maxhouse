@@ -1,8 +1,10 @@
 import { Box, Modal, Stack, Typography } from "@mui/material";
-import React, { Fragment } from "react";
 import Image from "next/image";
-import ImgNews from "./ImgNews";
-import Catelory from "../../components/Catelogy/Catelory";
+import React, { Fragment } from "react";
+import Slider from "react-slick";
+import ImgNews from "../../containers/News/ImgNews";
+import NewsPaper from "../../containers/Service/NewsPaper";
+import CloseIcon from "@mui/icons-material/Close";
 
 const arrNews = [
   {
@@ -86,16 +88,9 @@ const style = {
   py: 10,
 };
 
-export default function News() {
-  const settings = {
-    dots: true,
-    arrows: false,
-    infinite: true,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    draggable: true,
-    rows: 2,
-  };
+//\///Biến của slick
+
+export default function Catelory() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -110,7 +105,9 @@ export default function News() {
               "linear-gradient(rgba(244, 244, 244, 0.4), rgba(244, 244, 244, 0.2))",
             border:
               " 2px solid linear-gradient(rgba(244, 244, 244, 0.6), rgba(244, 244, 244, 0.4))",
+            // filter: " blur(8px)",
             backdropFilter: "blur(4px)",
+            // WebkitFilter: "blur(8px)",
           }}
         >
           <Box>
@@ -122,6 +119,7 @@ export default function News() {
                   height: "170px",
                 }}
               >
+                {/* <Image src={iem.img[0]} layout="fill" /> */}
                 <ImgNews item={iem} />
               </Box>
               <Box>
@@ -143,97 +141,70 @@ export default function News() {
       </Box>
     ));
   };
-
+  const settings = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    draggable: true,
+    rows: 2,
+  };
   return (
     <Fragment>
-      <Box sx={{ mb: "54px", position: "relative" }}>
-        <Box sx={{ pt: "130px", zIndex: "3" }}>
-          <Typography
-            variant="h3"
-            sx={{ mb: "60px", textAlign: "center", zIndex: "3" }}
-          >
-            TIN TỨC
-          </Typography>
-        </Box>
-
-        <Catelory />
-        {/* slideNew */}
-        {/* <Box>
-          <Slider
-            className="slick"
-            {...settings}
-            style={{
-              width: "65vw",
-              margin: "0 auto",
-              zIndex: "2",
-            }}
-          >
-            {rednerNews()}
-          </Slider>
-        </Box> */}
-
-        <Box
-          sx={{
-            width: "100%",
-            zIndex: -1,
-            position: "absolute",
-            top: 0,
-            bottom: 0,
-            height: "86%",
-            mt: "95px",
+      {/* slideNew */}
+      <Box>
+        <Slider
+          className="slick"
+          {...settings}
+          style={{
+            width: "65vw",
+            margin: "0 auto",
+            zIndex: "2",
           }}
         >
-          <Box
-            sx={{
-              position: "relative",
-              height: "100%",
-              margin: "0 auto",
-              width: "75%",
-            }}
-          >
-            <Image src="/img/imgNews/Group 33 1.jpg" layout="fill" />
-          </Box>
-        </Box>
-
-        {/* modal */}
-        {/* <Modal
-          keepMounted
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="keep-mounted-modal-title"
-          aria-describedby="keep-mounted-modal-description"
-        >
-          <Box sx={style}>
-            <Stack direction="row" justifyContent="space-between" mb={4}>
-              <Box>
-                <Typography variant="h3">Aqua Đồng Nai Sài Gòn</Typography>
-                <Typography variant="h6">Đồng Nai / Việt Nam</Typography>
-              </Box>
-              <CloseIcon onClick={handleClose} sx={{ fontSize: "45px" }} />
-            </Stack>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              sx={{ width: "100%", gap: "20px" }}
-            >
-              <Box sx={{ width: "70%" }}>
-                <NewsPaper />
-              </Box>
-              <Box sx={{ width: "30%" }}>
-                <iframe
-                  width="100%"
-                  height={315}
-                  src="https://www.youtube.com/embed/uzQNR1moRlo"
-                  title="YouTube video player"
-                  frameBorder={0}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </Box>
-            </Stack>
-          </Box>
-        </Modal> */}
+          {rednerNews()}
+        </Slider>
       </Box>
+
+      {/* modal */}
+      <Modal
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box sx={style}>
+          <Stack direction="row" justifyContent="space-between" mb={4}>
+            <Box>
+              <Typography variant="h3">Aqua Đồng Nai Sài Gòn</Typography>
+              <Typography variant="h6">Đồng Nai / Việt Nam</Typography>
+            </Box>
+            <CloseIcon onClick={handleClose} sx={{ fontSize: "45px" }} />
+          </Stack>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            sx={{ width: "100%", gap: "20px" }}
+          >
+            <Box sx={{ width: "70%" }}>
+              <NewsPaper />
+            </Box>
+            <Box sx={{ width: "30%" }}>
+              <iframe
+                width="100%"
+                height={315}
+                src="https://www.youtube.com/embed/uzQNR1moRlo"
+                title="YouTube video player"
+                frameBorder={0}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </Box>
+          </Stack>
+        </Box>
+      </Modal>
     </Fragment>
   );
 }

@@ -5,11 +5,28 @@ import {
   FormLabel,
   Input,
   Stack,
-  TextareaAutosize,
   Typography,
   FormHelperText,
 } from "@mui/material";
-import React from "react";
+
+const TextInput = ({ text, label, ...props }) => {
+  return (
+    <FormControl
+      fullWidth={true}
+      error={true}
+      sx={{
+        mb: "32px",
+        ["& .MuiInput-input"]: {
+          p: "10px",
+        },
+        ":last-child": { mb: 0 },
+      }}
+    >
+      <FormLabel>{text}</FormLabel>
+      <Input placeholder="Vui lòng nhập email" {...props} />
+    </FormControl>
+  );
+};
 
 const FormInput = ({ label, FormControlProps, InputLabelProps, ...props }) => {
   return (
@@ -42,34 +59,32 @@ export default function Contact(props) {
         <Box sx={{ width: "50%", textAlign: "right" }}>
           <Box sx={{ textAlign: "left", width: " 80%", marginLeft: "20%" }}>
             <Typography variant="body_large">
-              Nếu bạn có câu hỏi hoặc muốn biết thêm thông tin về các tác phẩm của chúng
-              tôi, Vui lòng hoàn thành biểu mẫu và chúng tôi sẽ liên hệ lại với bạn sau 24
-              giờ.
+              Nếu bạn có câu hỏi hoặc muốn biết thêm thông tin về các tác phẩm
+              của chúng tôi, Vui lòng hoàn thành biểu mẫu và chúng tôi sẽ liên
+              hệ lại với bạn sau 24 giờ.
             </Typography>
             <Box sx={{ width: "100%", mt: "20px" }}>
-              <FormLabel>Tên</FormLabel>
-              <Input
-                placeholder="Vui lòng nhập tên của ban"
-                sx={{ width: "100%", mb: "20px" }}
+              <TextInput
+                label={"Email2"}
+                placeholder="Vui lòng nhập tên của bạn"
+                text="Tên"
               />
-              <FormLabel>Email</FormLabel>
-              <Input
-                placeholder="Vui lòng nhập email"
-                sx={{ width: "100%", mb: "20px" }}
-              />
-
-              <FormLabel>Số Điện Thoại</FormLabel>
-              <Input
+              <TextInput
+                label={"Email"}
                 placeholder="Vui lòng nhập số điện thoại"
-                sx={{ width: "100%", mb: "20px" }}
+                text="Email"
               />
-
-              <FormLabel>Nội Dung</FormLabel>
-              <TextareaAutosize
-                aria-label="minimum height"
-                minRows={3}
+              <TextInput
+                label={"Email"}
+                placeholder="Day la email"
+                text="số điện thoại"
+              />
+              <TextInput
+                label={"Email"}
                 placeholder="Vui lòng nhập nội dung"
-                style={{ width: "100%", height: "200px", resize: "none" }}
+                multiline={true}
+                rows={10}
+                text="nội dung"
               />
 
               <FormInput label="Email" />
@@ -81,11 +96,20 @@ export default function Contact(props) {
         sx={{
           textAlign: "right",
           width: "80%",
-          m: "20px auto",
+          m: "30px auto",
           fontSize: "10px",
+          mb: "81px",
         }}
       >
-        <Button variant="contained" sx={{ width: "10%", fontSize: "10px" }}>
+        <Button
+          variant="contained"
+          sx={{
+            width: "10%",
+            fontSize: "10px",
+            p: "16px 24px",
+            borderRadius: "10px",
+          }}
+        >
           GỬI THÔNG TIN
         </Button>
       </Box>
