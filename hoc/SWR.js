@@ -11,8 +11,10 @@ const SWR = ({ children, fallback }) => {
             return res.data;
           });
         },
-        onError: (error) => {},
-        fallback,
+        onError: (err) => {
+          console.log("🚀 ~ file: SWR.js ~ line 15 ~ SWR ~ err", err);
+        },
+        fallback: fallback || {},
       }}
     >
       {children}
