@@ -55,7 +55,7 @@ const settings = {
 export default function ImgNews(props) {
   const theme = useTheme();
   const { item } = props;
-  console.log("item", item);
+  // console.log("item", item);
 
   const renderImg = () => {
     return item.img.map((img, index) => {

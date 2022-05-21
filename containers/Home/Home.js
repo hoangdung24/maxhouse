@@ -45,8 +45,6 @@ export default function Home({ initData }) {
     return null;
   }
 
-  console.log(isMdUp);
-
   return (
     <Box
       sx={{
@@ -84,7 +82,7 @@ export default function Home({ initData }) {
           },
         }}
       >
-
+        <Box
           sx={{
             borderRadius: "1rem",
 
@@ -106,7 +104,7 @@ export default function Home({ initData }) {
                 padding: "1.5rem 1rem",
               },
               [theme.breakpoints.up("md")]: {
-                padding: "4rem 3rem",
+                padding: "1.5rem 3rem",
               },
             }}
           >
@@ -114,6 +112,7 @@ export default function Home({ initData }) {
               variant={isMdUp ? "h1" : "h3"}
               sx={{
                 color: theme.palette.primary.main,
+                textTransform: "uppercase",
                 [theme.breakpoints.up("xs")]: {
                   marginBottom: 1,
                 },

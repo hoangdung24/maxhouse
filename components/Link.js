@@ -35,13 +35,13 @@ const Link = forwardRef(function (props, ref) {
     }
   } else {
     if (noLinkStyle) {
-      return <NextLinkComposed className={className} ref={ref} to={href} {...others} />;
+      return <NextLinkComposed className={className} ref={ref} href={href} {...others} />;
     } else {
       return (
         <MuiLink
           component={NextLinkComposed}
           className={className}
-          to={href}
+          href={href}
           ref={ref}
           {...others}
         />
@@ -51,12 +51,12 @@ const Link = forwardRef(function (props, ref) {
 });
 
 const NextLinkComposed = forwardRef((props, ref) => {
-  const { to, linkAs, replace, scroll, passHref, shallow, prefetch, locale, ...other } =
+  const { href, linkAs, replace, scroll, passHref, shallow, prefetch, locale, ...other } =
     props;
 
   return (
     <NextLink
-      href={to}
+      href={href}
       prefetch={prefetch}
       as={linkAs}
       replace={replace}
