@@ -44,3 +44,4 @@ export const types = {
 
 export const SETTINGS = generatePathname([settings]);
 export const PAGES = generatePathname([pages]);
+export const DESIGN_CATEGORIES = generatePathname([design_categories]);

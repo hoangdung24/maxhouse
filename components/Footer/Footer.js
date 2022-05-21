@@ -7,7 +7,6 @@ import {
   useMediaQuery,
   styled,
   Typography,
-  Icon,
 } from "@mui/material";
 
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -28,16 +27,26 @@ export default function Footer(props) {
         marginBottom: 4,
       }}
     >
-      <Grid container spacing={isMdUp ? 3 : 0}>
+      <Grid
+        container
+        spacing={4}
+        sx={[
+          !isMdUp && {
+            ["& .MuiGrid-item"]: {
+              paddingTop: 0,
+            },
+          },
+        ]}
+      >
         <Grid item md={4}>
           <Box
-          // sx={[
-          //   !isMdUp && {
-          //     ["& > p"]: {
-          //       marginBottom: 0,
-          //     },
-          //   },
-          // ]}
+            sx={[
+              !isMdUp && {
+                ["& > p"]: {
+                  marginBottom: 0,
+                },
+              },
+            ]}
           >
             <Typography
               variant="h5"
@@ -72,26 +81,26 @@ export default function Footer(props) {
               Mã số thuế: 123456789
             </Content>
 
-            {/* <Link
+            <Link
               href="/"
               sx={{
                 display: isMdUp ? "block" : "none",
               }}
             >
               Chính sách quy định
-            </Link> */}
+            </Link>
 
-            {/* <Box
+            <Box
               sx={{
                 display: isMdUp ? "block" : "none",
               }}
             >
               <Image src="/img/download (4) 1.png" width={"10rem"} height="4rem" />
-            </Box> */}
+            </Box>
           </Box>
         </Grid>
 
-        {/* <Grid
+        <Grid
           item
           xs={12}
           sx={{
@@ -99,9 +108,9 @@ export default function Footer(props) {
           }}
         >
           <Divider />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid
+        <Grid
           item
           md={4}
           sx={{
@@ -122,9 +131,9 @@ export default function Footer(props) {
             <Content>Thanh toán</Content>
             <Content>Sử dụng</Content>
           </Box>
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid
+        <Grid
           item
           xs={12}
           sx={{
@@ -132,17 +141,17 @@ export default function Footer(props) {
           }}
         >
           <Divider />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid item md={4}>
+        <Grid item md={4}>
           <Box
-            sx={
+            sx={[
               !isMdUp && {
                 ["& p:last-child"]: {
                   marginBottom: 0,
                 },
-              }
-            }
+              },
+            ]}
           >
             <Title variant={isMdUp ? "h5" : "body_large"}>ĐỊA CHỈ</Title>
             <Content>Showroom: 100 Nguyễn Xí , P.26, Q. Bình Thạnh, TP.HCM</Content>
@@ -155,9 +164,9 @@ export default function Footer(props) {
               Dương
             </Content>
           </Box>
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid
+        <Grid
           item
           xs={12}
           sx={{
@@ -168,9 +177,9 @@ export default function Footer(props) {
           }}
         >
           <Divider />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid item md={4}>
+        <Grid item md={4}>
           <Box
             sx={{
               display: "flex",
@@ -183,9 +192,9 @@ export default function Footer(props) {
               width: "100%",
             }}
           >
-            <Box
+            {/* <Box
               sx={{
-                width: isMdUp ? "300px" : "100vw",
+                width: isMdUp ? "300px" : "100%",
                 borderRadius: "0.5rem",
                 overflow: "hidden",
               }}
@@ -202,11 +211,11 @@ export default function Footer(props) {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
-            </Box>
+            </Box> */}
           </Box>
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid
+        <Grid
           item
           xs={12}
           sx={{
@@ -217,9 +226,9 @@ export default function Footer(props) {
           }}
         >
           <Divider />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
           <Stack direction="row" justifyContent="center" spacing={2}>
             <Link noLinkStyle={true} href="https://youtube.com" target="_blank">
               <FacebookOutlinedIcon
@@ -257,7 +266,7 @@ export default function Footer(props) {
           >
             <Image src="/img/download (4) 1.png" width={"10rem"} height="4rem" />
           </Box>
-        </Grid> */}
+        </Grid>
       </Grid>
     </Box>
   );

@@ -230,7 +230,7 @@ const theme = createTheme({
         },
       },
     },
-    MuiIcon: {
+    MuiSvgIcon: {
       styleOverrides: {
         root: {
           color: defaultTheme.palette.primary.main,

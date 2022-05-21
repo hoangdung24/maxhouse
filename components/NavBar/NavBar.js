@@ -15,7 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { keyframes } from "@emotion/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Footer from "./Footer";
+import Footer from "../Footer/Footer";
 import { useWindowScroll } from "react-use";
 import Image from "next/image";
 
@@ -79,7 +79,7 @@ const NavBars = ({ children }) => {
       <AppBar position="static" sx={scroll > 150 ? navCSS4 : navCSS2}>
         <Container maxWidth="xl">
           <Toolbar disableGutters sx={{ gap: "60px", justifyContent: "center" }}>
-            {/* PC navBar */}
+            {/*  Header */}
             <Link href="/">
               <Image src="/img/Logo.png" width="70%" height="70%"></Image>
             </Link>

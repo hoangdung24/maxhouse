@@ -1,6 +1,6 @@
 import Design from "../containers/Design/Design";
 
-import { PAGES, types } from "../api";
+import { PAGES, types, DESIGN_CATEGORIES } from "../api";
 import { transformUrl, prefetchData } from "../libs";
 
 export default function PageDesign({ ...props }) {
@@ -9,8 +9,13 @@ export default function PageDesign({ ...props }) {
 
 export async function getServerSideProps({ params, query }) {
   try {
-    const urls = [transformUrl(PAGES, { type: types.designListingPage, fields: "*" })];
+    const urls = [
+      transformUrl(DESIGN_CATEGORIES),
+      transformUrl(PAGES, { type: types.designListingPage, fields: "*" }),
+    ];
     const { resList, fallback } = await prefetchData(urls);
+
+    console.log(urls);
 
     return {
       props: {
