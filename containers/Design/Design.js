@@ -1,93 +1,83 @@
-import { Box, Tab, Tabs, Typography, useTheme } from "@mui/material";
-import Image from "next/image";
-import React, { Fragment, useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import Category from "../../components/Category/Category";
+import { Box, Tab, Tabs, Typography, useTheme, Container, Grid } from "@mui/material";
+import { Fragment, useEffect, useState, useMemo } from "react";
+
+import { Image } from "../../components";
+
+import CardItem from "./components/CardItem";
+import Slider from "./components/Slider";
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index } = props;
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
+  return value === index ? <Box id={index}>{children}</Box> : null;
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
+export default function Design({ initData }) {
+  const [designCategoryList, designListItem] = initData;
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-const tabName = ["nhà phố", "căn hộ", "biệt thự", "khác"];
-
-export default function Design() {
-  const [cssOpacity, setCssOpacity] = useState(0);
   const [value, setValue] = useState(0);
   const theme = useTheme();
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const renderTab = () => {
-    return tabName.map((tab, index) => {
+  const renderTab = useMemo(() => {
+    if (!designCategoryList) {
+      return null;
+    }
+
+    return designCategoryList.items.map((el, index) => {
       return (
         <Tab
-          key={index}
-          label={tab}
-          {...a11yProps(index)}
+          key={el.id}
+          label={el.name}
           sx={{
             "&.MuiButtonBase-root": {
               ...theme.typography.h6,
             },
           }}
+          disableRipple
         />
       );
     });
-  };
+  }, [designCategoryList]);
+
   const renderTabPanel = () => {
-    return tabName.map((item, index) => {
+    if (!designListItem) {
+      return null;
+    }
+
+    const cloneData = Object.keys([...new Array(24)]).map((el) => {
+      return designListItem.items[0];
+    });
+
+    return designCategoryList.items.map((item, index) => {
       return (
-        <TabPanel key={index} value={value} index={index} dir={theme.direction}>
-          <Category />
+        <TabPanel key={index} value={value} index={index}>
+          <Slider>
+            {cloneData.map((el, i) => {
+              return <CardItem key={i} {...el} />;
+            })}
+          </Slider>
         </TabPanel>
       );
     });
   };
 
-  useEffect(() => {
-    setCssOpacity(1);
-  });
-
   return (
-    <Fragment>
+    <Box>
       <Box
         sx={{
           height: "100vh",
-          p: 0,
-          textAlign: "center",
+          width: "100vw",
+          overflow: "hidden",
           position: "relative",
           "&::before": {
             content: '""',
             position: "absolute",
-            width: "100vw",
+            width: "100%",
+            height: "100%",
             top: 0,
             left: 0,
             bottom: 0,
@@ -99,13 +89,15 @@ export default function Design() {
         <Image
           src="/img/Bản sao Rectangle 2.jpg"
           layout="fill"
-          sx={{ filter: "grayscale(100%)" }}
-        ></Image>
+          width={"100%"}
+          height="100%"
+          objectFit="cover"
+          WrapperProps={{ filter: "grayscale(100%)" }}
+        />
 
         <Typography
           variant="body_large"
           sx={{
-            opacity: cssOpacity,
             transition: "ease 3s",
             position: "absolute",
             left: "50%",
@@ -120,16 +112,13 @@ export default function Design() {
             zIndex: 2,
           }}
         >
-          Quyền lựa chọn của chúng ta là không có khuôn mẫu và khi không có gì
-          ngăn cản,
+          Quyền lựa chọn của chúng ta là không có khuôn mẫu và khi không có gì ngăn cản,
           <br /> chúng ta có thể làm những gì chúng ta thích nhất.
         </Typography>
 
-        {/* animation */}
         <Box
           sx={{
-            opacity: cssOpacity,
-            transition: "ease 3s",
+            transition: "all 150ms ease-in-out 100ms",
             width: "28px",
             height: "45px",
             border: `2px solid ${theme.palette.common.black}`,
@@ -150,59 +139,63 @@ export default function Design() {
               backgroundColor: theme.palette.common.black,
               animation: "mouse 1.3s infinite",
             },
-            cssOpacity,
           }}
         ></Box>
       </Box>
 
-      <Box
-        classname="670px"
-        sx={{
-          height: "80vh",
-          width: "80vw",
-          margin: "116px auto ",
-          position: "relative",
-          "&span": {
-            width: "100%",
-          },
-        }}
-      >
-        <Image
-          src="/img/imgNews/Component 6.png"
-          // layout="fill"
-          layout="fill"
-          sx={{ objectFit: "cover" }}
-        />
-
-        <Box
-          sx={{
-            width: "100%",
-            position: "absolute",
-            top: "50%",
-            transform: " translateY(-50%)",
-          }}
-        >
-          <Box>
-            <Tabs
-              TabIndicatorProps={{
-                style: {
-                  display: "none",
-                },
-              }}
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
+      <Container>
+        <Grid container>
+          <Grid item xs={12}>
+            <Box
               sx={{
-                color: theme.palette.common.black,
-                "& .MuiTabs-flexContainer": { justifyContent: "center" },
+                position: "relative",
+                paddingY: "2.5rem",
+                marginY: "7.5rem",
               }}
             >
-              {renderTab()}
-            </Tabs>
-          </Box>
-          {renderTabPanel()}
-        </Box>
-      </Box>
-    </Fragment>
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  zIndex: -1,
+                }}
+              >
+                <Image
+                  src="/img/imgNews/Component 6.png"
+                  layout="fill"
+                  width="100%"
+                  height="75vh"
+                  objectFit="cover"
+                />
+              </Box>
+
+              <Box>
+                <Box>
+                  <Tabs
+                    TabIndicatorProps={{
+                      sx: {
+                        display: "none",
+                      },
+                    }}
+                    value={value}
+                    onChange={handleChange}
+                    sx={{
+                      color: theme.palette.common.black,
+                      "& .MuiTabs-flexContainer": { justifyContent: "center" },
+                    }}
+                  >
+                    {renderTab}
+                  </Tabs>
+                </Box>
+                {renderTabPanel()}
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 }

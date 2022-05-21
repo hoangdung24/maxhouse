@@ -57,9 +57,8 @@ const NavBars = ({ children }) => {
     animation: `${fadeIn}`,
     animationDuration: "2s",
   });
-  const { x, y } = useWindowScroll(() => {
-    console.log("hello");
-  });
+  const { x, y } = useWindowScroll();
+
   useEffect(() => {
     setScroll(y);
   });
@@ -79,10 +78,7 @@ const NavBars = ({ children }) => {
     <React.Fragment>
       <AppBar position="static" sx={scroll > 150 ? navCSS4 : navCSS2}>
         <Container maxWidth="xl">
-          <Toolbar
-            disableGutters
-            sx={{ gap: "60px", justifyContent: "center" }}
-          >
+          <Toolbar disableGutters sx={{ gap: "60px", justifyContent: "center" }}>
             {/*  Header */}
             <Link href="/">
               <Image src="/img/Logo.png" width="70%" height="70%"></Image>

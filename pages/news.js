@@ -4,6 +4,6 @@ import News from "../containers/News/News";
 
 export default function PageNews() {
   const router = useRouter();
-  console.log("first", router.pathname);
+
   return <News></News>;
 }

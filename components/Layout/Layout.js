@@ -1,16 +1,23 @@
-import { Fragment } from "react";
-import Header from "../Header/Header";
-import { Footer } from "../../components";
+import { Box } from "@mui/material";
 
-// import { SettingConfig, GlobalConfig } from "../../contexts";
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+import Container from "../Container";
 
 const Layout = ({ children }) => {
   return (
-    <Fragment>
-      <Header />
+    <Box
+      sx={{
+        overflow: "hidden",
+        minHeight: "100vh",
+      }}
+    >
+      {/* <Header /> */}
       {children}
-      <Footer />
-    </Fragment>
+      <Container>
+        <Footer />
+      </Container>
+    </Box>
   );
 };
 

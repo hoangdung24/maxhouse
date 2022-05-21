@@ -55,6 +55,7 @@ const defaultTheme = createTheme({
       fontSize: "1.2rem",
       lineHeight: "1.778rem",
       fontWeight: 500,
+      display: "inline-block",
     },
     body1: {
       fontSize: "1rem",
@@ -205,6 +206,41 @@ const theme = createTheme({
           "&.Mui-focused": {
             color: defaultTheme.palette.common.neutral1,
           },
+        },
+      },
+    },
+    MuiLink: {
+      defaultProps: {
+        underline: "none",
+        color: defaultTheme.palette.common.black,
+      },
+      styleOverrides: {
+        root: {
+          transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
+          ["&:hover"]: {
+            color: defaultTheme.palette.primary.main,
+          },
+        },
+      },
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: defaultTheme.palette.common.neutral3,
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: defaultTheme.palette.primary.main,
+          [defaultTheme.breakpoints.up("md")]: {
+            color: defaultTheme.palette.common.black,
+            ["&:hover"]: {
+              color: defaultTheme.palette.primary.main,
+            },
+          },
+          transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
         },
       },
     },

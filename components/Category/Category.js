@@ -1,15 +1,6 @@
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Modal,
-  Stack,
-  Typography,
-} from "@mui/material";
-import Image from "next/image";
-import React, { Fragment } from "react";
+import { Box, Modal, Stack, Typography } from "@mui/material";
+
+import { Fragment, useState } from "react";
 import Slider from "react-slick";
 import ImgNews from "../../containers/News/ImgNews";
 import NewsPaper from "../../containers/Service/NewsPaper";
@@ -100,7 +91,7 @@ const style = {
 //\///Biến của slick
 
 export default function Category() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const rednerNews = () => {
@@ -240,7 +231,7 @@ export default function Category() {
             <Box sx={{ width: "70%" }}>
               <NewsPaper />
             </Box>
-            <Box sx={{ width: "30%" }}>
+            {/* <Box sx={{ width: "30%" }}>
               <iframe
                 width="100%"
                 height={315}
@@ -250,7 +241,7 @@ export default function Category() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-            </Box>
+            </Box> */}
           </Stack>
         </Box>
       </Modal>
