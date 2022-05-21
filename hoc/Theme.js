@@ -16,28 +16,6 @@ const fontFamily = [
 ].join(",");
 
 const defaultTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#EE4F2D",
-      light: "#ff8259",
-      dark: "#b41100",
-    },
-    secondary: {
-      main: "#1074BA",
-      light: "#5ba2ed",
-      dark: "#00498a",
-    },
-
-    error: {
-      main: "#b41100",
-      light: "#ee4f2d",
-      dark: "#7d0000",
-    },
-
-    text: {
-      primary: "#2b2b2b",
-    },
-  },
   typography: {
     fontFamily,
     h1: {
@@ -105,7 +83,7 @@ const defaultTheme = createTheme({
     },
 
     text: {
-      primary: "#2b2b2b",
+      primary: "#1b1b1b",
     },
     common: {
       black: "#131313",

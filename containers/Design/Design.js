@@ -65,7 +65,7 @@ export default function Design() {
   const renderTabPanel = () => {
     return tabName.map((item, index) => {
       return (
-        <TabPanel value={value} index={index} dir={theme.direction}>
+        <TabPanel key={index} value={value} index={index} dir={theme.direction}>
           <Catelory />
         </TabPanel>
       );
