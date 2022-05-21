@@ -1,13 +1,15 @@
 import { Fragment } from "react";
-import { Container } from "@mui/material";
-import NavBars from "../Header/Nav";
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
 
 // import { SettingConfig, GlobalConfig } from "../../contexts";
 
 const Layout = ({ children }) => {
   return (
     <Fragment>
-      <NavBars>{children}</NavBars>
+      <Header />
+      {children}
+      <Footer />
     </Fragment>
   );
 };

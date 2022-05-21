@@ -1,25 +1,38 @@
-import { Stack, Typography, useTheme } from "@mui/material";
-import { Box } from "@mui/system";
-import React from "react";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Footer(props) {
+  const router = useRouter();
+  const [offFooter, setOffFooter] = useState("block");
   const theme = useTheme();
+
+  // xét điều kiện để hiên footer
+  useEffect(() => {
+    if (router.pathname == "/") {
+      setOffFooter("none");
+    } else {
+      setOffFooter("block");
+    }
+  });
+
   return (
     <Box
       sx={{
+        display: offFooter,
         width: "85%",
         m: "0 auto",
         borderTop: "1px solid #E6E8EC",
-        py: "20px",
+        py: "32px",
       }}
     >
       <Stack direction="row" justifyContent="space-between" spacing={2}>
         <Box>
-          <Typography variant="h6">
+          <Typography variant="h5">
             CÔNG TY TNHH{" "}
             <Typography
               sx={{ color: theme.palette.primary.main }}
@@ -30,7 +43,7 @@ export default function Footer(props) {
             </Typography>{" "}
             VIỆT NAM
           </Typography>
-          <Typography variant="body1">Mã số thuế: 123456789</Typography>
+          <Typography>Mã số thuế: 123456789</Typography>
           <Link href="/">
             <Typography
               sx={{
@@ -49,15 +62,15 @@ export default function Footer(props) {
         </Box>
 
         <Box>
-          <Typography variant="h6">ĐỊA CHỈ</Typography>
-          <Typography variant="body1">
+          <Typography variant="h5">ĐỊA CHỈ</Typography>
+          <Typography>
             Showroom: 100 Nguyễn Xí , P.26, Q. Bình Thạnh, TP.HCM
           </Typography>
-          <Typography variant="body1">
+          <Typography>
             Xưởng Sản Xuất 1 : 24/5 Vĩnh Phú 20, KP Trung, Vĩnh Phú, Thuận An,
             Tỉnh Bình Dương
           </Typography>
-          <Typography variant="body1">
+          <Typography>
             Xưởng Sản Xuất 1 : 24/5 Vĩnh Phú 20, KP Trung, Vĩnh Phú, Thuận An,
             Tỉnh Bình Dương
           </Typography>
