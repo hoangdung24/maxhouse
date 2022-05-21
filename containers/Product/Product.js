@@ -2,7 +2,7 @@ import { Box, Tab, Tabs, Typography, useTheme } from "@mui/material";
 import Image from "next/image";
 import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import Catelory from "../../components/Catelogy/Catelory";
+import Category from "../../components/Category/Category";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,7 +66,7 @@ export default function Product() {
     return tabName.map((item, index) => {
       return (
         <TabPanel key={index} value={value} index={index} dir={theme.direction}>
-          <Catelory />
+          <Category />
         </TabPanel>
       );
     });
@@ -156,8 +156,8 @@ export default function Product() {
       </Box>
       <Box
         sx={{
-          height: "670px",
-          width: "75vw",
+          height: "80vh",
+          width: "80vw",
           margin: "116px auto ",
           position: "relative",
         }}

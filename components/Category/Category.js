@@ -1,6 +1,6 @@
 import { Box, Modal, Stack, Typography } from "@mui/material";
-import Image from "next/image";
-import React, { Fragment } from "react";
+
+import { Fragment, useState } from "react";
 import Slider from "react-slick";
 import ImgNews from "../../containers/News/ImgNews";
 import NewsPaper from "../../containers/Service/NewsPaper";
@@ -90,8 +90,8 @@ const style = {
 
 //\///Biến của slick
 
-export default function Catelory() {
-  const [open, setOpen] = React.useState(false);
+export default function Category() {
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const rednerNews = () => {
@@ -105,13 +105,11 @@ export default function Catelory() {
               "linear-gradient(rgba(244, 244, 244, 0.4), rgba(244, 244, 244, 0.2))",
             border:
               " 2px solid linear-gradient(rgba(244, 244, 244, 0.6), rgba(244, 244, 244, 0.4))",
-            // filter: " blur(8px)",
             backdropFilter: "blur(4px)",
-            // WebkitFilter: "blur(8px)",
           }}
         >
           <Box>
-            <Box sx={{}}>
+            <Box sx={{ height: "100%" }}>
               <Box
                 sx={{
                   mb: "10px",
@@ -119,8 +117,7 @@ export default function Catelory() {
                   height: "170px",
                 }}
               >
-                {/* <Image src={iem.img[0]} layout="fill" /> */}
-                <ImgNews item={iem} />
+                <ImgNews item={iem} layout="fill" />
               </Box>
               <Box>
                 <Typography variant="body_large" onClick={handleOpen}>
@@ -141,6 +138,49 @@ export default function Catelory() {
       </Box>
     ));
   };
+
+  const rednerNews2 = () => {
+    return arrNews.map((iem, index) => (
+      <Box key={index} sx={{ width: "23%", p: "8px" }}>
+        <Box
+          sx={{
+            borderRadius: "5px",
+            p: "8px",
+            backgroundImage:
+              "linear-gradient(rgba(244, 244, 244, 0.4), rgba(244, 244, 244, 0.2))",
+            border:
+              " 2px solid linear-gradient(rgba(244, 244, 244, 0.6), rgba(244, 244, 244, 0.4))",
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          <Box>
+            {/* <Card sx={{ maxWidth: 345 }}>
+              <CardMedia
+                component="img"
+                height="140"
+                image="/img/imgNews/Rectangle 5.jpg"
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography variant="body_large" onClick={handleOpen}>
+                  {iem.name}
+                </Typography>
+                <Stack direction="row" justifyContent="space-between">
+                  <Typography variant="body_small" sx={{ textAlign: "left" }}>
+                    {iem.addr}
+                  </Typography>
+                  <Typography variant="body_small" sx={{ textAlign: "right" }}>
+                    {iem.date}
+                  </Typography>
+                </Stack>
+              </CardContent>
+            </Card> */}
+          </Box>
+        </Box>
+      </Box>
+    ));
+  };
+
   const settings = {
     dots: true,
     arrows: false,
@@ -191,7 +231,7 @@ export default function Catelory() {
             <Box sx={{ width: "70%" }}>
               <NewsPaper />
             </Box>
-            <Box sx={{ width: "30%" }}>
+            {/* <Box sx={{ width: "30%" }}>
               <iframe
                 width="100%"
                 height={315}
@@ -201,7 +241,7 @@ export default function Catelory() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-            </Box>
+            </Box> */}
           </Stack>
         </Box>
       </Modal>

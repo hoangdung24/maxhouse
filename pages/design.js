@@ -15,8 +15,6 @@ export async function getServerSideProps({ params, query }) {
     ];
     const { resList, fallback } = await prefetchData(urls);
 
-    console.log(urls);
-
     return {
       props: {
         initData: resList,

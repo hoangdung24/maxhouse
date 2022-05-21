@@ -5,7 +5,7 @@ import React from "react";
 export default function NewsPaper() {
   return (
     <Box>
-      <Typography variant="body_large">What is Lorem Ipsum?</Typography>
+      <Typography variant="h1">What is Lorem Ipsum?</Typography>
       <Typography variant="body1" sx={{ textAlign: "justify" }}>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
         voluptas voluptate eius labore ipsam, dolorum nihil rem amet magni quas

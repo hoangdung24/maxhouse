@@ -1,35 +1,19 @@
 import { Box, Tab, Tabs, Typography, useTheme, Container, Grid } from "@mui/material";
 import { Fragment, useEffect, useState, useMemo } from "react";
 
-// import Catelory from "../../components/Catelogy/Catelory";
 import { Image } from "../../components";
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+import CardItem from "./components/CardItem";
+import Slider from "./components/Slider";
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
+function TabPanel(props) {
+  const { children, value, index } = props;
+
+  return value === index ? <Box id={index}>{children}</Box> : null;
 }
 
-const tabName = ["nhà phố", "căn hộ", "biệt thự", "khác"];
-
 export default function Design({ initData }) {
-  const [designCategoryList] = initData;
-
-  console.log(designCategoryList);
+  const [designCategoryList, designListItem] = initData;
 
   const [value, setValue] = useState(0);
   const theme = useTheme();
@@ -60,10 +44,22 @@ export default function Design({ initData }) {
   }, [designCategoryList]);
 
   const renderTabPanel = () => {
-    return tabName.map((item, index) => {
+    if (!designListItem) {
+      return null;
+    }
+
+    const cloneData = Object.keys([...new Array(24)]).map((el) => {
+      return designListItem.items[0];
+    });
+
+    return designCategoryList.items.map((item, index) => {
       return (
-        <TabPanel value={value} index={index} dir={theme.direction}>
-          {/* <Catelory /> */}
+        <TabPanel key={index} value={value} index={index}>
+          <Slider>
+            {cloneData.map((el, i) => {
+              return <CardItem key={i} {...el} />;
+            })}
+          </Slider>
         </TabPanel>
       );
     });
@@ -164,6 +160,7 @@ export default function Design({ initData }) {
                   left: 0,
                   width: "100%",
                   height: "100%",
+                  zIndex: -1,
                 }}
               >
                 <Image
