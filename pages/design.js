@@ -11,7 +11,7 @@ export async function getServerSideProps({ params, query }) {
   try {
     const urls = [
       transformUrl(DESIGN_CATEGORIES),
-      transformUrl(PAGES, { type: types.designListingPage, fields: "*" }),
+      transformUrl(PAGES, { type: types.designDetailPage, fields: "*" }),
     ];
     const { resList, fallback } = await prefetchData(urls);
 

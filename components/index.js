@@ -8,3 +8,4 @@ export { default as LoadingData } from "./LoadingData";
 export { default as ErrorFallback } from "./ErrorFallback";
 export { default as FailToFetchData } from "./FailToFetchData";
 export { default as Footer } from "./Footer/Footer";
+export { default as Container } from "./Container";
