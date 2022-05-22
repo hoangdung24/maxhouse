@@ -8,7 +8,7 @@ const construction_categories = "construction-categories";
 
 const generatePathname = (data) => {
   const arr = [PREFIX, ...data];
-  return `${arr.join("/")}/`;
+  return `${arr.join("/")}`;
 };
 
 // /api/v2/settings/ Đây là endpoint trả về settings chung cho frontend.

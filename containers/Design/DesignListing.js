@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { useToggle } from "react-use";
-
+import { useRouter } from "next/router";
+//
 import {
   Box,
   Tab,
@@ -16,12 +17,11 @@ import {
 } from "@mui/material";
 import { useState, useMemo, useCallback, Fragment } from "react";
 
+import { useParams } from "../../hooks";
 import { Image } from "../../components";
 
-import { useParams } from "../../hooks";
-
-import CardItem from "./components/CardItem";
 import Slider from "./components/Slider";
+import CardItem from "./components/CardItem";
 
 const ModalDesignDetail = dynamic(() => import("./components/ModalDesignDetail"));
 
@@ -34,8 +34,9 @@ function TabPanel(props) {
 
 export default function Design({ initData }) {
   const theme = useTheme();
+  const router = useRouter();
   const [open, toggle] = useToggle(true);
-  const [params, setParams] = useParams({});
+  const [params, setParams] = useParams();
   const [selectedPost, setSelectedPost] = useState(null);
 
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
@@ -65,17 +66,24 @@ export default function Design({ initData }) {
     animationHandler();
   }, []);
 
-  const selectedPostHandler = useCallback((data) => {
-    return () => {
-      const { id } = data;
-      setParams({
-        id,
-      });
-      toggle(true);
+  const selectedPostHandler = useCallback(
+    (data) => {
+      return () => {
+        const { id } = data;
 
-      setSelectedPost(data);
-    };
-  }, []);
+        if (isMdUp) {
+          setParams({
+            id,
+          });
+          toggle(true);
+          setSelectedPost(data);
+        } else {
+          router.push(`${router.pathname}/${id}`);
+        }
+      };
+    },
+    [isMdUp]
+  );
 
   const renderTab = useMemo(() => {
     if (!designCategoryList) {
