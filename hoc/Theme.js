@@ -1,6 +1,6 @@
 import { createTheme, ThemeProvider, alpha } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 const fontFamily = [
   "Oswald",
   "-apple-system",
@@ -241,6 +241,59 @@ const theme = createTheme({
             },
           },
           transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
+        },
+      },
+    },
+
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          color: defaultTheme.palette.common.black,
+          "& .MuiTabs-flexContainer": { justifyContent: "center" },
+        },
+      },
+    },
+
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: defaultTheme.palette.common.black,
+          transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
+          ...defaultTheme.typography.body_large,
+          padding: "8px 12px",
+          minHeight: "unset",
+          [defaultTheme.breakpoints.up("md")]: {
+            ...defaultTheme.typography.h6,
+          },
+        },
+      },
+    },
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          border: `2px solid ${defaultTheme.palette.primary.main}`,
+          transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
+          ["&.Mui-disabled"]: {
+            borderColor: "transparent",
+          },
+          ["&.Mui-disabled .MuiSvgIcon-root"]: {
+            color: defaultTheme.palette.common.neutral2,
+          },
+        },
+      },
+      defaultProps: {
+        components: {
+          next: ArrowRightAltIcon,
+          previous: (props) => {
+            return (
+              <ArrowRightAltIcon
+                {...props}
+                sx={{
+                  transform: "rotate(180deg)",
+                }}
+              />
+            );
+          },
         },
       },
     },

@@ -1,8 +1,10 @@
+import { forwardRef } from "react";
+
 import { Container as MuiContainer, styled } from "@mui/material";
 
-const Container = ({ children }) => {
-  return <StyledContainer>{children}</StyledContainer>;
-};
+const Container = forwardRef(({ children }, ref) => {
+  return <StyledContainer ref={ref}>{children}</StyledContainer>;
+});
 
 export default Container;
 
