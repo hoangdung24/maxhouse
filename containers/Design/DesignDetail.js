@@ -1,13 +1,11 @@
-import DesignDetailRendering from "./components/DesignDetailRendering";
-
-import { Container } from "../../components";
+import { Container, DetailBlog } from "../../components";
 
 const DesignDetail = ({ initData }) => {
   const [data] = initData;
 
   return (
     <Container>
-      <DesignDetailRendering
+      <DetailBlog
         {...{
           data,
         }}

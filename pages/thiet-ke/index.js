@@ -12,6 +12,7 @@ export async function getServerSideProps({ params, query }) {
     const urls = [
       transformUrl(DESIGN_CATEGORIES),
       transformUrl(PAGES, { type: types.designDetailPage, fields: "*" }),
+      transformUrl(PAGES, { type: types.designListingPage, fields: "*" }),
     ];
     const { resList, fallback } = await prefetchData(urls);
 
@@ -22,8 +23,6 @@ export async function getServerSideProps({ params, query }) {
       },
     };
   } catch (err) {
-    console.log("🚀 ~ file: index.js ~ line 23 ~ getServerSideProps ~ err", err);
-
     return {
       redirect: {
         destination: "/404",

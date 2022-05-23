@@ -5,5 +5,7 @@ import Contact from "../containers/Contact/Contact";
 export default function PageContact() {
   const router = useRouter();
 
-  return <Contact />;
+  return null;
+
+  // return <Contact />;
 }

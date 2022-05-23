@@ -5,6 +5,7 @@ import { Box } from "@mui/material";
 
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import FABContact from "../FAB/FABContact";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -24,9 +25,10 @@ const Layout = ({ children }) => {
         minHeight: "100vh",
       }}
     >
-      {/* <Header /> */}
+      <Header />
       {children}
       {FooterMemo}
+      <FABContact />
     </Box>
   );
 };

@@ -12,19 +12,30 @@ import {
 import { useMeasure } from "react-use";
 
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import PinterestIcon from "@mui/icons-material/Pinterest";
+import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
-import Image from "../Image";
 import Link from "../Link";
+import Image from "../Image";
 import Container from "../Container";
+import RenderHtml from "../RenderHTML";
+
+import { useSetting } from "../../hooks";
 
 export default function Footer(props) {
+  const setting = useSetting();
+
   const theme = useTheme();
-
-  const [ref, { width, height }] = useMeasure();
-
+  const [ref, { width }] = useMeasure();
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+
+  const {
+    company_name,
+    tax_identification_number,
+    social_links,
+    google_map_location_embed_src,
+    addresses,
+  } = setting;
 
   return (
     <Box
@@ -39,7 +50,12 @@ export default function Footer(props) {
         }}
       />
 
-      <Container ref={ref}>
+      <Container
+        ref={ref}
+        sx={{
+          paddingX: 0,
+        }}
+      >
         <Grid
           container
           spacing={4}
@@ -63,27 +79,21 @@ export default function Footer(props) {
                 },
               ]}
             >
-              <Typography
-                variant="h5"
+              <RenderHtml
+                data={{
+                  body: company_name,
+                }}
                 sx={{
-                  textTransform: "uppercase",
+                  ["& p"]: {
+                    ...theme.typography.h5,
+                  },
                   marginBottom: 4,
-
                   [theme.breakpoints.up("md")]: {
                     marginBottom: 1,
                   },
                 }}
-              >
-                CÔNG TY TNHH{" "}
-                <Typography
-                  sx={{ color: theme.palette.primary.main }}
-                  variant="span"
-                  component="span"
-                >
-                  MAXHOUSE
-                </Typography>{" "}
-                VIỆT NAM
-              </Typography>
+              />
+
               <Content
                 sx={{
                   marginBottom: 4,
@@ -93,7 +103,7 @@ export default function Footer(props) {
                   },
                 }}
               >
-                Mã số thuế: 123456789
+                Mã số thuế: {tax_identification_number}
               </Content>
 
               <Link
@@ -169,15 +179,10 @@ export default function Footer(props) {
               ]}
             >
               <Title variant={isMdUp ? "h5" : "body_large"}>ĐỊA CHỈ</Title>
-              <Content>Showroom: 100 Nguyễn Xí , P.26, Q. Bình Thạnh, TP.HCM</Content>
-              <Content>
-                Xưởng Sản Xuất 1 : 24/5 Vĩnh Phú 20, KP Trung, Vĩnh Phú, Thuận An, Tỉnh
-                Bình Dương
-              </Content>
-              <Content>
-                Xưởng Sản Xuất 1 : 24/5 Vĩnh Phú 20, KP Trung, Vĩnh Phú, Thuận An, Tỉnh
-                Bình Dương
-              </Content>
+
+              {addresses.map((el, i) => {
+                return <Content key={i}>{el.value}</Content>;
+              })}
             </Box>
           </Grid>
 
@@ -195,30 +200,32 @@ export default function Footer(props) {
           </Grid>
 
           <Grid item md={4}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                filter: isMdUp ? "grayscale(100%)" : null,
-                overflow: "hidden",
-                transition: "all 0.3s",
-                "&:hover": { filter: "none" },
-                width: "100%",
-              }}
-            >
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.491793097612!2d106.6759783149418!3d10.77359516219161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f20cec9ae2f%3A0x34f5254b0cd3660a!2zMTc4IMSQLiBDYW8gVGjhuq9uZywgUGjGsOG7nW5nIDExLCBRdeG6rW4gMTAsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1652693764562!5m2!1svi!2s"
-                style={{
-                  border: 0,
-                  borderRadius: "0.5rem",
+            {google_map_location_embed_src && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  filter: isMdUp ? "grayscale(100%)" : null,
+                  overflow: "hidden",
+                  transition: "all 0.3s",
+                  "&:hover": { filter: "none" },
+                  width: "100%",
                 }}
-                allowFullScreen={true}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                width={width > 0 ? width : undefined}
-                height={isMdUp ? 250 : 200}
-              />
-            </Box>
+              >
+                <iframe
+                  src={google_map_location_embed_src}
+                  style={{
+                    border: 0,
+                    borderRadius: "0.5rem",
+                  }}
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  width={width > 0 ? width : undefined}
+                  height={isMdUp ? 250 : 200}
+                />
+              </Box>
+            )}
           </Grid>
 
           <Grid
@@ -258,28 +265,49 @@ export default function Footer(props) {
 
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="center" spacing={2}>
-              <Link noLinkStyle={true} href="https://youtube.com" target="_blank">
-                <FacebookOutlinedIcon
-                  fontSize="large"
-                  sx={{
-                    color: theme.palette.primary.main,
-                    [theme.breakpoints.up("md")]: {
-                      color: theme.palette.common.black,
-                      ["&:hover"]: {
-                        color: theme.palette.primary.main,
-                      },
+              {social_links.map((el, i) => {
+                const sharedStyle = {
+                  color: theme.palette.primary.main,
+                  [theme.breakpoints.up("md")]: {
+                    color: theme.palette.common.black,
+                    ["&:hover"]: {
+                      color: theme.palette.primary.main,
                     },
-                  }}
-                />
-              </Link>
+                  },
+                };
 
-              <Link noLinkStyle={true} href="https://youtube.com" target="_blank">
-                <YouTubeIcon fontSize="large" />
-              </Link>
+                const { value } = el;
 
-              <Link noLinkStyle={true} href="https://youtube.com" target="_blank">
-                <PinterestIcon fontSize="large" />
-              </Link>
+                if (i === 0) {
+                  return (
+                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
+                      <FacebookOutlinedIcon fontSize="large" sx={sharedStyle} />
+                    </Link>
+                  );
+                } else if (i === 1) {
+                  return (
+                    <Link
+                      noLinkStyle={true}
+                      href="https://youtube.com"
+                      target="_blank"
+                      key={i}
+                    >
+                      <YouTubeIcon fontSize="large" sx={sharedStyle} />
+                    </Link>
+                  );
+                } else if (i === 2) {
+                  return (
+                    <Link
+                      noLinkStyle={true}
+                      href="https://youtube.com"
+                      target="_blank"
+                      key={i}
+                    >
+                      <PinterestIcon fontSize="large" sx={sharedStyle} />
+                    </Link>
+                  );
+                }
+              })}
             </Stack>
 
             <Box
@@ -305,7 +333,6 @@ const Title = styled(Typography)(({ theme }) => {
   return {
     textTransform: "uppercase",
     marginBottom: 24,
-
     [theme.breakpoints.up("md")]: {
       color: theme.palette.common.black,
       marginBottom: 8,

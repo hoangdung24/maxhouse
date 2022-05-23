@@ -1,20 +1,17 @@
 import { format, parseISO } from "date-fns";
 import { useState, useEffect, Fragment } from "react";
+import { Box, Stack, Typography } from "@mui/material";
 import { useMeasure, useWindowSize, useUpdateEffect } from "react-use";
-import { Box, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 
-import { Image } from "../../../components";
-import SliderThumbnail from "./SliderThumbnail";
+import Image from "../Image";
+import SliderThumbnailInListingPage from "../Slider/SliderThumbnailInListingPage";
+
+import { useMedia } from "../../hooks";
 
 const CardItem = ({ ...props }) => {
   const { thumbnails, title, subtitle, meta, selectedPostHandler } = props;
   const { width: windowWidth, height: windowHeight } = useWindowSize();
-
-  const theme = useTheme();
-  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
-  const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
-
-  // console.log(props);
+  const { isMdUp, isSmUp } = useMedia();
 
   const [ref, { width, height }] = useMeasure();
 
@@ -74,7 +71,7 @@ const CardItem = ({ ...props }) => {
             }}
           >
             {isLoading && (
-              <SliderThumbnail>
+              <SliderThumbnailInListingPage>
                 {thumbnails.map((el, i) => {
                   return (
                     <Fragment key={i}>
@@ -87,7 +84,7 @@ const CardItem = ({ ...props }) => {
                     </Fragment>
                   );
                 })}
-              </SliderThumbnail>
+              </SliderThumbnailInListingPage>
             )}
           </Box>
           <Box
@@ -95,17 +92,9 @@ const CardItem = ({ ...props }) => {
               marginTop: 1,
               cursor: "pointer",
             }}
-            onClick={selectedPostHandler(props)}
+            onClick={selectedPostHandler(props, isMdUp)}
           >
-            <Typography
-              sx={{
-                fontSize: "1.2rem",
-                lineHeight: "1.778rem",
-                fontWeight: "500",
-              }}
-            >
-              {title}
-            </Typography>
+            <Typography variant="title">{title}</Typography>
 
             <Stack direction="row" justifyContent="space-between" alignItems={"center"}>
               <Typography variant="body_small">{subtitle}</Typography>

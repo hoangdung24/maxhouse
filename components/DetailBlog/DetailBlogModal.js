@@ -5,18 +5,19 @@ import {
   DialogContent as MuiDialogContent,
   styled,
   useTheme,
-  useMediaQuery,
 } from "@mui/material";
 
-import { Container } from "../../../components";
+import { useMedia } from "../../hooks";
 
-import DesignDetailRendering from "./DesignDetailRendering";
+import Container from "../Container";
+import DetailBlog from "./DetailBlog";
 
 const PortfolioDetailDialog = ({ open, toggle, selectedPost, setParams }) => {
   const theme = useTheme();
-  const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
 
-  const closeHandler = useCallback(({ data }) => {
+  const { isSmUp } = useMedia();
+
+  const closeHandler = useCallback((e) => {
     setParams({
       id: null,
     });
@@ -44,7 +45,7 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, setParams }) => {
     >
       <DialogContent>
         <Container>
-          <DesignDetailRendering
+          <DetailBlog
             {...{
               data: selectedPost,
               closeHandler,

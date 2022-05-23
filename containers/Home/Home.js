@@ -1,14 +1,10 @@
 import { useMemo, Fragment } from "react";
 import Slider from "react-slick";
-import {
-  Button,
-  Typography,
-  Box,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Button, Typography, Box, useTheme } from "@mui/material";
 
 import { Image } from "../../components";
+
+import { useMedia } from "../../hooks";
 
 const settings = {
   arrows: false,
@@ -21,8 +17,9 @@ const settings = {
 };
 
 export default function Home({ initData }) {
+  const { isMdUp } = useMedia();
+
   const theme = useTheme();
-  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
 
   const { items } = initData?.[0];
   const data = items?.[0];

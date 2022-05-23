@@ -1,24 +1,18 @@
 import { Fragment } from "react";
 import { useRouter } from "next/router";
-import DOMPurify from "isomorphic-dompurify";
 
-import {
-  Box,
-  Typography,
-  Stack,
-  IconButton,
-  useTheme,
-  useMediaQuery,
-  Grid,
-} from "@mui/material";
+import { Box, Typography, Stack, IconButton, Grid } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
 
+import { useMedia } from "../../hooks";
+
+import RenderHTML from "../RenderHTML";
+
 const DesignDetail = ({ data, closeHandler = () => {} }) => {
-  const theme = useTheme();
-  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
   const router = useRouter();
-  const { title, body, subtitle, text_alignment, youtube_link } = data;
+  const { isMdUp } = useMedia();
+  const { title, subtitle, youtube_link } = data;
 
   return (
     <Fragment>
@@ -39,27 +33,7 @@ const DesignDetail = ({ data, closeHandler = () => {} }) => {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={youtube_link ? 9 : 12}>
-          <Box
-            sx={{
-              textAlign: text_alignment,
-              wordWrap: "break-word",
-              overflow: "hidden",
-              ["& ol"]: {
-                marginLeft: "1rem",
-              },
-              ["& ul"]: {
-                marginLeft: "1.25rem",
-              },
-              ["& img"]: {
-                width: "100%",
-                height: "auto",
-                objectFit: "contain",
-              },
-            }}
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(body),
-            }}
-          ></Box>
+          <RenderHTML data={data} />
         </Grid>
 
         {youtube_link && (

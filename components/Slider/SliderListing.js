@@ -1,7 +1,7 @@
 import Slider from "react-slick";
 import { Box } from "@mui/material";
 
-const settings = {
+const setting1 = {
   infinite: true,
   speed: 500,
   slidesToShow: 4,
@@ -20,7 +20,26 @@ const settings = {
   ],
 };
 
-const SliderWrapper = ({ children, ...props }) => {
+const setting2 = {
+  infinite: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  dots: true,
+  responsive: [
+    {
+      breakpoint: 900,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+  ],
+};
+
+const SliderWrapper = ({ children, type = 1, ...props }) => {
+  let setting = type === 1 ? setting1 : setting2;
+
   return (
     <Box
       sx={{
@@ -29,7 +48,7 @@ const SliderWrapper = ({ children, ...props }) => {
         },
       }}
     >
-      <Slider {...settings} {...props}>
+      <Slider {...props} {...setting}>
         {children}
       </Slider>
     </Box>

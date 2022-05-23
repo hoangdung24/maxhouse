@@ -6,6 +6,9 @@ module.exports = async (phase, { defaultConfig }) => {
     images: {
       // domains: ["example.com", "example2.com"],
     },
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
   };
   return nextConfig;
 };
