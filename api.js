@@ -6,6 +6,10 @@ const contacts = "contacts";
 const design_categories = "design-categories";
 const construction_categories = "construction-categories";
 
+// Authorization
+// Authorization: "Api-Key emSrWReh.sdhbfPz0W1eNksmfw6sOddzclP183ZCv"
+export const API_KEY = "Api-Key emSrWReh.sdhbfPz0W1eNksmfw6sOddzclP183ZCv";
+
 const generatePathname = (data) => {
   const arr = [PREFIX, ...data];
   return `${arr.join("/")}/`;
@@ -45,3 +49,4 @@ export const types = {
 export const SETTINGS = generatePathname([settings]);
 export const PAGES = generatePathname([pages]);
 export const DESIGN_CATEGORIES = generatePathname([design_categories]);
+export const CONTACTS = generatePathname([contacts]);

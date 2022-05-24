@@ -11,6 +11,7 @@ export default function PageHome(props) {
 export async function getServerSideProps({ params, query }) {
   try {
     const urls = [transformUrl(PAGES, { type: types.homePage, fields: "*" })];
+
     const { resList, fallback } = await prefetchData(urls);
 
     return {
@@ -20,7 +21,10 @@ export async function getServerSideProps({ params, query }) {
       },
     };
   } catch (err) {
-    console.log("🚀 ~ file: index.js ~ line 23 ~ getServerSideProps ~ err", err);
+    console.log(
+      "🚀 ~ file: index.js ~ line 23 ~ getServerSideProps ~ err",
+      err
+    );
 
     return {
       redirect: {

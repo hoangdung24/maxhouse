@@ -72,7 +72,10 @@ const Header = ({ children }) => {
     <React.Fragment>
       <AppBar position="static" sx={scroll > 150 ? navCSS4 : navCSS2}>
         <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ gap: "60px", justifyContent: "center" }}>
+          <Toolbar
+            disableGutters
+            sx={{ gap: "60px", justifyContent: "center" }}
+          >
             {/*  Header */}
             <Link href="/">
               <Image src="/img/Logo.png" width="70%" height="70%"></Image>
@@ -80,7 +83,7 @@ const Header = ({ children }) => {
 
             <Box sx={{ display: "flex", gap: "60px", width: "48%" }}>
               {pages2.map((page, index) => (
-                <Link key={index} href={page.link}>
+                <Link key={index} href={page.link} passHref>
                   <Button
                     onClick={handleCloseNavMenu}
                     sx={{

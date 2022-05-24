@@ -15,6 +15,7 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 
 import Image from "../Image";
 import Link from "../Link";
+import GoogleMap from "../../containers/GoogleMap/GoogleMap";
 
 export default function Footer(props) {
   const theme = useTheme();
@@ -95,7 +96,11 @@ export default function Footer(props) {
                 display: isMdUp ? "block" : "none",
               }}
             >
-              <Image src="/img/download (4) 1.png" width={"10rem"} height="4rem" />
+              <Image
+                src="/img/download (4) 1.png"
+                width={"10rem"}
+                height="4rem"
+              />
             </Box>
           </Box>
         </Grid>
@@ -154,14 +159,16 @@ export default function Footer(props) {
             ]}
           >
             <Title variant={isMdUp ? "h5" : "body_large"}>ĐỊA CHỈ</Title>
-            <Content>Showroom: 100 Nguyễn Xí , P.26, Q. Bình Thạnh, TP.HCM</Content>
             <Content>
-              Xưởng Sản Xuất 1 : 24/5 Vĩnh Phú 20, KP Trung, Vĩnh Phú, Thuận An, Tỉnh Bình
-              Dương
+              Showroom: 100 Nguyễn Xí , P.26, Q. Bình Thạnh, TP.HCM
             </Content>
             <Content>
-              Xưởng Sản Xuất 1 : 24/5 Vĩnh Phú 20, KP Trung, Vĩnh Phú, Thuận An, Tỉnh Bình
-              Dương
+              Xưởng Sản Xuất 1 : 24/5 Vĩnh Phú 20, KP Trung, Vĩnh Phú, Thuận An,
+              Tỉnh Bình Dương
+            </Content>
+            <Content>
+              Xưởng Sản Xuất 1 : 24/5 Vĩnh Phú 20, KP Trung, Vĩnh Phú, Thuận An,
+              Tỉnh Bình Dương
             </Content>
           </Box>
         </Grid>
@@ -192,14 +199,14 @@ export default function Footer(props) {
               width: "100%",
             }}
           >
-            {/* <Box
+            <Box
               sx={{
                 width: isMdUp ? "300px" : "100%",
                 borderRadius: "0.5rem",
                 overflow: "hidden",
               }}
             >
-              <iframe
+              {/* <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.491793097612!2d106.6759783149418!3d10.77359516219161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f20cec9ae2f%3A0x34f5254b0cd3660a!2zMTc4IMSQLiBDYW8gVGjhuq9uZywgUGjGsOG7nW5nIDExLCBRdeG6rW4gMTAsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1652693764562!5m2!1svi!2s"
                 width="100%"
                 height="100%"
@@ -210,8 +217,9 @@ export default function Footer(props) {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-              />
-            </Box> */}
+              /> */}
+              {/* <GoogleMap /> */}
+            </Box>
           </Box>
         </Grid>
 
@@ -264,7 +272,11 @@ export default function Footer(props) {
               },
             }}
           >
-            <Image src="/img/download (4) 1.png" width={"10rem"} height="4rem" />
+            <Image
+              src="/img/download (4) 1.png"
+              width={"10rem"}
+              height="4rem"
+            />
           </Box>
         </Grid>
       </Grid>

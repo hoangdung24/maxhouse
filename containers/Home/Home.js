@@ -26,6 +26,7 @@ export default function Home({ initData }) {
 
   const { items } = initData?.[0];
   const data = items?.[0];
+  console.log("first", items);
 
   const renderCarousel = useMemo(() => {
     if (!data?.banners) {
