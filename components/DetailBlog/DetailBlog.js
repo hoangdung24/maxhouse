@@ -23,7 +23,11 @@ const DesignDetail = ({ data, closeHandler = () => {} }) => {
 
   return (
     <Fragment>
-      <Stack direction="row" justifyContent={"space-between"} alignItems="center">
+      <Stack
+        direction="row"
+        justifyContent={"space-between"}
+        alignItems="center"
+      >
         <Typography variant="h1" sx={[{ marginBottom: 4 }]}>
           {title}
         </Typography>

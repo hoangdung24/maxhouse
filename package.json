@@ -44,12 +44,8 @@
     "react-dom": "^17.0.2",
     "react-dropzone": "^14.2.0",
     "react-error-boundary": "^3.1.4",
-<<<<<<< HEAD
-    "react-hook-form": "^7.31.2",
-=======
     "react-hook-form": "^7.30.0",
     "react-intl": "^6.0.2",
->>>>>>> 2862ba5fe358d60efe8e8d6cd2df0cc119ec3635
     "react-number-format": "^4.9.3",
     "react-slick": "^0.29.0",
     "react-use": "^17.3.2",

@@ -16,13 +16,9 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
 import Link from "../Link";
-<<<<<<< HEAD
-import GoogleMap from "../../containers/GoogleMap/GoogleMap";
-=======
 import Image from "../Image";
 import Container from "../Container";
 import RenderHtml from "../RenderHTML";
->>>>>>> 2862ba5fe358d60efe8e8d6cd2df0cc119ec3635
 
 import { useSetting, useMedia } from "../../hooks";
 
@@ -173,19 +169,11 @@ export default function Footer({}) {
                 },
               ]}
             >
-<<<<<<< HEAD
-              <Image
-                src="/img/download (4) 1.png"
-                width={"10rem"}
-                height="4rem"
-              />
-=======
               <Title variant={isMdUp ? "h5" : "body_large"}>
                 {messages["tax_identification_number"][0]["value"]}
               </Title>
               <Content>Thanh toán</Content>
               <Content>Sử dụng</Content>
->>>>>>> 2862ba5fe358d60efe8e8d6cd2df0cc119ec3635
             </Box>
           </Grid>
 
@@ -229,25 +217,8 @@ export default function Footer({}) {
               },
             }}
           >
-<<<<<<< HEAD
-            <Title variant={isMdUp ? "h5" : "body_large"}>ĐỊA CHỈ</Title>
-            <Content>
-              Showroom: 100 Nguyễn Xí , P.26, Q. Bình Thạnh, TP.HCM
-            </Content>
-            <Content>
-              Xưởng Sản Xuất 1 : 24/5 Vĩnh Phú 20, KP Trung, Vĩnh Phú, Thuận An,
-              Tỉnh Bình Dương
-            </Content>
-            <Content>
-              Xưởng Sản Xuất 1 : 24/5 Vĩnh Phú 20, KP Trung, Vĩnh Phú, Thuận An,
-              Tỉnh Bình Dương
-            </Content>
-          </Box>
-        </Grid>
-=======
             <Divider />
           </Grid>
->>>>>>> 2862ba5fe358d60efe8e8d6cd2df0cc119ec3635
 
           <Grid item md={4}>
             {google_map_location_embed_src && (
@@ -294,31 +265,12 @@ export default function Footer({}) {
                 position: "relative",
               }}
             >
-<<<<<<< HEAD
-              {/* <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.491793097612!2d106.6759783149418!3d10.77359516219161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f20cec9ae2f%3A0x34f5254b0cd3660a!2zMTc4IMSQLiBDYW8gVGjhuq9uZywgUGjGsOG7nW5nIDExLCBRdeG6rW4gMTAsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1652693764562!5m2!1svi!2s"
-                width="100%"
-                height="100%"
-                style={{
-                  border: 0,
-                  borderRadius: "0.5rem",
-                }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              /> */}
-              {/* <GoogleMap /> */}
-            </Box>
-          </Box>
-        </Grid>
-=======
               <Box
                 sx={{
                   position: "absolute",
                   width: "calc(100% + 64px)",
                   height: 1,
                   background: theme.palette.common.neutral3,
->>>>>>> 2862ba5fe358d60efe8e8d6cd2df0cc119ec3635
 
                   left: -32,
                 }}
@@ -349,7 +301,12 @@ export default function Footer({}) {
 
                 if (i === 0) {
                   return (
-                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
+                    <Link
+                      noLinkStyle={true}
+                      href={value.link}
+                      target="_blank"
+                      key={i}
+                    >
                       <FacebookOutlinedIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );
@@ -379,24 +336,6 @@ export default function Footer({}) {
               })}
             </Stack>
 
-<<<<<<< HEAD
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: 3,
-              [theme.breakpoints.up("md")]: {
-                display: "none",
-              },
-            }}
-          >
-            <Image
-              src="/img/download (4) 1.png"
-              width={"10rem"}
-              height="4rem"
-            />
-          </Box>
-=======
             {/* <Box
               sx={{
                 display: "flex",
@@ -410,7 +349,6 @@ export default function Footer({}) {
               <Image src="/img/download (4) 1.png" width={"10rem"} height="4rem" />
             </Box> */}
           </Grid>
->>>>>>> 2862ba5fe358d60efe8e8d6cd2df0cc119ec3635
         </Grid>
       </Container>
     </Box>

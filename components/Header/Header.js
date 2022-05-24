@@ -1,7 +1,15 @@
 import { useWindowScroll, useToggle } from "react-use";
 import { useIntl, FormattedMessage } from "react-intl";
 import { useEffect, useState, Fragment, useMemo } from "react";
-import { AppBar, Box, Typography, Button, useTheme, Stack, Slide } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Typography,
+  Button,
+  useTheme,
+  Stack,
+  Slide,
+} from "@mui/material";
 
 import Link from "../Link";
 import Image from "../Image";
@@ -45,17 +53,6 @@ const Header = ({}) => {
 
     const { logo_1 } = setting;
 
-<<<<<<< HEAD
-  return (
-    <React.Fragment>
-      <AppBar position="static" sx={scroll > 150 ? navCSS4 : navCSS2}>
-        <Container maxWidth="xl">
-          <Toolbar
-            disableGutters
-            sx={{ gap: "60px", justifyContent: "center" }}
-          >
-            {/*  Header */}
-=======
     return (
       <Container
         maxWidth="md"
@@ -65,7 +62,6 @@ const Header = ({}) => {
       >
         <Stack direction={"row"} justifyContent="space-between">
           <Box>
->>>>>>> 2862ba5fe358d60efe8e8d6cd2df0cc119ec3635
             <Link href="/">
               <Image src={logo_1} width="100px" height="75px" />
             </Link>
@@ -93,21 +89,6 @@ const Header = ({}) => {
     );
   }, [NAVBAR, setting]);
 
-<<<<<<< HEAD
-            <Box sx={{ display: "flex", gap: "60px", width: "48%" }}>
-              {pages2.map((page, index) => (
-                <Link key={index} href={page.link} passHref>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      color: theme.palette.common.black,
-                      display: "block",
-                    }}
-                  >
-                    <Typography variant="body_large" sx={{ fontSize: "17px" }}>
-                      {page.name}
-=======
   const staticNav = useMemo(() => {
     if (y < 200) {
       return (
@@ -217,7 +198,6 @@ const Header = ({}) => {
                       }}
                     >
                       {messages[`navbar.${el.key}`][0].value}
->>>>>>> 2862ba5fe358d60efe8e8d6cd2df0cc119ec3635
                     </Typography>
                   </Link>
                 );
