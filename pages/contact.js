@@ -4,14 +4,6 @@ import { transformUrl, prefetchData } from "../libs";
 
 import Contact from "../containers/Contact/Contact";
 
-// const PageContact = React.forwardRef((props) {
-//   return(<Contact {...props} />)
-// });
-
-// const PageContact = React.forwardRef((props, ref) => {
-//   return <Contact {...props}  />;
-// });
-
 export default function PageContact(props) {
   return <Contact {...props} />;
 }
