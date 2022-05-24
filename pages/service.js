@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
-import Service from "../containers/Service/Service";
+// import React, { useEffect } from "react";
+// import Service from "../containers/Service/Service";
 
 export default function service() {
-  return <Service />;
+  return null;
+
+  // return <Service />;
 }

@@ -1,10 +1,29 @@
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
+import { useRouter } from "next/router";
+
 import { Box } from "@mui/material";
 
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import Container from "../Container";
 
-const Layout = ({ children }) => {
+import { SETTINGS } from "../../api";
+
+const FABContact = dynamic(() => import("../FAB/FABContact"), {
+  ssr: false,
+});
+
+const Layout = ({ fallback, children }) => {
+  const router = useRouter();
+
+  const FooterMemo = useMemo(() => {
+    if (router.pathname === "/") {
+      return null;
+    }
+
+    return <Footer />;
+  }, [router.pathname]);
+
   return (
     <Box
       sx={{
@@ -12,11 +31,10 @@ const Layout = ({ children }) => {
         minHeight: "100vh",
       }}
     >
-      {/* <Header /> */}
+      <Header />
       {children}
-      <Container>
-        <Footer />
-      </Container>
+      {FooterMemo}
+      <FABContact />
     </Box>
   );
 };

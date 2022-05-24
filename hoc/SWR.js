@@ -2,7 +2,7 @@ import { SWRConfig } from "swr";
 
 import axios from "../axios.config";
 
-const SWR = ({ children, fallback }) => {
+const SWR = ({ children, fallback = {} }) => {
   return (
     <SWRConfig
       value={{
@@ -14,7 +14,7 @@ const SWR = ({ children, fallback }) => {
         onError: (err) => {
           console.log("🚀 ~ file: SWR.js ~ line 15 ~ SWR ~ err", err);
         },
-        fallback: fallback || {},
+        fallback,
       }}
     >
       {children}

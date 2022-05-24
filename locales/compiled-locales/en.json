@@ -1,0 +1,62 @@
+{
+  "address": [
+    {
+      "type": 0,
+      "value": "Address"
+    }
+  ],
+  "navbar.construction": [
+    {
+      "type": 0,
+      "value": "Construction"
+    }
+  ],
+  "navbar.contact": [
+    {
+      "type": 0,
+      "value": "Contact"
+    }
+  ],
+  "navbar.design": [
+    {
+      "type": 0,
+      "value": "Design"
+    }
+  ],
+  "navbar.news": [
+    {
+      "type": 0,
+      "value": "News"
+    }
+  ],
+  "navbar.service": [
+    {
+      "type": 0,
+      "value": "Service"
+    }
+  ],
+  "page.operation": [
+    {
+      "type": 0,
+      "value": "Operation Policy"
+    }
+  ],
+  "page.payment": [
+    {
+      "type": 0,
+      "value": "Payment Policy"
+    }
+  ],
+  "policy": [
+    {
+      "type": 0,
+      "value": "Policy"
+    }
+  ],
+  "tax_identification_number": [
+    {
+      "type": 0,
+      "value": "Tax Identification Number"
+    }
+  ]
+}

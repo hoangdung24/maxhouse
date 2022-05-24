@@ -1,6 +1,6 @@
 import { createTheme, ThemeProvider, alpha } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
-
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 const fontFamily = [
   "Oswald",
   "-apple-system",
@@ -72,6 +72,11 @@ const defaultTheme = createTheme({
       lineHeight: "1.029rem",
       fontWeight: 600,
     },
+    title: {
+      fontWeight: 500,
+      fontSize: "1.2rem",
+      lineHeight: "1.75rem",
+    },
     button: {
       fontSize: "0.875rem",
     },
@@ -117,19 +122,17 @@ const theme = createTheme({
             defaultTheme.palette.action.focusOpacity
           ),
         },
-
         outlined: {
           "&:hover": {
             color: defaultTheme.palette.common.white,
             backgroundColor: defaultTheme.palette.primary.main,
           },
         },
-
         text: {
           transition: `color ${defaultTheme.transitions.duration.standard}ms ${defaultTheme.transitions.easing.easeOut}`,
           "&:hover": {
             backgroundColor: "unset",
-            color: defaultTheme.palette.primary.dark,
+            color: defaultTheme.palette.primary.main,
           },
         },
       },
@@ -241,6 +244,59 @@ const theme = createTheme({
             },
           },
           transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
+        },
+      },
+    },
+
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          color: defaultTheme.palette.common.black,
+          "& .MuiTabs-flexContainer": { justifyContent: "center" },
+        },
+      },
+    },
+
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: defaultTheme.palette.common.black,
+          transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
+          ...defaultTheme.typography.body_large,
+          padding: "8px 12px",
+          minHeight: "unset",
+          [defaultTheme.breakpoints.up("md")]: {
+            ...defaultTheme.typography.h6,
+          },
+        },
+      },
+    },
+    MuiPaginationItem: {
+      styleOverrides: {
+        root: {
+          border: `2px solid ${defaultTheme.palette.primary.main}`,
+          transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
+          ["&.Mui-disabled"]: {
+            borderColor: "transparent",
+          },
+          ["&.Mui-disabled .MuiSvgIcon-root"]: {
+            color: defaultTheme.palette.common.neutral2,
+          },
+        },
+      },
+      defaultProps: {
+        components: {
+          next: ArrowRightAltIcon,
+          previous: (props) => {
+            return (
+              <ArrowRightAltIcon
+                {...props}
+                sx={{
+                  transform: "rotate(180deg)",
+                }}
+              />
+            );
+          },
         },
       },
     },

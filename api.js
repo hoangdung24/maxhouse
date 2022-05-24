@@ -12,7 +12,7 @@ export const API_KEY = "Api-Key emSrWReh.sdhbfPz0W1eNksmfw6sOddzclP183ZCv";
 
 const generatePathname = (data) => {
   const arr = [PREFIX, ...data];
-  return `${arr.join("/")}/`;
+  return `${arr.join("/")}`;
 };
 
 // /api/v2/settings/ Đây là endpoint trả về settings chung cho frontend.
@@ -35,8 +35,8 @@ export const types = {
   contactPage: "contact.ContactPage",
   newsListingPage: "news.NewsListingPage",
   newsDetailPage: "news.NewsDetailPage",
-  operationPolicy: "policy.OperationPolicy",
-  paymentPolicy: "policy.PaymentPolicy",
+  operationPolicy: "policy.OperationPolicyPage",
+  paymentPolicy: "policy.PaymentPolicyPage",
   servicePage: "service.ServicePage",
 };
 
