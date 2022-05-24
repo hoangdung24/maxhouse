@@ -13,7 +13,7 @@ const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...prop
     return `${src}?w=${width}&q=${quality || 75}`;
   };
 
-  if (src === null) {
+  if (!src) {
     return null;
   }
 

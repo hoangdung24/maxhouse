@@ -1,105 +1,206 @@
-import React, { useEffect, useState } from "react";
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  Typography,
-  Container,
-  Button,
-  useTheme,
-} from "@mui/material";
-import { keyframes } from "@emotion/react";
-import Link from "next/link";
-import { useWindowScroll } from "react-use";
-import Image from "next/image";
+import { useWindowScroll, useToggle } from "react-use";
+import { useIntl, FormattedMessage } from "react-intl";
+import { useEffect, useState, Fragment, useMemo } from "react";
+import { AppBar, Box, Typography, Button, useTheme, Stack, Slide } from "@mui/material";
 
-const pages2 = [
-  { name: "THIẾT KẾ", link: "/design" },
-  { name: "SẢN PHẨM", link: "/product" },
-  { name: "DỊCH VỤ", link: "/service" },
-  { name: "TIN TỨC", link: "/news" },
-  { name: "LIÊN HỆ", link: "/contact" },
-];
-// const settings = ["Profile", "Account", "Dashboard", "Logout"];
-const fadeIn = keyframes({
-  "0%": { top: "-50%" },
+import Link from "../Link";
+import Image from "../Image";
+import Container from "../Container";
+import HamburgerIcon from "../HamburgerIcon";
+import ModalMenu from "./ModalMenu";
 
-  "100%": { top: 0 },
-});
+import { useMedia, useSetting } from "../../hooks";
 
-const Header = ({ children }) => {
+import { NAVBAR } from "../../constants";
+
+const Header = ({}) => {
   const theme = useTheme();
-  const [scroll, setScroll] = useState();
+  const setting = useSetting();
+  const { messages } = useIntl();
 
-  const [navCSS2, setNavCSSS2] = useState({
-    zIndex: 5,
-    position: "absolute",
-    background: "none",
-    borderBottom: "none",
-    boxShadow: "none",
-    py: "15px",
-  });
+  const [isToggle, setIsToggle] = useToggle(false);
 
-  const [navCSS4, setNavCSSS3] = useState({
-    zIndex: 5,
-    backgroundColor: "white",
-    position: "fixed",
-    transition: "ease-in 2s",
-    borderBottom: "1px solid #e6e8ec",
-    boxShadow: " 0px 4px 5px rgba(0, 0, 0, 0.15)",
-    py: "15px",
-    animation: `${fadeIn}`,
-    animationDuration: "2s",
-  });
-  const { x, y } = useWindowScroll(() => {
-    console.log("hello");
-  });
+  const { isMdUp } = useMedia();
+  const { y } = useWindowScroll();
+  const [animationState, setAnimationState] = useState(false);
+
   useEffect(() => {
-    setScroll(y);
-  });
+    if (y > 500) {
+      setAnimationState(true);
+    } else {
+      setAnimationState(false);
+    }
+  }, [y]);
 
-  const [anchorElNav, setAnchorElNav] = useState(null);
+  useEffect(() => {
+    if (isMdUp) {
+      setIsToggle(false);
+    }
+  }, [isMdUp]);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  const Navbar = useMemo(() => {
+    if (!setting) {
+      return null;
+    }
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+    const { logo_1 } = setting;
 
-  return (
-    <React.Fragment>
-      <AppBar position="static" sx={scroll > 150 ? navCSS4 : navCSS2}>
-        <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ gap: "60px", justifyContent: "center" }}>
-            {/*  Header */}
+    return (
+      <Container
+        maxWidth="md"
+        sx={{
+          paddingX: "0 !important",
+        }}
+      >
+        <Stack direction={"row"} justifyContent="space-between">
+          <Box>
             <Link href="/">
-              <Image src="/img/Logo.png" width="70%" height="70%"></Image>
+              <Image src={logo_1} width="100px" height="75px" />
             </Link>
+          </Box>
 
-            <Box sx={{ display: "flex", gap: "60px", width: "48%" }}>
-              {pages2.map((page, index) => (
-                <Link key={index} href={page.link}>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      color: theme.palette.common.black,
-                      display: "block",
-                    }}
-                  >
-                    <Typography variant="body_large" sx={{ fontSize: "17px" }}>
-                      {page.name}
+          <Box sx={{ display: "flex", gap: "60px" }}>
+            {NAVBAR.map((el, index) => (
+              <Link key={index} href={el.link}>
+                <Button
+                  sx={{
+                    my: 2,
+                    color: theme.palette.common.black,
+                    display: "block",
+                  }}
+                >
+                  <Typography variant="title">
+                    {messages[`navbar.${el.key}`][0].value}
+                  </Typography>
+                </Button>
+              </Link>
+            ))}
+          </Box>
+        </Stack>
+      </Container>
+    );
+  }, [NAVBAR, setting]);
+
+  const staticNav = useMemo(() => {
+    if (y < 200) {
+      return (
+        <AppBar
+          sx={{
+            position: "absolute",
+            backgroundColor: "transparent",
+            paddingY: 2,
+          }}
+          elevation={0}
+        >
+          {Navbar}
+        </AppBar>
+      );
+    }
+    return null;
+  }, [y]);
+
+  const NavbarMemo = useMemo(() => {
+    if (isMdUp) {
+      return (
+        <Fragment>
+          <Slide
+            in={animationState}
+            direction="down"
+            mountOnEnter
+            unmountOnExit
+            timeout={{
+              enter: 300,
+              exit: 150,
+            }}
+          >
+            <AppBar
+              sx={{
+                position: "fixed",
+                backgroundColor: theme.palette.common.white,
+                paddingY: 2,
+              }}
+            >
+              {Navbar}
+            </AppBar>
+          </Slide>
+          {staticNav}
+        </Fragment>
+      );
+    } else {
+      const TopNav = (
+        <Stack
+          direction={"row"}
+          paddingY={3}
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Box>
+            <Link href="/">
+              <Image src="/img/Logo.png" width="60px" height="50px" />
+            </Link>
+          </Box>
+          <HamburgerIcon
+            onClick={() => {
+              setIsToggle(!isToggle);
+            }}
+            className={isToggle && "open"}
+          />
+        </Stack>
+      );
+
+      return (
+        <Fragment>
+          <Container>{TopNav}</Container>
+
+          <Slide
+            in={animationState}
+            direction="down"
+            mountOnEnter
+            unmountOnExit
+            timeout={{
+              enter: 300,
+              exit: 150,
+            }}
+          >
+            <AppBar
+              sx={{
+                position: "fixed",
+                backgroundColor: theme.palette.common.white,
+                paddingX: "32px",
+              }}
+            >
+              {TopNav}
+            </AppBar>
+          </Slide>
+
+          <ModalMenu open={isToggle} toggle={setIsToggle}>
+            <Container>
+              {TopNav}
+
+              {NAVBAR.map((el, index) => {
+                return (
+                  <Link key={index} href={el.link}>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        my: 2,
+                      }}
+                      onClick={() => {
+                        setIsToggle(false);
+                      }}
+                    >
+                      {messages[`navbar.${el.key}`][0].value}
                     </Typography>
-                  </Button>
-                </Link>
-              ))}
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </React.Fragment>
-  );
+                  </Link>
+                );
+              })}
+            </Container>
+          </ModalMenu>
+        </Fragment>
+      );
+    }
+  }, [isMdUp, animationState, Navbar, staticNav, isToggle]);
+
+  return NavbarMemo;
 };
 export default Header;

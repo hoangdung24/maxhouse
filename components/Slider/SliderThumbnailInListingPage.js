@@ -1,8 +1,10 @@
 import Slider from "react-slick";
 import { useRef } from "react";
+import { Box } from "@mui/material";
 import { useHoverDirty } from "react-use";
-import { Box, useTheme, useMediaQuery } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+import { useMedia } from "../../hooks";
 
 function CustomPreviousArrow(props) {
   const { className, style, onClick } = props;
@@ -70,9 +72,8 @@ const settings = {
 };
 
 const SliderWrapper = ({ children }) => {
-  const theme = useTheme();
-  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
-  const isSmUp = useMediaQuery(theme.breakpoints.up("sm"));
+  const { isMdUp } = useMedia();
+
   const ref = useRef(null);
   const isHovering = useHoverDirty(ref);
 

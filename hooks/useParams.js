@@ -11,7 +11,7 @@ export const useParams = ({
   callback = () => {},
   excludeKeys = [],
   isUpdateRouter = true,
-}) => {
+} = {}) => {
   const router = useRouter();
   const [isReady, setIsReady] = useState(false);
   const [params, setParams] = useState(initState);

@@ -1,0 +1,62 @@
+{
+  "address": [
+    {
+      "type": 0,
+      "value": "Địa chỉ"
+    }
+  ],
+  "navbar.construction": [
+    {
+      "type": 0,
+      "value": "Công trình"
+    }
+  ],
+  "navbar.contact": [
+    {
+      "type": 0,
+      "value": "Liên hệ"
+    }
+  ],
+  "navbar.design": [
+    {
+      "type": 0,
+      "value": "Thiết kế"
+    }
+  ],
+  "navbar.news": [
+    {
+      "type": 0,
+      "value": "Tin tức"
+    }
+  ],
+  "navbar.service": [
+    {
+      "type": 0,
+      "value": "Dịch vụ"
+    }
+  ],
+  "page.operation": [
+    {
+      "type": 0,
+      "value": "Chính sách hoạt động"
+    }
+  ],
+  "page.payment": [
+    {
+      "type": 0,
+      "value": "Chính sách thanh toán"
+    }
+  ],
+  "policy": [
+    {
+      "type": 0,
+      "value": "Chính sách"
+    }
+  ],
+  "tax_identification_number": [
+    {
+      "type": 0,
+      "value": "Mã số thuế"
+    }
+  ]
+}

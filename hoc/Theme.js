@@ -72,6 +72,11 @@ const defaultTheme = createTheme({
       lineHeight: "1.029rem",
       fontWeight: 600,
     },
+    title: {
+      fontWeight: 500,
+      fontSize: "1.2rem",
+      lineHeight: "1.75rem",
+    },
     button: {
       fontSize: "0.875rem",
     },
@@ -117,19 +122,17 @@ const theme = createTheme({
             defaultTheme.palette.action.focusOpacity
           ),
         },
-
         outlined: {
           "&:hover": {
             color: defaultTheme.palette.common.white,
             backgroundColor: defaultTheme.palette.primary.main,
           },
         },
-
         text: {
           transition: `color ${defaultTheme.transitions.duration.standard}ms ${defaultTheme.transitions.easing.easeOut}`,
           "&:hover": {
             backgroundColor: "unset",
-            color: defaultTheme.palette.primary.dark,
+            color: defaultTheme.palette.primary.main,
           },
         },
       },

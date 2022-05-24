@@ -72,7 +72,7 @@ html {
   z-index: 5;
 }
 
-/* animation */
+/* animation
 @keyframes mouse {
   from {
     top: 5%;
@@ -80,4 +80,4 @@ html {
   to {
     top: 80%;
   }
-}
+} */
