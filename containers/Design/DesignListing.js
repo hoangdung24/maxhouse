@@ -13,7 +13,6 @@ import {
   BannerTop,
   Pagination,
   ListingBlog,
-  SliderListing,
   BackgroundListingPage,
 } from "../../components";
 
@@ -36,9 +35,9 @@ export default function Design({ initData }) {
   const [designCategoryList, designListItem, metadataPage] = initData;
 
   const [animationState, setAnimationState] = useState(true);
-  const [value, setValue] = useState(designCategoryList?.items?.[0]?.id);
+  const [currentTab, setCurrentTab] = useState(designCategoryList?.items?.[0]?.id);
 
-  const [currentPage, setCurrenPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const animationHandler = useCallback(() => {
     setAnimationState(false);
@@ -53,8 +52,8 @@ export default function Design({ initData }) {
   }, []);
 
   const changeTabHandler = useCallback((event, newValue) => {
-    setValue(newValue);
-    setCurrenPage(1);
+    setCurrentTab(newValue);
+    setCurrentPage(1);
     animationHandler();
   }, []);
 
@@ -80,9 +79,13 @@ export default function Design({ initData }) {
     }
 
     return (
-      <Tabs value={value} changeTab={changeTabHandler} data={designCategoryList.items} />
+      <Tabs
+        value={currentTab}
+        changeTab={changeTabHandler}
+        data={designCategoryList.items}
+      />
     );
-  }, [designCategoryList, isSmUp, value]);
+  }, [designCategoryList, isSmUp, currentTab]);
 
   const renderTabPanel = useMemo(() => {
     if (!designListItem) {
@@ -92,29 +95,25 @@ export default function Design({ initData }) {
     // FORMUAL PAGE = (OFFSET / LIMIT) + 1
 
     let filteredData = designListItem.items.filter((el) => {
-      return el.category == value;
+      return el.category == currentTab;
     });
 
     if (isSmUp) {
-      console.log("?");
-
       return designCategoryList.items.map((item, index) => {
         return (
-          <TabPanel key={item.id} value={value} index={item.id}>
+          <TabPanel key={item.id} value={currentTab} index={item.id}>
             <ListingBlog data={filteredData} selectedPostHandler={selectedPostHandler} />
           </TabPanel>
         );
       });
     } else {
-      return null;
-
       const offset = (currentPage - 1) * LIMIT;
 
-      const data = cloneData.slice(offset, offset + LIMIT);
+      const data = filteredData.slice(offset, offset + LIMIT);
 
       return designCategoryList.items.map((item, index) => {
         return (
-          <TabPanel key={item.id} value={value} index={item.id}>
+          <TabPanel key={item.id} value={currentTab} index={item.id}>
             <Fragment>
               {data.map((el, i) => {
                 return (
@@ -127,33 +126,29 @@ export default function Design({ initData }) {
       });
     }
 
-    // [designListItem, designCategoryList, value, isSmUp, currentPage]
-  });
+    //
+  }, [designListItem, designCategoryList, currentTab, isSmUp, currentPage]);
 
   const renderPagination = useMemo(() => {
     if (!designListItem || isSmUp) {
       return null;
     }
 
-    const cloneData = Object.keys([...new Array(24)])
-      .map((el) => {
-        return designListItem.items[0];
-      })
-      .filter((el) => {
-        return el.category == value;
-      });
+    let filteredData = designListItem.items.filter((el) => {
+      return el.category == currentTab;
+    });
 
     return (
       <Pagination
-        data={cloneData}
+        data={filteredData}
         currentPage={currentPage}
         onChange={(_, newPage) => {
-          setCurrenPage(newPage);
+          setCurrentPage(newPage);
           animationHandler();
         }}
       />
     );
-  });
+  }, [designListItem, currentPage, isSmUp, currentTab]);
 
   return (
     <Box>

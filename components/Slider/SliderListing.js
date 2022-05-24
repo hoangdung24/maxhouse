@@ -3,18 +3,18 @@ import { Box } from "@mui/material";
 
 const setting1 = {
   infinite: true,
+  rows: 2,
   speed: 500,
   slidesToShow: 4,
-  rows: 2,
+  slidesToScroll: 4,
   slidesPerRow: 1,
-  slidesToScroll: 8,
   dots: true,
   responsive: [
     {
       breakpoint: 900,
       settings: {
         slidesToShow: 2,
-        slidesToScroll: 4,
+        slidesToScroll: 2,
       },
     },
   ],
@@ -22,9 +22,11 @@ const setting1 = {
 
 const setting2 = {
   infinite: true,
+  rows: 2,
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 4,
+  slidesPerRow: 1,
   dots: true,
   responsive: [
     {

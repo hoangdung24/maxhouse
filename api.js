@@ -31,8 +31,8 @@ export const types = {
   contactPage: "contact.ContactPage",
   newsListingPage: "news.NewsListingPage",
   newsDetailPage: "news.NewsDetailPage",
-  operationPolicy: "policy.OperationPolicy",
-  paymentPolicy: "policy.PaymentPolicy",
+  operationPolicy: "policy.OperationPolicyPage",
+  paymentPolicy: "policy.PaymentPolicyPage",
   servicePage: "service.ServicePage",
 };
 

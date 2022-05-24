@@ -4,12 +4,12 @@ import {
   Box,
   Grid,
   Divider as MuiDivider,
-  useMediaQuery,
   styled,
   Typography,
 } from "@mui/material";
 
 import { useMeasure } from "react-use";
+import { useIntl } from "react-intl";
 
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import PinterestIcon from "@mui/icons-material/Pinterest";
@@ -20,14 +20,20 @@ import Image from "../Image";
 import Container from "../Container";
 import RenderHtml from "../RenderHTML";
 
-import { useSetting } from "../../hooks";
+import { useSetting, useMedia } from "../../hooks";
 
-export default function Footer(props) {
-  const setting = useSetting();
+import { POLICY_ROUTE } from "../../constants";
 
+export default function Footer({}) {
   const theme = useTheme();
+  const setting = useSetting();
+  const { isMdUp } = useMedia();
+  const { messages } = useIntl();
   const [ref, { width }] = useMeasure();
-  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+
+  if (!setting) {
+    return null;
+  }
 
   const {
     company_name,
@@ -103,25 +109,36 @@ export default function Footer(props) {
                   },
                 }}
               >
-                Mã số thuế: {tax_identification_number}
+                {messages["tax_identification_number"][0]["value"]}:{" "}
+                {tax_identification_number}
               </Content>
 
-              <Link
-                href="/"
-                sx={{
-                  display: isMdUp ? "block" : "none",
-                }}
-              >
-                Chính sách quy định
-              </Link>
+              {POLICY_ROUTE.map((el, i) => {
+                return (
+                  <Link
+                    key={i}
+                    href={el.link}
+                    sx={{
+                      display: isMdUp ? "block" : "none",
+                      marginBottom: 4,
 
-              <Box
+                      [theme.breakpoints.up("md")]: {
+                        marginBottom: 1,
+                      },
+                    }}
+                  >
+                    {messages[`${el.key}`][0]["value"]}
+                  </Link>
+                );
+              })}
+
+              {/* <Box
                 sx={{
                   display: isMdUp ? "block" : "none",
                 }}
               >
                 <Image src="/img/download (4) 1.png" width={"10rem"} height="4rem" />
-              </Box>
+              </Box> */}
             </Box>
           </Grid>
 
@@ -152,7 +169,9 @@ export default function Footer(props) {
                 },
               ]}
             >
-              <Title variant={isMdUp ? "h5" : "body_large"}>Chính sách</Title>
+              <Title variant={isMdUp ? "h5" : "body_large"}>
+                {messages["tax_identification_number"][0]["value"]}
+              </Title>
               <Content>Thanh toán</Content>
               <Content>Sử dụng</Content>
             </Box>
@@ -178,7 +197,9 @@ export default function Footer(props) {
                 },
               ]}
             >
-              <Title variant={isMdUp ? "h5" : "body_large"}>ĐỊA CHỈ</Title>
+              <Title variant={isMdUp ? "h5" : "body_large"}>
+                {messages["address"][0]["value"]}
+              </Title>
 
               {addresses.map((el, i) => {
                 return <Content key={i}>{el.value}</Content>;
@@ -310,7 +331,7 @@ export default function Footer(props) {
               })}
             </Stack>
 
-            <Box
+            {/* <Box
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -321,7 +342,7 @@ export default function Footer(props) {
               }}
             >
               <Image src="/img/download (4) 1.png" width={"10rem"} height="4rem" />
-            </Box>
+            </Box> */}
           </Grid>
         </Grid>
       </Container>

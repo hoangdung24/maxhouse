@@ -18,6 +18,7 @@ export { default as CardItem } from "./Card/CardItem";
 export { default as DetailBlog } from "./DetailBlog/DetailBlog";
 export { default as SliderListing } from "./Slider/SliderListing";
 export { default as ListingBlog } from "./ListingBlog/ListingBlog";
+export { default as DetailPolicy } from "./DetailBlog/DetailPolicy";
 export { default as DetailBlogModal } from "./DetailBlog/DetailBlogModal";
 export { default as BackgroundListingPage } from "./BackgroundListingPage";
 export { default as SliderThumbnailInListingPage } from "./Slider/SliderThumbnailInListingPage";

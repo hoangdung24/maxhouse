@@ -1,7 +1,7 @@
 import { Fragment } from "react";
+import YouTube from "react-youtube";
 import { useRouter } from "next/router";
-
-import { Box, Typography, Stack, IconButton, Grid } from "@mui/material";
+import { Typography, Stack, IconButton, Grid } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -13,6 +13,13 @@ const DesignDetail = ({ data, closeHandler = () => {} }) => {
   const router = useRouter();
   const { isMdUp } = useMedia();
   const { title, subtitle, youtube_link } = data;
+
+  let videoId;
+
+  if (youtube_link) {
+    const parsedUrl = new URL(youtube_link);
+    videoId = parsedUrl.pathname.replaceAll("/", "");
+  }
 
   return (
     <Fragment>
@@ -36,15 +43,14 @@ const DesignDetail = ({ data, closeHandler = () => {} }) => {
           <RenderHTML data={data} />
         </Grid>
 
-        {youtube_link && (
+        {videoId && (
           <Grid item xs={12} md={3}>
-            <iframe
-              src={`${youtube_link}`}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="Embedded youtube"
-              width="100%"
+            <YouTube
+              videoId={videoId}
+              opts={{
+                width: "100%",
+                height: "300",
+              }}
             />
           </Grid>
         )}

@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { useMemo } from "react";
 import { useRouter } from "next/router";
 
@@ -5,9 +6,14 @@ import { Box } from "@mui/material";
 
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import FABContact from "../FAB/FABContact";
 
-const Layout = ({ children }) => {
+import { SETTINGS } from "../../api";
+
+const FABContact = dynamic(() => import("../FAB/FABContact"), {
+  ssr: false,
+});
+
+const Layout = ({ fallback, children }) => {
   const router = useRouter();
 
   const FooterMemo = useMemo(() => {

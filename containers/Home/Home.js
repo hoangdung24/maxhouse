@@ -1,5 +1,5 @@
-import { useMemo, Fragment } from "react";
 import Slider from "react-slick";
+import { useMemo, Fragment } from "react";
 import { Button, Typography, Box, useTheme } from "@mui/material";
 
 import { Image } from "../../components";

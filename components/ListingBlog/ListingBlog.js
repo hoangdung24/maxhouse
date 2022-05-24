@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 import CardItem from "../Card/CardItem";
 import SliderListing from "../Slider/SliderListing";
@@ -11,14 +11,20 @@ const ListingBlog = ({ data, selectedPostHandler }) => {
       <Grid container>
         {data.map((el, i) => {
           return (
-            <Grid item md={3} key={i}>
-              <CardItem {...el} selectedPostHandler={selectedPostHandler} />
+            <Grid item sm={6} md={3} key={i}>
+              <Box
+                sx={{
+                  overflow: "hidden",
+                }}
+              >
+                <CardItem {...el} selectedPostHandler={selectedPostHandler} />
+              </Box>
             </Grid>
           );
         })}
       </Grid>
     );
-  } else if (length < 16) {
+  } else if (length < 12) {
     return (
       <SliderListing type={2}>
         {data.map((el, i) => {

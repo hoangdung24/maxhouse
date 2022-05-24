@@ -1,7 +1,7 @@
 import { ErrorBoundary } from "react-error-boundary";
 import { createEmotionCache } from "../libs";
 import { ErrorFallback, Layout } from "../components";
-import { Theme as CustomMuiTheme, Cache as EmotionCache, SWR } from "../hoc";
+import { Theme as CustomMuiTheme, Cache as EmotionCache, SWR, Intl } from "../hoc";
 import { SettingConfig } from "../contexts";
 
 import "../styles/global.css";
@@ -21,17 +21,19 @@ function MyApp(props) {
 
   return (
     <EmotionCache emotionCache={emotionCache}>
-      <CustomMuiTheme>
-        <ErrorBoundary FallbackComponent={ErrorFallback}>
-          <SWR fallback={pageProps?.fallback}>
-            <SettingConfig>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </SettingConfig>
-          </SWR>
-        </ErrorBoundary>
-      </CustomMuiTheme>
+      <Intl>
+        <CustomMuiTheme>
+          <ErrorBoundary FallbackComponent={ErrorFallback}>
+            <SWR fallback={pageProps?.fallback}>
+              <SettingConfig>
+                <Layout fallback={pageProps?.fallback}>
+                  <Component {...pageProps} />
+                </Layout>
+              </SettingConfig>
+            </SWR>
+          </ErrorBoundary>
+        </CustomMuiTheme>
+      </Intl>
     </EmotionCache>
   );
 }

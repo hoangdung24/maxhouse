@@ -1,7 +1,7 @@
+import { useWindowScroll, useToggle } from "react-use";
+import { useIntl, FormattedMessage } from "react-intl";
 import { useEffect, useState, Fragment, useMemo } from "react";
 import { AppBar, Box, Typography, Button, useTheme, Stack, Slide } from "@mui/material";
-
-import { useWindowScroll, useToggle } from "react-use";
 
 import Link from "../Link";
 import Image from "../Image";
@@ -13,16 +13,16 @@ import { useMedia, useSetting } from "../../hooks";
 
 import { NAVBAR } from "../../constants";
 
-const Header = () => {
+const Header = ({}) => {
   const theme = useTheme();
   const setting = useSetting();
+  const { messages } = useIntl();
+
   const [isToggle, setIsToggle] = useToggle(false);
 
-  const { y } = useWindowScroll();
   const { isMdUp } = useMedia();
+  const { y } = useWindowScroll();
   const [animationState, setAnimationState] = useState(false);
-
-  const { logo_1 } = setting;
 
   useEffect(() => {
     if (y > 500) {
@@ -39,6 +39,12 @@ const Header = () => {
   }, [isMdUp]);
 
   const Navbar = useMemo(() => {
+    if (!setting) {
+      return null;
+    }
+
+    const { logo_1 } = setting;
+
     return (
       <Container
         maxWidth="md"
@@ -63,7 +69,9 @@ const Header = () => {
                     display: "block",
                   }}
                 >
-                  <Typography variant="title">{el.name}</Typography>
+                  <Typography variant="title">
+                    {messages[`navbar.${el.key}`][0].value}
+                  </Typography>
                 </Button>
               </Link>
             ))}
@@ -71,7 +79,7 @@ const Header = () => {
         </Stack>
       </Container>
     );
-  }, [NAVBAR]);
+  }, [NAVBAR, setting]);
 
   const staticNav = useMemo(() => {
     if (y < 200) {
@@ -143,23 +151,49 @@ const Header = () => {
       return (
         <Fragment>
           <Container>{TopNav}</Container>
+
+          <Slide
+            in={animationState}
+            direction="down"
+            mountOnEnter
+            unmountOnExit
+            timeout={{
+              enter: 300,
+              exit: 150,
+            }}
+          >
+            <AppBar
+              sx={{
+                position: "fixed",
+                backgroundColor: theme.palette.common.white,
+                paddingX: "32px",
+              }}
+            >
+              {TopNav}
+            </AppBar>
+          </Slide>
+
           <ModalMenu open={isToggle} toggle={setIsToggle}>
             <Container>
               {TopNav}
 
-              {NAVBAR.map((el, index) => (
-                <Link key={index} href={el.link}>
-                  <Button
-                    sx={{
-                      my: 2,
-                      color: theme.palette.common.black,
-                      display: "block",
-                    }}
-                  >
-                    <Typography variant="h6">{el.name}</Typography>
-                  </Button>
-                </Link>
-              ))}
+              {NAVBAR.map((el, index) => {
+                return (
+                  <Link key={index} href={el.link}>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        my: 2,
+                      }}
+                      onClick={() => {
+                        setIsToggle(false);
+                      }}
+                    >
+                      {messages[`navbar.${el.key}`][0].value}
+                    </Typography>
+                  </Link>
+                );
+              })}
             </Container>
           </ModalMenu>
         </Fragment>

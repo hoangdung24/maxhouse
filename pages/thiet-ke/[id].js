@@ -6,12 +6,16 @@ export default function PageDesign({ ...props }) {
   return <DesignDetail {...props} />;
 }
 
-export async function getServerSideProps({ params, query }) {
+export async function getServerSideProps({ params, query, locale }) {
   try {
     const { id } = params;
 
     // http://localhost/api/v2/pages/12/
-    const urls = [transformUrl(`${PAGES}/${id}`)];
+    const urls = [
+      transformUrl(`${PAGES}/${id}`, {
+        locale,
+      }),
+    ];
     const { resList, fallback } = await prefetchData(urls);
 
     return {

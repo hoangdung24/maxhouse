@@ -1,5 +1,6 @@
-import { Box, Typography, useTheme, styled } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import Image from "../Image";
+import { useMedia } from "../../hooks";
 
 const AnimationMouse = styled(Box)(({ theme }) => {
   return {
@@ -38,7 +39,7 @@ const AnimationMouse = styled(Box)(({ theme }) => {
 });
 
 const BannerTop = ({ src, content = "" }) => {
-  const theme = useTheme();
+  const { isMdUp } = useMedia();
 
   if (!src) {
     return null;
@@ -76,21 +77,24 @@ const BannerTop = ({ src, content = "" }) => {
 
       <Typography
         variant="h5"
-        sx={{
-          transition: "ease 3s",
-          position: "absolute",
-          left: "50%",
-          bottom: "4%",
-          textAlign: "center",
-          transform: "translateX(-50%)",
-          color: theme.palette.common.black,
-          width: "50%",
-          zIndex: 2,
-        }}
+        sx={[
+          {
+            position: "absolute",
+            left: "50%",
+            bottom: "4%",
+            textAlign: "center",
+            transform: "translateX(-50%)",
+            width: "50%",
+            zIndex: 2,
+            display: "none",
+          },
+          isMdUp && {
+            display: "block",
+          },
+        ]}
       >
         {content}
       </Typography>
-
       <AnimationMouse />
     </Box>
   );

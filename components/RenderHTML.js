@@ -20,8 +20,9 @@ const renderHTML = ({ data, sx = {}, ...props }) => {
             marginLeft: "1.25rem",
           },
           ["& img"]: {
-            width: "100%",
+            width: "auto",
             height: "auto",
+            maxWidth: "100%",
             objectFit: "contain",
           },
         },

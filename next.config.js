@@ -9,6 +9,10 @@ module.exports = async (phase, { defaultConfig }) => {
     eslint: {
       ignoreDuringBuilds: true,
     },
+    i18n: {
+      locales: ["vi", "en"],
+      defaultLocale: "vi",
+    },
   };
   return nextConfig;
 };
