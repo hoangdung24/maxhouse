@@ -1,11 +1,6 @@
-import dynamic from "next/dynamic";
-import { useToggle } from "react-use";
-import { useRouter } from "next/router";
-
 import { Box, Container, Grid, Fade } from "@mui/material";
 import { useState, useMemo, useCallback, Fragment } from "react";
-
-import { useParams, useMedia } from "../../hooks";
+import { useToggle } from "react-use";
 import {
   Tabs,
   TabPanel,
@@ -14,33 +9,28 @@ import {
   Pagination,
   ListingBlog,
   BackgroundListingPage,
+  DetailBlogModal,
 } from "../../components";
+import { useMedia, useParams } from "../../hooks";
 
-const DetailBlogModal = dynamic(() =>
-  import("../../components").then((Component) => {
-    return Component.DetailBlogModal;
-  })
-);
+const LIMIT = 5;
 
-const LIMIT = 6;
-
-export default function Design({ initData }) {
-  const router = useRouter();
+export default function Construction({ initData }) {
   const [open, toggle] = useToggle(true);
   const [params, setParams] = useParams();
   const [selectedPost, setSelectedPost] = useState(null);
-
   const { isSmUp } = useMedia();
 
-  const [designCategoryList, designListItem, metadataPage] = initData;
+  const [constructionCategoryList, constructionListItem, metadataPage] =
+    initData;
+  console.log("constructionCategoryList", constructionCategoryList);
+  console.log("constructionListItem", constructionListItem);
+  console.log("metadataPage", metadataPage);
 
   const [animationState, setAnimationState] = useState(true);
   const [currentTab, setCurrentTab] = useState(
-    designCategoryList?.items?.[0]?.id
+    constructionCategoryList?.items?.[0]?.id
   );
-  console.log("metadataPage", metadataPage);
-  console.log("designCategoryList", designCategoryList);
-  console.log("designListItem", designListItem);
   console.log("currentTab", currentTab);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -79,7 +69,7 @@ export default function Design({ initData }) {
   }, []);
 
   const renderTabs = useMemo(() => {
-    if (!designCategoryList) {
+    if (!constructionCategoryList) {
       return null;
     }
 
@@ -87,25 +77,25 @@ export default function Design({ initData }) {
       <Tabs
         value={currentTab}
         changeTab={changeTabHandler}
-        data={designCategoryList.items}
+        data={constructionCategoryList.items}
       />
     );
-  }, [designCategoryList, isSmUp, currentTab]);
+  }, [constructionCategoryList, isSmUp, currentTab]);
 
   const renderTabPanel = useMemo(() => {
-    if (!designListItem) {
+    // Xét có constructionListItem ko, nếu ko thì null
+    if (!constructionListItem) {
       return null;
     }
-    // FORMULA: OFFSET = (PAGE - 1) * LIMIT
-    // FORMUAL PAGE = (OFFSET / LIMIT) + 1
 
-    let filteredData = designListItem.items.filter((el) => {
+    // constructionListItem value thì sẽ chay filter và chia data theo từng tab
+    let filteredData = constructionListItem.items.filter((el) => {
       return el.category == currentTab;
     });
-    console.log("déginfilteredData", filteredData);
 
+    //phân chia tung man hinh,ko thì sẽ cắt từng file theo tab
     if (isSmUp) {
-      return designCategoryList.items.map((item, index) => {
+      return constructionCategoryList.items.map((item, index) => {
         return (
           <TabPanel key={item.id} value={currentTab} index={item.id}>
             <ListingBlog
@@ -119,9 +109,10 @@ export default function Design({ initData }) {
       const offset = (currentPage - 1) * LIMIT;
 
       const data = filteredData.slice(offset, offset + LIMIT);
-      console.log("dégindata", data);
+      console.log("filteredData", filteredData);
+      console.log("filteredData.slice", data);
 
-      return designCategoryList.items.map((item, index) => {
+      return constructionCategoryList.items.map((item, index) => {
         return (
           <TabPanel key={item.id} value={currentTab} index={item.id}>
             <Fragment>
@@ -141,14 +132,20 @@ export default function Design({ initData }) {
     }
 
     //
-  }, [designListItem, designCategoryList, currentTab, isSmUp, currentPage]);
+  }, [
+    constructionListItem,
+    constructionCategoryList,
+    currentTab,
+    isSmUp,
+    currentPage,
+  ]);
 
   const renderPagination = useMemo(() => {
-    if (!designListItem || isSmUp) {
+    if (!constructionListItem || isSmUp) {
       return null;
     }
 
-    let filteredData = designListItem.items.filter((el) => {
+    let filteredData = constructionListItem.items.filter((el) => {
       return el.category == currentTab;
     });
 
@@ -162,7 +159,7 @@ export default function Design({ initData }) {
         }}
       />
     );
-  }, [designListItem, currentPage, isSmUp, currentTab]);
+  }, [constructionListItem, currentPage, isSmUp, currentTab]);
 
   return (
     <Box>

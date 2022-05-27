@@ -26,7 +26,6 @@ const pages2 = [
   { name: "TIN TỨC", link: "/news" },
   { name: "LIÊN HỆ", link: "/contact" },
 ];
-// const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const fadeIn = keyframes({
   "0%": { top: "-50%" },
 
@@ -78,7 +77,10 @@ const NavBars = ({ children }) => {
     <React.Fragment>
       <AppBar position="static" sx={scroll > 150 ? navCSS4 : navCSS2}>
         <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ gap: "60px", justifyContent: "center" }}>
+          <Toolbar
+            disableGutters
+            sx={{ gap: "60px", justifyContent: "center" }}
+          >
             {/*  Header */}
             <Link href="/">
               <Image src="/img/Logo.png" width="70%" height="70%"></Image>

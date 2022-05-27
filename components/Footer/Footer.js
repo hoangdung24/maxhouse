@@ -42,6 +42,7 @@ export default function Footer({}) {
     google_map_location_embed_src,
     addresses,
   } = setting;
+  // console.log(" google_map_location_embed_src", google_map_location_embed_src);
 
   return (
     <Box

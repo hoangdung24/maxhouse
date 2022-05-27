@@ -10,6 +10,7 @@ import { useMedia } from "../../hooks";
 import RenderHTML from "../RenderHTML";
 
 const DesignDetail = ({ data, closeHandler = () => {} }) => {
+  console.log("hello", data);
   const router = useRouter();
   const { isMdUp } = useMedia();
   const { title, subtitle, youtube_link } = data;

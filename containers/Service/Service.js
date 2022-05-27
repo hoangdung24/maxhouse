@@ -1,105 +1,220 @@
-import { Box, Tab, Tabs, Typography, useTheme } from "@mui/material";
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import NewsPaper from "./NewsPaper";
+import dynamic from "next/dynamic";
+import { useToggle } from "react-use";
+import { useRouter } from "next/router";
+import RenderHTML from "../../components/RenderHTML";
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+import { Box, Container, Grid, Fade } from "@mui/material";
+import { useState, useMemo, useCallback, Fragment, useEffect } from "react";
+
+import { useParams, useMedia } from "../../hooks";
+import {
+  Tabs,
+  TabPanel,
+  CardItem,
+  BannerTop,
+  Pagination,
+  ListingBlog,
+  BackgroundListingPage,
+} from "../../components";
+import TabsBackground from "../../components/TabPanel/TabsBackground";
+
+const DetailBlogModal = dynamic(() =>
+  import("../../components").then((Component) => {
+    return Component.DetailBlogModal;
+  })
+);
+
+export default function Service({ initData }) {
+  const [dataSer, setDataSer] = useState([]);
+
+  const router = useRouter();
+  const [open, toggle] = useToggle(true);
+  const [params, setParams] = useParams();
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  const { isSmUp } = useMedia();
+
+  const [metadataPage] = initData;
+  console.log("metadataPage", metadataPage);
+
+  const [animationState, setAnimationState] = useState(true);
+  const [currentTab, setCurrentTab] = useState(dataSer.right_text_alignment);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const animationHandler = useCallback(() => {
+    setAnimationState(false);
+
+    const timer = setTimeout(() => {
+      setAnimationState(true);
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+  const changeTabHandler = useCallback((event, newValue) => {
+    setCurrentTab(newValue);
+    setCurrentPage(1);
+    animationHandler();
+  }, []);
+
+  const selectedPostHandler = useCallback((data, isMdUp) => {
+    return () => {
+      const { id } = data;
+
+      if (isMdUp) {
+        setParams({
+          id,
+        });
+        toggle(true);
+        setSelectedPost(data);
+      } else {
+        router.push(`${router.pathname}/${id}`);
+      }
+    };
+  }, []);
+
+  const renderTabs = useMemo(() => {
+    if (!dataSer) {
+      return null;
+    }
+
+    return (
+      <TabsBackground
+        value={currentTab}
+        changeTab={changeTabHandler}
+        data={dataSer}
+      />
+    );
+  }, [dataSer, isSmUp, currentTab]);
+
+  const renderTabPanel = useMemo(() => {
+    // FORMULA: OFFSET = (PAGE - 1) * LIMIT
+    // FORMUAL PAGE = (OFFSET / LIMIT) + 1
+
+    if (isSmUp) {
+      return dataSer.map((item, index) => {
+        const newObj = {};
+
+        for (const key of Object.keys(item)) {
+          if (key.includes("title")) {
+            newObj["title"] = item[key];
+          } else if (key.includes("body")) {
+            newObj["body"] = item[key];
+          } else if (key.includes("text_alignment")) {
+            newObj["text_alignment"] = item[key];
+          }
+        }
+
+        return (
+          <TabPanel
+            key={index}
+            value={dataSer.right_text_alignment}
+            index={item.right_text_alignment}
+          >
+            <RenderHTML data={newObj} />
+          </TabPanel>
+        );
+      });
+    } else {
+      return dataSer.map((item, index) => {
+        console.log(item);
+
+        const newObj = {};
+
+        for (const key of Object.keys(item)) {
+          if (key.includes("title")) {
+            newObj["title"] = item[key];
+          } else if (key.includes("body")) {
+            newObj["body"] = item[key];
+          } else if (key.includes("text_alignment")) {
+            newObj["text_alignment"] = item[key];
+          }
+        }
+
+        return (
+          <TabPanel
+            key={index}
+            value={dataSer.right_text_alignment}
+            index={item.right_text_alignment}
+          >
+            <RenderHTML data={newObj} />
+          </TabPanel>
+        );
+      });
+    }
+
+    //
+  }, [dataSer, currentTab, isSmUp, currentPage]);
+
+  useEffect(() => {
+    const a = initData[0].items[0];
+    console.log("aaaaaaaa", a);
+
+    const Serleft = Object.keys(a)
+      .slice(3, 6)
+      .reduce((result, key) => {
+        result[key] = a[key];
+
+        return result;
+      }, {});
+
+    const Serright = Object.keys(a)
+      .slice(6, 9)
+      .reduce((result, key) => {
+        result[key] = a[key];
+
+        return result;
+      }, {});
+    const arrData = [];
+    arrData.push(Serright, Serleft);
+
+    setDataSer(arrData);
+  }, []);
+  console.log("dataSer", dataSer);
 
   return (
-    <Box
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </Box>
-  );
-}
+    <Box>
+      <BannerTop
+        src={metadataPage?.items?.[0]?.banner}
+        content={metadataPage?.items?.[0]?.subtitle}
+      />
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
+      <Container>
+        <Grid container>
+          <Grid item xs={12}>
+            <Box
+              sx={[
+                {
+                  position: "relative",
+                },
+                isSmUp
+                  ? {
+                      paddingY: "2.5rem",
+                      marginY: "7.5rem",
+                    }
+                  : {
+                      marginY: "4rem",
+                    },
+              ]}
+            >
+              <Box>
+                {renderTabs}
 
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
-
-export default function Service() {
-  const [value, setValue] = useState(0);
-  const theme = useTheme();
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  return (
-    <Box sx={{ width: "80vw", pt: "130px", margin: "0 auto" }}>
-      <Box sx={{}}>
-        <Tabs
-          TabScrollButtonProps={{ style: { height: "100%", display: "none" } }}
-          TabIndicatorProps={{
-            style: {
-              display: "none",
-            },
-          }}
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          sx={{
-            height: "40px",
-            width: "22%",
-            m: "40px auto",
-            borderRadius: "10px",
-            backgroundColor: theme.palette.common.neutral4,
-            boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
-            ["& .Mui-selected"]: {
-              backgroundColor: theme.palette.common.black,
-              color: `${theme.palette.common.neutral4} !important`,
-            },
-            ["& .MuiTabs-flexContainer"]: {
-              width: "100%",
-            },
-            ["& .MuiButtonBase-root"]: {
-              width: "50%",
-            },
-          }}
-        >
-          <Tab
-            className="btnService"
-            label="GIỚI THIỆU"
-            {...a11yProps(0)}
-            sx={{
-              color: theme.palette.common.black,
-              height: 36,
-            }}
-          />
-          <Tab
-            className="btnService"
-            label="DỊCH VỤ"
-            {...a11yProps(1)}
-            sx={{
-              color: theme.palette.common.black,
-            }}
-          />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        <NewsPaper />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <NewsPaper />
-      </TabPanel>
+                <Fade
+                  in={animationState}
+                  timeout={{
+                    enter: 500,
+                  }}
+                >
+                  <Box className="tabpanel">{renderTabPanel}</Box>
+                </Fade>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
     </Box>
   );
 }

@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import { Box } from "@mui/material";
 
 const setting1 = {
+  arrows: false,
   infinite: true,
   rows: 2,
   speed: 500,
@@ -21,6 +22,7 @@ const setting1 = {
 };
 
 const setting2 = {
+  arrows: false,
   infinite: true,
   rows: 2,
   speed: 500,

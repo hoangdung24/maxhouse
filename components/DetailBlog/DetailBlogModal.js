@@ -13,6 +13,7 @@ import Container from "../Container";
 import DetailBlog from "./DetailBlog";
 
 const PortfolioDetailDialog = ({ open, toggle, selectedPost, setParams }) => {
+  // console.log("bai viet", setParams);
   const theme = useTheme();
 
   const { isSmUp } = useMedia();

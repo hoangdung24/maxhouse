@@ -1,5 +1,5 @@
 import { Box, Modal, Stack, Typography } from "@mui/material";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import Image from "next/image";
 import ImgNews from "./ImgNews";
 import Category from "../../components/Category/Category";
@@ -86,7 +86,8 @@ const style = {
   py: 10,
 };
 
-export default function News() {
+export default function NewsCu() {
+  const [chay, setChay] = useState(1);
   const settings = {
     dots: true,
     arrows: false,
@@ -96,6 +97,7 @@ export default function News() {
     draggable: true,
     rows: 2,
   };
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

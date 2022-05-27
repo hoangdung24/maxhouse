@@ -5,6 +5,7 @@ import { PAGES, types } from "../api";
 import { transformUrl, prefetchData } from "../libs";
 
 export default function PageHome(props) {
+  console.log("props", props);
   return <Home {...props} />;
 }
 

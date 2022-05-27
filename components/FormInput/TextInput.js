@@ -12,8 +12,9 @@ const TextInput = forwardRef(
         fullWidth={true}
         error={true}
         sx={{
+          textAlign: "left",
           position: "relative",
-          mb: "32px",
+          mb: "2rem",
           ["& .MuiInput-input"]: {
             p: "10px",
           },
@@ -45,3 +46,13 @@ const TextInput = forwardRef(
 );
 
 export default TextInput;
+
+const FormInput = ({ label, FormControlProps, InputLabelProps, ...props }) => {
+  return (
+    <FormControl fullWidth {...FormControlProps} {...props}>
+      <FormLabel>{label}</FormLabel>
+      <Input {...InputLabelProps} />
+      <FormHelperText children="Form Helper Text" />
+    </FormControl>
+  );
+};

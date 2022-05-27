@@ -3,7 +3,7 @@ import { Grid, Box } from "@mui/material";
 import CardItem from "../Card/CardItem";
 import SliderListing from "../Slider/SliderListing";
 
-const ListingBlog = ({ data, selectedPostHandler }) => {
+const ListingBlog = ({ data, selectedPostHandler, ...props }) => {
   const length = data.length;
 
   if (length < 4) {
@@ -26,18 +26,40 @@ const ListingBlog = ({ data, selectedPostHandler }) => {
     );
   } else if (length < 12) {
     return (
-      <SliderListing type={2}>
+      <SliderListing type={2} {...props}>
         {data.map((el, i) => {
-          return <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />;
+          return (
+            <CardItem
+              key={i}
+              {...el}
+              selectedPostHandler={selectedPostHandler}
+            />
+          );
+        })}
+      </SliderListing>
+    );
+  } else if (scrollAPI) {
+    return (
+      <SliderListing type={3} {...props}>
+        {data.map((el, i) => {
+          return (
+            <CardItem
+              key={i}
+              {...el}
+              selectedPostHandler={selectedPostHandler}
+            />
+          );
         })}
       </SliderListing>
     );
   }
 
   return (
-    <SliderListing>
+    <SliderListing {...props}>
       {data.map((el, i) => {
-        return <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />;
+        return (
+          <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />
+        );
       })}
     </SliderListing>
   );
