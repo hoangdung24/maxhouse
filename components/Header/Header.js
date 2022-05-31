@@ -1,7 +1,15 @@
 import { useWindowScroll, useToggle } from "react-use";
 import { useIntl, FormattedMessage } from "react-intl";
 import { useEffect, useState, Fragment, useMemo } from "react";
-import { AppBar, Box, Typography, Button, useTheme, Stack, Slide } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Typography,
+  Button,
+  useTheme,
+  Stack,
+  Slide,
+} from "@mui/material";
 
 import Link from "../Link";
 import Image from "../Image";

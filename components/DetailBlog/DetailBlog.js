@@ -10,6 +10,7 @@ import { useMedia } from "../../hooks";
 import RenderHTML from "../RenderHTML";
 
 const DesignDetail = ({ data, closeHandler = () => {} }) => {
+  console.log("hello", data);
   const router = useRouter();
   const { isMdUp } = useMedia();
   const { title, subtitle, youtube_link } = data;
@@ -23,7 +24,11 @@ const DesignDetail = ({ data, closeHandler = () => {} }) => {
 
   return (
     <Fragment>
-      <Stack direction="row" justifyContent={"space-between"} alignItems="center">
+      <Stack
+        direction="row"
+        justifyContent={"space-between"}
+        alignItems="center"
+      >
         <Typography variant="h1" sx={[{ marginBottom: 4 }]}>
           {title}
         </Typography>

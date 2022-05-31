@@ -10,10 +10,11 @@ const settings = {
   arrows: false,
   dots: true,
   infinite: true,
-  speed: 500,
+  speed: 2000,
+  autoplaySpeed: 3000,
   slidesToShow: 1,
   slidesToScroll: 1,
-  autoplay: false,
+  autoplay: true,
 };
 
 export default function Home({ initData }) {
@@ -23,6 +24,7 @@ export default function Home({ initData }) {
 
   const { items } = initData?.[0];
   const data = items?.[0];
+  console.log("first", items);
 
   const renderCarousel = useMemo(() => {
     if (!data?.banners) {

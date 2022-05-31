@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import { Box } from "@mui/material";
 
 const setting1 = {
+  arrows: false,
   infinite: true,
   rows: 2,
   speed: 500,
@@ -21,7 +22,8 @@ const setting1 = {
 };
 
 const setting2 = {
-  infinite: true,
+  arrows: false,
+  infinite: false,
   rows: 2,
   speed: 500,
   slidesToShow: 4,
@@ -40,6 +42,7 @@ const setting2 = {
 };
 
 const SliderWrapper = ({ children, type = 1, ...props }) => {
+  console.log("typetypetype", type);
   let setting = type === 1 ? setting1 : setting2;
 
   return (

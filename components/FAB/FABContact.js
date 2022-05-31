@@ -6,10 +6,11 @@ import ChatIcon from "@mui/icons-material/Chat";
 import Link from "../Link";
 import Image from "../Image";
 import { useSetting } from "../../hooks";
+import { useRouter } from "next/router";
 
 const FABContact = ({}) => {
   const theme = useTheme();
-
+  const router = useRouter();
   const setting = useSetting();
   const [open, toggle] = useToggle(false);
 
@@ -23,6 +24,7 @@ const FABContact = ({}) => {
     <Fragment>
       <Box
         sx={{
+          display: router.pathname == "/" ? "none" : "block",
           position: "fixed",
           top: "50%",
           right: "0",

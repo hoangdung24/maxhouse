@@ -1,8 +1,16 @@
 import dynamic from "next/dynamic";
 import { useToggle } from "react-use";
 import { useRouter } from "next/router";
+import axios from "axios";
 
-import { Box, Container, Grid, Fade } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Fade,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { useState, useMemo, useCallback, Fragment } from "react";
 
 import { useParams, useMedia } from "../../hooks";
@@ -10,11 +18,12 @@ import {
   Tabs,
   TabPanel,
   CardItem,
-  BannerTop,
   Pagination,
   ListingBlog,
   BackgroundListingPage,
 } from "../../components";
+import { prefetchData, transformUrl } from "../../libs";
+import { limitss, PAGES, types } from "../../api";
 
 const DetailBlogModal = dynamic(() =>
   import("../../components").then((Component) => {
@@ -22,11 +31,15 @@ const DetailBlogModal = dynamic(() =>
   })
 );
 
-const LIMIT = 5;
+const LIMIT = 6;
 
-export default function Design({ initData }) {
-  // console.log("initDatainitDatainitData", initData);
+export default function New({ initData }) {
+  const [count, setCount] = useState(1);
+  const [metadataPage, newListItem] = initData;
+  const [apiCardNew, setApiCardNew] = useState(newListItem.items);
+  const theme = useTheme();
 
+  console.log("news", initData);
   const router = useRouter();
   const [open, toggle] = useToggle(true);
   const [params, setParams] = useParams();
@@ -34,13 +47,12 @@ export default function Design({ initData }) {
 
   const { isSmUp } = useMedia();
 
-  const [designCategoryList, designListItem, metadataPage] = initData;
+  console.log("metadataPage", metadataPage.items[0].title);
 
   const [animationState, setAnimationState] = useState(true);
-  const [currentTab, setCurrentTab] = useState(
-    designCategoryList?.items?.[0]?.id
-  );
-
+  const [currentTab, setCurrentTab] = useState(metadataPage?.items?.[0]?.id);
+  console.log("newCategoryList", metadataPage);
+  console.log("newListItem", newListItem);
   const [currentPage, setCurrentPage] = useState(1);
 
   const animationHandler = useCallback(() => {
@@ -78,7 +90,7 @@ export default function Design({ initData }) {
   }, []);
 
   const renderTabs = useMemo(() => {
-    if (!designCategoryList) {
+    if (!metadataPage) {
       return null;
     }
 
@@ -86,41 +98,36 @@ export default function Design({ initData }) {
       <Tabs
         value={currentTab}
         changeTab={changeTabHandler}
-        data={designCategoryList.items}
+        data={metadataPage.items}
       />
     );
-  }, [designCategoryList, isSmUp, currentTab]);
+  }, [metadataPage, isSmUp, currentTab]);
 
-  const renderTabPanel = useMemo(() => {
-    if (!designListItem) {
+  const renderCardNew = useMemo(() => {
+    if (!newListItem) {
       return null;
     }
-    // FORMULA: OFFSET = (PAGE - 1) * LIMIT
-    // FORMUAL PAGE = (OFFSET / LIMIT) + 1
 
-    let filteredData = designListItem.items.filter((el) => {
+    let filteredData = newListItem.items.filter((el) => {
       return el.category == currentTab;
     });
-    console.log("déginfilteredData", filteredData);
+    console.log("newfilteredData", filteredData);
 
     if (isSmUp) {
-      return designCategoryList.items.map((item, index) => {
+      return metadataPage.items.map((item, index) => {
         return (
-          <TabPanel key={item.id} value={currentTab} index={item.id}>
-            <ListingBlog
-              data={filteredData}
-              selectedPostHandler={selectedPostHandler}
-            />
-          </TabPanel>
+          <ListingBlog
+            data={filteredData}
+            selectedPostHandler={selectedPostHandler}
+          />
         );
       });
     } else {
       const offset = (currentPage - 1) * LIMIT;
 
       const data = filteredData.slice(offset, offset + LIMIT);
-      console.log("dégindata", data);
 
-      return designCategoryList.items.map((item, index) => {
+      return metadataPage.items.map((item, index) => {
         return (
           <TabPanel key={item.id} value={currentTab} index={item.id}>
             <Fragment>
@@ -140,14 +147,26 @@ export default function Design({ initData }) {
     }
 
     //
-  }, [designListItem, designCategoryList, currentTab, isSmUp, currentPage]);
+  }, [newListItem, metadataPage, currentTab, isSmUp, currentPage]);
+
+  const renderCardNews = useMemo(() => {
+    return (
+      <ListingBlog
+        afterChange={() => {
+          console.log("afterChange");
+        }}
+        data={newListItem.items}
+        selectedPostHandler={selectedPostHandler}
+      />
+    );
+  });
 
   const renderPagination = useMemo(() => {
-    if (!designListItem || isSmUp) {
+    if (!newListItem || isSmUp) {
       return null;
     }
 
-    let filteredData = designListItem.items.filter((el) => {
+    let filteredData = newListItem.items.filter((el) => {
       return el.category == currentTab;
     });
 
@@ -161,20 +180,14 @@ export default function Design({ initData }) {
         }}
       />
     );
-  }, [designListItem, currentPage, isSmUp, currentTab]);
+  }, [newListItem, currentPage, isSmUp, currentTab]);
 
   return (
     <Box>
-      <BannerTop
-        src={metadataPage?.items?.[0]?.banner}
-        content={metadataPage?.items?.[0]?.subtitle}
-      />
-
       <Container>
         <Grid container>
           <Grid item xs={12}>
             <Box
-              className="boxxxxxx"
               sx={[
                 {
                   position: "relative",
@@ -185,22 +198,58 @@ export default function Design({ initData }) {
                       marginY: "7.5rem",
                     }
                   : {
-                      marginY: "2rem",
+                      marginY: "4rem",
                     },
               ]}
             >
               <BackgroundListingPage />
 
               <Box>
-                {renderTabs}
-
+                {/* {renderTabs} */}
+                <Typography
+                  variant="h1"
+                  sx={{
+                    mb: "4rem",
+                    textTransform: "uppercase",
+                    textAlign: "center",
+                  }}
+                >
+                  {metadataPage.items[0].title}
+                </Typography>
                 <Fade
                   in={animationState}
                   timeout={{
                     enter: 500,
                   }}
                 >
-                  <Box>{renderTabPanel}</Box>
+                  <Box>
+                    {/* {renderCardNew} */}
+                    <ListingBlog
+                      afterChange={(locale) => {
+                        // const urls = [
+                        //   transformUrl(PAGES, {
+                        //     limit: limitss.limitPage,
+                        //     type: types.newsDetailPage,
+                        //     fields: "*",
+                        //     locale,
+                        //   }),
+                        // ];
+                        // const { resList, fallback } = prefetchData(urls);
+                        axios
+                          .get(
+                            "https://maxhouse.t-solution.vn/api/v2/pages/?type=service.ServicePage&fields=*"
+                          )
+                          .then((err) => {
+                            alert("thanh công");
+                          })
+                          .catch(() => {
+                            alert("that bai");
+                          });
+                      }}
+                      data={apiCardNew}
+                      selectedPostHandler={selectedPostHandler}
+                    />
+                  </Box>
                 </Fade>
 
                 {renderPagination}

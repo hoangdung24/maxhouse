@@ -10,7 +10,7 @@ const DetailPolicy = ({ initData }) => {
   const { title } = data.items[0];
 
   const { isMdUp } = useMedia();
-
+  console.log("datadatadatadatadata", data);
   return (
     <Box
       sx={{

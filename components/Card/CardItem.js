@@ -87,6 +87,7 @@ const CardItem = ({ ...props }) => {
               </SliderThumbnailInListingPage>
             )}
           </Box>
+
           <Box
             sx={{
               marginTop: 1,
@@ -94,9 +95,15 @@ const CardItem = ({ ...props }) => {
             }}
             onClick={selectedPostHandler(props, isMdUp)}
           >
-            <Typography variant="title">{title}</Typography>
+            <Typography variant="title">
+              {title.length > 25 ? title.substr(0, 25) + "..." : title}
+            </Typography>
 
-            <Stack direction="row" justifyContent="space-between" alignItems={"center"}>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems={"center"}
+            >
               <Typography variant="body_small">{subtitle}</Typography>
               <Typography variant="body_small">
                 {format(parseISO(meta.first_published_at), "dd/MM/yyyy")}

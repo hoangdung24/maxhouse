@@ -8,7 +8,14 @@ const defaultImageProps = {
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
 };
 
-const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...props }) => {
+const Image = ({
+  WrapperProps = {},
+  src,
+  width,
+  height,
+  layout = "fill",
+  ...props
+}) => {
   const loader = ({ src, width, quality }) => {
     return `${src}?w=${width}&q=${quality || 75}`;
   };
@@ -21,6 +28,7 @@ const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...prop
     return (
       <Wrapper width={width} height={height} {...WrapperProps}>
         <NextImage
+          sx={{ objectFit: "cover" }}
           {...{
             ...defaultImageProps,
             ...(src.includes("http") && {
@@ -36,6 +44,7 @@ const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...prop
   } else {
     return (
       <NextImage
+        sx={{ objectFit: "cover" }}
         {...{
           ...defaultImageProps,
           src,

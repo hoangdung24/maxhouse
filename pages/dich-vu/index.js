@@ -1,17 +1,16 @@
 import React from "react";
-import { PAGES, types } from "../api";
-import { transformUrl, prefetchData } from "../libs";
+import { PAGES, types } from "../../api";
+import Service from "../../containers/Service/Service";
+import { prefetchData, transformUrl } from "../../libs";
 
-import Contact from "../containers/Contact/Contact";
-
-export default function PageContact(props) {
-  return <Contact {...props} />;
+export default function Pageservice({ ...props }) {
+  return <Service {...props} />;
 }
 
-export async function getServerSideProps({ params, query }) {
+export async function getServerSideProps({ params, query, locale }) {
   try {
     const urls = [
-      transformUrl(PAGES, { type: types.contactPage, fields: "*" }),
+      transformUrl(PAGES, { type: types.servicePage, fields: "*", locale }),
     ];
 
     const { resList, fallback } = await prefetchData(urls);

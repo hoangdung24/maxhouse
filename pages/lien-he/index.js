@@ -1,8 +1,8 @@
 import React from "react";
-import { PAGES, types } from "../api";
-import { transformUrl, prefetchData } from "../libs";
+import { PAGES, types } from "../../api";
+import { transformUrl, prefetchData } from "../../libs";
 
-import Contact from "../containers/Contact/Contact";
+import Contact from "../../containers/Contact/Contact";
 
 export default function PageContact(props) {
   return <Contact {...props} />;

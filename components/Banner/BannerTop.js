@@ -1,4 +1,4 @@
-import { Box, Typography, styled } from "@mui/material";
+import { Box, Typography, styled, useTheme } from "@mui/material";
 import Image from "../Image";
 import { useMedia } from "../../hooks";
 
@@ -21,6 +21,7 @@ const AnimationMouse = styled(Box)(({ theme }) => {
     borderRadius: "15px",
     position: "absolute",
     left: "3%",
+    display: "none",
     bottom: "5%",
     zIndex: 2,
     "::before": {
@@ -39,6 +40,7 @@ const AnimationMouse = styled(Box)(({ theme }) => {
 });
 
 const BannerTop = ({ src, content = "" }) => {
+  const theme = useTheme();
   const { isMdUp } = useMedia();
 
   if (!src) {
@@ -64,14 +66,20 @@ const BannerTop = ({ src, content = "" }) => {
           zIndex: 1,
           background: "rgba(255, 255, 255, 0.4)",
         },
+        [theme.breakpoints.down("md")]: {
+          height: "70vh",
+        },
+        [theme.breakpoints.down("sm")]: {
+          height: "60vh",
+        },
       }}
     >
       <Image
         src={src}
         layout="fill"
         width={"100%"}
-        height="100%"
-        objectFit="cover"
+        height={isMdUp ? "100%" : "100%"}
+        objectFit={isMdUp ? "cover" : "fill"}
         WrapperProps={{ filter: "grayscale(100%)" }}
       />
 
@@ -95,7 +103,13 @@ const BannerTop = ({ src, content = "" }) => {
       >
         {content}
       </Typography>
-      <AnimationMouse />
+      <AnimationMouse
+        sx={
+          isMdUp && {
+            display: "block",
+          }
+        }
+      />
     </Box>
   );
 };
