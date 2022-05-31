@@ -41,17 +41,9 @@ const Tabs = ({ value, changeTab, data }) => {
         },
         {
           "& .MuiTabs-flexContainer": {
-            width: "60vw",
+            width: "100%",
             margin: "0 auto",
-            // display: "grid",
-            // gridTemplateColumns: "repeat(5, 1fr )",
-            // [theme.breakpoints.down("sm")]: {
-            //   width: "80vw",
-            //   gridTemplateColumns: "repeat(3, 1fr )",
-            // },
-
             [theme.breakpoints.down("sm")]: {
-              width: "60vw",
               display: "flex",
               flexWrap: "wrap",
             },

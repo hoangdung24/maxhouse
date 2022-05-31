@@ -16,7 +16,7 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
 import Link from "../Link";
-import Image from "../Image";
+
 import Container from "../Container";
 import RenderHtml from "../RenderHTML";
 
@@ -34,6 +34,8 @@ export default function Footer({}) {
   if (!setting) {
     return null;
   }
+
+  console.log(messages["policy_and_regulation"][0]);
 
   const {
     company_name,
@@ -171,11 +173,11 @@ export default function Footer({}) {
               ]}
             >
               <Title variant={isMdUp ? "h5" : "body_large"}>
-                {messages["tax_identification_number"][0]["value"]}
+                {isMdUp
+                  ? messages["tax_identification_number"][0]["value"]
+                  : messages["policy_and_regulation"][0]["value"]}
               </Title>
-              {/* <Content>Chính sách hoạt động</Content>
 
-              <Content>Chính sách thanh toán</Content> */}
               {POLICY_ROUTE.map((el, i) => {
                 return (
                   <Link

@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 const setting1 = {
   arrows: false,
   infinite: true,
-  rows: 1,
+  rows: 2,
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 4,
