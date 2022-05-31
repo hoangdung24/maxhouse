@@ -1,29 +1,36 @@
-import { PAGES, types, limitss } from "../../api";
+import { PAGES, types } from "../../api";
 import { transformUrl, prefetchData } from "../../libs";
-import New from "../../containers/News/New";
-import NewDemo from "../../containers/News/NewDemo";
+import News from "../../containers/News/News";
+
+import { NEWS_POST_LIMIT } from "../../constants";
 
 export default function PageNews({ ...props }) {
-  return <NewDemo {...props} />;
+  return <News {...props} />;
 }
 
 export async function getServerSideProps({ params, query, locale }) {
   try {
+    const newsDetailPageURL = transformUrl(PAGES, {
+      limit: NEWS_POST_LIMIT,
+      type: types.newsDetailPage,
+      fields: "*",
+      locale,
+    });
+
     const urls = [
       transformUrl(PAGES, {
         type: types.newsListingPage,
         fields: "*",
         locale,
       }),
-      transformUrl(PAGES, {
-        limit: limitss.limitPage,
-        type: types.newsDetailPage,
-        fields: "*",
-        locale,
-      }),
+      newsDetailPageURL,
     ];
 
     const { resList, fallback } = await prefetchData(urls);
+
+    const newsDetailPageList = resList.pop();
+
+    fallback[newsDetailPageURL] = newsDetailPageList;
 
     return {
       props: {

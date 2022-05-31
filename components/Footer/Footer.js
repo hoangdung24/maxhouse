@@ -34,7 +34,7 @@ export default function Footer({}) {
   if (!setting) {
     return null;
   }
-  console.log("messagesmessagesmessages", messages);
+
   const {
     company_name,
     tax_identification_number,
@@ -42,8 +42,7 @@ export default function Footer({}) {
     google_map_location_embed_src,
     addresses,
   } = setting;
-  // console.log(" google_map_location_embed_src", google_map_location_embed_src);
-  // console.log("POLICY_ROUTEPOLICY_ROUTE", POLICY_ROUTE);
+
   return (
     <Box
       sx={{
@@ -322,34 +321,19 @@ export default function Footer({}) {
 
                 if (i === 0) {
                   return (
-                    <Link
-                      noLinkStyle={true}
-                      href={value.link}
-                      target="_blank"
-                      key={i}
-                    >
+                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
                       <FacebookOutlinedIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );
                 } else if (i === 1) {
                   return (
-                    <Link
-                      noLinkStyle={true}
-                      href={value.link}
-                      target="_blank"
-                      key={i}
-                    >
+                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
                       <YouTubeIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );
                 } else if (i === 2) {
                   return (
-                    <Link
-                      noLinkStyle={true}
-                      href={value.link}
-                      target="_blank"
-                      key={i}
-                    >
+                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
                       <PinterestIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );

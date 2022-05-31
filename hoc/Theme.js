@@ -57,6 +57,12 @@ const defaultTheme = createTheme({
       fontWeight: 500,
       display: "inline-block",
     },
+    body_regular_bold: {
+      fontSize: "1rem",
+      lineHeight: "1.5rem",
+      fontWeight: 500,
+      display: "inline-block",
+    },
     body1: {
       fontSize: "1rem",
       lineHeight: "1.482rem",
@@ -110,6 +116,9 @@ const theme = createTheme({
         disableRipple: true,
       },
       styleOverrides: {
+        root: {
+          whiteSpace: "nowrap",
+        },
         "&:active": {
           backgroundColor: alpha(
             defaultTheme.palette.primary.main,
@@ -262,9 +271,10 @@ const theme = createTheme({
         root: {
           color: defaultTheme.palette.common.black,
           transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
-          ...defaultTheme.typography.body_large,
+          ...defaultTheme.typography.body_regular_bold,
           padding: "8px 12px",
           minHeight: "unset",
+          lineHeight: "2rem",
           [defaultTheme.breakpoints.up("md")]: {
             ...defaultTheme.typography.h6,
           },

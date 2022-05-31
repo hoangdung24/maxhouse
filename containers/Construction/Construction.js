@@ -13,25 +13,19 @@ import {
 } from "../../components";
 import { useMedia, useParams } from "../../hooks";
 
-const LIMIT = 5;
+import { POST_LIMIT } from "../../constants";
 
 export default function Construction({ initData }) {
   const [open, toggle] = useToggle(true);
   const [params, setParams] = useParams();
   const [selectedPost, setSelectedPost] = useState(null);
-  const { isSmUp } = useMedia();
+  const { isSmUp, isMdUp, isSmDown } = useMedia();
 
-  const [constructionCategoryList, constructionListItem, metadataPage] =
-    initData;
-  console.log("constructionCategoryList", constructionCategoryList);
-  console.log("constructionListItem", constructionListItem);
-  console.log("metadataPage", metadataPage);
+  const [constructionCategoryList, constructionListItem, metadataPage] = initData;
 
   const [animationState, setAnimationState] = useState(true);
-  const [currentTab, setCurrentTab] = useState(
-    constructionCategoryList?.items?.[0]?.id
-  );
-  console.log("currentTab", currentTab);
+  const [currentTab, setCurrentTab] = useState(constructionCategoryList?.items?.[0]?.id);
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const animationHandler = useCallback(() => {
@@ -98,19 +92,13 @@ export default function Construction({ initData }) {
       return constructionCategoryList.items.map((item, index) => {
         return (
           <TabPanel key={item.id} value={currentTab} index={item.id}>
-            <ListingBlog
-              data={filteredData}
-              selectedPostHandler={selectedPostHandler}
-            />
+            <ListingBlog data={filteredData} selectedPostHandler={selectedPostHandler} />
           </TabPanel>
         );
       });
     } else {
-      const offset = (currentPage - 1) * LIMIT;
-
-      const data = filteredData.slice(offset, offset + LIMIT);
-      console.log("filteredData", filteredData);
-      console.log("filteredData.slice", data);
+      const offset = (currentPage - 1) * POST_LIMIT;
+      const data = filteredData.slice(offset, offset + POST_LIMIT);
 
       return constructionCategoryList.items.map((item, index) => {
         return (
@@ -118,11 +106,7 @@ export default function Construction({ initData }) {
             <Fragment>
               {data.map((el, i) => {
                 return (
-                  <CardItem
-                    key={i}
-                    {...el}
-                    selectedPostHandler={selectedPostHandler}
-                  />
+                  <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />
                 );
               })}
             </Fragment>
@@ -132,13 +116,7 @@ export default function Construction({ initData }) {
     }
 
     //
-  }, [
-    constructionListItem,
-    constructionCategoryList,
-    currentTab,
-    isSmUp,
-    currentPage,
-  ]);
+  }, [constructionListItem, constructionCategoryList, currentTab, isSmUp, currentPage]);
 
   const renderPagination = useMemo(() => {
     if (!constructionListItem || isSmUp) {
@@ -176,14 +154,17 @@ export default function Construction({ initData }) {
                 {
                   position: "relative",
                 },
-                isSmUp
-                  ? {
-                      paddingY: "2.5rem",
-                      marginY: "7.5rem",
-                    }
-                  : {
-                      marginY: "4rem",
-                    },
+                isSmUp && {
+                  paddingY: "2.5rem",
+                  marginY: "7.5rem",
+                  minHeight: "900px",
+                },
+                isSmDown && {
+                  marginY: "2rem",
+                },
+                isMdUp && {
+                  minHeight: "800px",
+                },
               ]}
             >
               <BackgroundListingPage />

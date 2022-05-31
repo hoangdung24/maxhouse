@@ -1,17 +1,18 @@
 import { Fragment } from "react";
 import { useToggle } from "react-use";
-import { Box, useTheme, IconButton, Slide } from "@mui/material";
+import { useRouter } from "next/router";
 import ChatIcon from "@mui/icons-material/Chat";
+import { Box, useTheme, IconButton, Slide } from "@mui/material";
 
 import Link from "../Link";
 import Image from "../Image";
-import { useSetting } from "../../hooks";
-import { useRouter } from "next/router";
+import { useSetting, useMedia } from "../../hooks";
 
 const FABContact = ({}) => {
   const theme = useTheme();
   const router = useRouter();
   const setting = useSetting();
+  const { isSmDown } = useMedia();
   const [open, toggle] = useToggle(false);
 
   if (!setting) {
@@ -36,17 +37,24 @@ const FABContact = ({}) => {
         }}
       >
         <IconButton
-          sx={{
-            padding: 0,
-          }}
+          sx={[
+            {
+              padding: 0,
+            },
+          ]}
           onClick={() => {
             toggle(true);
           }}
         >
           <ChatIcon
-            sx={{
-              fontSize: "32px",
-            }}
+            sx={[
+              {
+                fontSize: "32px",
+              },
+              isSmDown && {
+                color: theme.palette.common.black,
+              },
+            ]}
           />
         </IconButton>
       </Box>

@@ -5,10 +5,8 @@ import SliderListing from "../Slider/SliderListing";
 
 const ListingBlog = ({ data, selectedPostHandler, ...props }) => {
   const length = data.length;
-  console.log("slidedatadata", data);
 
   if (length < 4) {
-    console.log("ListingBlog 1");
     return (
       <Grid container>
         {data.map((el, i) => {
@@ -26,33 +24,11 @@ const ListingBlog = ({ data, selectedPostHandler, ...props }) => {
         })}
       </Grid>
     );
-  } else if (length < 12) {
-    console.log("ListingBlog 2");
+  } else if (length < 9) {
     return (
       <SliderListing type={2} {...props}>
         {data.map((el, i) => {
-          return (
-            <CardItem
-              key={i}
-              {...el}
-              selectedPostHandler={selectedPostHandler}
-            />
-          );
-        })}
-      </SliderListing>
-    );
-  } else if (scrollAPI) {
-    console.log("ListingBlog 3");
-    return (
-      <SliderListing type={3} {...props}>
-        {data.map((el, i) => {
-          return (
-            <CardItem
-              key={i}
-              {...el}
-              selectedPostHandler={selectedPostHandler}
-            />
-          );
+          return <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />;
         })}
       </SliderListing>
     );
@@ -61,9 +37,7 @@ const ListingBlog = ({ data, selectedPostHandler, ...props }) => {
   return (
     <SliderListing {...props}>
       {data.map((el, i) => {
-        return (
-          <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />
-        );
+        return <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />;
       })}
     </SliderListing>
   );
