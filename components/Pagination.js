@@ -3,6 +3,11 @@ import { Pagination as MuiPagination, PaginationItem } from "@mui/material";
 const LIMIT = 6;
 
 const Pagination = ({ data, onChange, currentPage }) => {
+  console.log("PaginationPagination", data);
+  console.log("PaginationPagination", data.length);
+  const count = Math.round(data.length / LIMIT);
+  console.log("countcountcountcount", count);
+
   return (
     <MuiPagination
       count={Math.round(data.length / LIMIT)}

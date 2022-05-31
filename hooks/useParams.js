@@ -13,6 +13,7 @@ export const useParams = ({
   isUpdateRouter = true,
 } = {}) => {
   const router = useRouter();
+  // console.log("router", router);
   const [isReady, setIsReady] = useState(false);
   const [params, setParams] = useState(initState);
   const prevParams = usePrevious(params);

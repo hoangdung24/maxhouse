@@ -10,10 +10,11 @@ const settings = {
   arrows: false,
   dots: true,
   infinite: true,
-  speed: 500,
+  speed: 2000,
+  autoplaySpeed: 3000,
   slidesToShow: 1,
   slidesToScroll: 1,
-  autoplay: false,
+  autoplay: true,
 };
 
 export default function Home({ initData }) {

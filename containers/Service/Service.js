@@ -38,7 +38,7 @@ export default function Service({ initData }) {
   console.log("metadataPage", metadataPage);
 
   const [animationState, setAnimationState] = useState(true);
-  const [currentTab, setCurrentTab] = useState(dataSer.right_text_alignment);
+  const [currentTab, setCurrentTab] = useState(1);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -57,6 +57,7 @@ export default function Service({ initData }) {
     setCurrentTab(newValue);
     setCurrentPage(1);
     animationHandler();
+    console.log("hello");
   }, []);
 
   const selectedPostHandler = useCallback((data, isMdUp) => {
@@ -149,38 +150,36 @@ export default function Service({ initData }) {
   }, [dataSer, currentTab, isSmUp, currentPage]);
 
   useEffect(() => {
-    const a = initData[0].items[0];
-    console.log("aaaaaaaa", a);
-
-    const Serleft = Object.keys(a)
+    const initDataService = initData[0].items[0];
+    // console.log("aaaaaaaa", a);
+    const arrData = [];
+    const ServiceLeft = Object.keys(initDataService)
       .slice(3, 6)
       .reduce((result, key) => {
-        result[key] = a[key];
+        result[key] = initDataService[key];
 
         return result;
       }, {});
+    ServiceLeft.id = 1;
 
-    const Serright = Object.keys(a)
+    const ServiceRight = Object.keys(initDataService)
       .slice(6, 9)
       .reduce((result, key) => {
-        result[key] = a[key];
+        result[key] = initDataService[key];
 
         return result;
       }, {});
-    const arrData = [];
-    arrData.push(Serright, Serleft);
+    ServiceRight.id = 2;
+
+    arrData.push(ServiceLeft, ServiceRight);
 
     setDataSer(arrData);
   }, []);
-  console.log("dataSer", dataSer);
+
+  console.log("dataSerssssss", currentTab);
 
   return (
     <Box>
-      <BannerTop
-        src={metadataPage?.items?.[0]?.banner}
-        content={metadataPage?.items?.[0]?.subtitle}
-      />
-
       <Container>
         <Grid container>
           <Grid item xs={12}>
@@ -195,7 +194,7 @@ export default function Service({ initData }) {
                       marginY: "7.5rem",
                     }
                   : {
-                      marginY: "4rem",
+                      marginY: "2rem",
                     },
               ]}
             >

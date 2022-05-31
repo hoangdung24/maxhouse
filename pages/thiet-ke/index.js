@@ -2,17 +2,28 @@ import DesignListing from "../../containers/Design/DesignListing";
 
 import { PAGES, types, DESIGN_CATEGORIES } from "../../api";
 import { transformUrl, prefetchData } from "../../libs";
+import Design from "../../containers/Design/DesignListing";
 
 export default function PageDesign({ ...props }) {
-  return <DesignListing {...props} />;
+  return <Design {...props} />;
 }
 
 export async function getServerSideProps({ params, query, locale }) {
   try {
     const urls = [
       transformUrl(DESIGN_CATEGORIES, { locale }),
-      transformUrl(PAGES, { type: types.designDetailPage, fields: "*", locale }),
-      transformUrl(PAGES, { type: types.designListingPage, fields: "*", locale }),
+      transformUrl(PAGES, {
+        type: types.designDetailPage,
+
+        fields: "*",
+        limit: "1000",
+        locale,
+      }),
+      transformUrl(PAGES, {
+        type: types.designListingPage,
+        fields: "*",
+        locale,
+      }),
     ];
 
     const { resList, fallback } = await prefetchData(urls);

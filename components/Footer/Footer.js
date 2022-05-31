@@ -34,7 +34,7 @@ export default function Footer({}) {
   if (!setting) {
     return null;
   }
-
+  console.log("messagesmessagesmessages", messages);
   const {
     company_name,
     tax_identification_number,
@@ -43,7 +43,7 @@ export default function Footer({}) {
     addresses,
   } = setting;
   // console.log(" google_map_location_embed_src", google_map_location_embed_src);
-
+  // console.log("POLICY_ROUTEPOLICY_ROUTE", POLICY_ROUTE);
   return (
     <Box
       sx={{
@@ -92,7 +92,7 @@ export default function Footer({}) {
                 }}
                 sx={{
                   ["& p"]: {
-                    ...theme.typography.h5,
+                    ...theme.typography.h6,
                   },
                   marginBottom: 4,
                   [theme.breakpoints.up("md")]: {
@@ -153,6 +153,7 @@ export default function Footer({}) {
             <Divider />
           </Grid>
 
+          {/* phần MST cty */}
           <Grid
             item
             md={4}
@@ -173,8 +174,24 @@ export default function Footer({}) {
               <Title variant={isMdUp ? "h5" : "body_large"}>
                 {messages["tax_identification_number"][0]["value"]}
               </Title>
-              <Content>Thanh toán</Content>
-              <Content>Sử dụng</Content>
+              {/* <Content>Chính sách hoạt động</Content>
+
+              <Content>Chính sách thanh toán</Content> */}
+              {POLICY_ROUTE.map((el, i) => {
+                return (
+                  <Link
+                    key={i}
+                    href={el.link}
+                    sx={{
+                      [theme.breakpoints.up("md")]: {
+                        marginBottom: 1,
+                      },
+                    }}
+                  >
+                    <Content>{messages[`${el.key}`][0]["value"]}</Content>
+                  </Link>
+                );
+              })}
             </Box>
           </Grid>
 
@@ -188,6 +205,7 @@ export default function Footer({}) {
             <Divider />
           </Grid>
 
+          {/* phần địa chỉ cty */}
           <Grid item md={4}>
             <Box
               sx={[
@@ -221,6 +239,7 @@ export default function Footer({}) {
             <Divider />
           </Grid>
 
+          {/* googlemap */}
           <Grid item md={4}>
             {google_map_location_embed_src && (
               <Box
@@ -285,6 +304,7 @@ export default function Footer({}) {
             </Box>
           </Grid>
 
+          {/* 3 icon face youtube pinterest */}
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="center" spacing={2}>
               {social_links.map((el, i) => {
@@ -315,7 +335,7 @@ export default function Footer({}) {
                   return (
                     <Link
                       noLinkStyle={true}
-                      href="https://youtube.com"
+                      href={value.link}
                       target="_blank"
                       key={i}
                     >
@@ -326,7 +346,7 @@ export default function Footer({}) {
                   return (
                     <Link
                       noLinkStyle={true}
-                      href="https://youtube.com"
+                      href={value.link}
                       target="_blank"
                       key={i}
                     >

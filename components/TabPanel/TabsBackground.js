@@ -39,6 +39,7 @@ const TabsBackground = ({ value, changeTab, data }) => {
 
   return (
     <MuiTabs
+      className="serviceserviceservice"
       TabIndicatorProps={{
         sx: {
           display: "none",
@@ -49,10 +50,10 @@ const TabsBackground = ({ value, changeTab, data }) => {
       variant={isSmUp ? "standard" : "fullWidth"}
       sx={[
         {
-          marginBottom: isSmUp ? "3rem" : "4rem",
+          marginBottom: isSmUp ? "3rem" : "1rem",
         },
         {
-          width: "30%",
+          width: isSmUp ? "30%" : "80%",
           margin: "0 auto",
           mb: "5rem",
           borderRadius: "8px",
@@ -61,6 +62,9 @@ const TabsBackground = ({ value, changeTab, data }) => {
             borderRadius: "8px 0 0 8px",
             backgroundColor: theme.palette.common.black,
             color: `${theme.palette.common.neutral4} !important`,
+          },
+          "& .MuiTabs-flexContainer": {
+            height: "100%",
           },
         },
       ]}

@@ -1,9 +1,10 @@
 import { PAGES, types, limitss } from "../../api";
 import { transformUrl, prefetchData } from "../../libs";
 import New from "../../containers/News/New";
+import NewDemo from "../../containers/News/NewDemo";
 
 export default function PageNews({ ...props }) {
-  return <New {...props} />;
+  return <NewDemo {...props} />;
 }
 
 export async function getServerSideProps({ params, query, locale }) {

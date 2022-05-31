@@ -87,6 +87,7 @@ const CardItem = ({ ...props }) => {
               </SliderThumbnailInListingPage>
             )}
           </Box>
+
           <Box
             sx={{
               marginTop: 1,
