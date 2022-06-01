@@ -25,7 +25,6 @@ const Header = ({}) => {
   const theme = useTheme();
   const setting = useSetting();
   const { messages } = useIntl();
-
   const [isToggle, setIsToggle] = useToggle(false);
 
   const { isMdUp } = useMedia();

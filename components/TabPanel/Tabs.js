@@ -51,7 +51,7 @@ const Tabs = ({ value, changeTab, data }) => {
             // },
 
             [theme.breakpoints.down("sm")]: {
-              width: "60vw",
+              width: "65vw",
               display: "flex",
               flexWrap: "wrap",
             },

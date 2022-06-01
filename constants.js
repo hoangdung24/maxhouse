@@ -7,6 +7,14 @@ export const NAVBAR = [
 ];
 
 export const POLICY_ROUTE = [
-  { name: "Chính sách hoạt động", link: "/chinh-sach-hoat-dong", key: "page.operation" },
-  { name: "Chính sách thanh toán", link: "/chinh-sach-thanh-toan", key: "page.payment" },
+  {
+    name: "Chính sách hoạt động",
+    link: "/chinh-sach-hoat-dong",
+    key: "page.operation",
+  },
+  {
+    name: "Chính sách thanh toán",
+    link: "/chinh-sach-thanh-toan",
+    key: "page.payment",
+  },
 ];
