@@ -1,6 +1,6 @@
 import { format, parseISO } from "date-fns";
 import { useState, useEffect, Fragment } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, Skeleton } from "@mui/material";
 import { useMeasure, useWindowSize, useUpdateEffect } from "react-use";
 
 import Image from "../Image";
@@ -8,10 +8,25 @@ import SliderThumbnailInListingPage from "../Slider/SliderThumbnailInListingPage
 
 import { useMedia } from "../../hooks";
 
+const SkeletonCard = ({ size, imageSize }) => {
+  return (
+    <Stack
+      spacing={1}
+      sx={{
+        maxHeight: size.height,
+      }}
+    >
+      <Skeleton variant="rectangular" height={imageSize.height} />
+      <Skeleton variant="rectangular" height={24} />
+      <Skeleton variant="rectangular" height={16} />
+    </Stack>
+  );
+};
+
 const CardItem = ({ ...props }) => {
-  const { thumbnails, title, subtitle, meta, selectedPostHandler } = props;
-  const { width: windowWidth, height: windowHeight } = useWindowSize();
   const { isMdUp, isSmUp } = useMedia();
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
+  const { thumbnails, title, subtitle, meta, selectedPostHandler, isPlaceholder } = props;
 
   const [ref, { width, height }] = useMeasure();
 
@@ -19,6 +34,7 @@ const CardItem = ({ ...props }) => {
     width: 0,
     height: 0,
   });
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -65,51 +81,62 @@ const CardItem = ({ ...props }) => {
             padding: 1,
           }}
         >
-          <Box
-            sx={{
-              overflow: "hidden",
-            }}
-          >
-            {isLoading && (
-              <SliderThumbnailInListingPage>
-                {thumbnails.map((el, i) => {
-                  return (
-                    <Fragment key={i}>
-                      <Image
-                        src={el.value}
-                        width={imageSize.width}
-                        height={imageSize.height}
-                        objectFit="cover"
-                      />
-                    </Fragment>
-                  );
-                })}
-              </SliderThumbnailInListingPage>
-            )}
-          </Box>
+          {isPlaceholder ? (
+            <SkeletonCard
+              size={{
+                height,
+              }}
+              imageSize={imageSize}
+            />
+          ) : (
+            <Fragment>
+              <Box
+                sx={{
+                  overflow: "hidden",
+                }}
+              >
+                {isLoading && (
+                  <SliderThumbnailInListingPage>
+                    {thumbnails.map((el, i) => {
+                      return (
+                        <Fragment key={i}>
+                          <Image
+                            src={el.value}
+                            width={imageSize.width}
+                            height={imageSize.height}
+                            objectFit="cover"
+                          />
+                        </Fragment>
+                      );
+                    })}
+                  </SliderThumbnailInListingPage>
+                )}
+              </Box>
 
-          <Box
-            sx={{
-              marginTop: 1,
-              cursor: "pointer",
-            }}
-            onClick={selectedPostHandler(props, isMdUp)}
-          >
-            <Typography variant="title">
-              {title.length > 25 ? title.substr(0, 25) + "..." : title}
-            </Typography>
+              <Box
+                sx={{
+                  marginTop: 1,
+                  cursor: "pointer",
+                }}
+                onClick={selectedPostHandler(props, isMdUp)}
+              >
+                <Typography variant="title">
+                  {title.length > 25 ? title.substr(0, 25) + "..." : title}
+                </Typography>
 
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems={"center"}
-            >
-              <Typography variant="body_small">{subtitle}</Typography>
-              <Typography variant="body_small">
-                {format(parseISO(meta.first_published_at), "dd/MM/yyyy")}
-              </Typography>
-            </Stack>
-          </Box>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems={"center"}
+                >
+                  <Typography variant="body_small">{subtitle}</Typography>
+                  <Typography variant="body_small">
+                    {format(parseISO(meta.first_published_at), "dd/MM/yyyy")}
+                  </Typography>
+                </Stack>
+              </Box>
+            </Fragment>
+          )}
         </Box>
       </Box>
     </Box>

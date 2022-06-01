@@ -42,6 +42,10 @@ const Messages = () => {
       id: "policy",
       defaultMessage: "Chính sách",
     },
+    policy_and_regulation: {
+      id: "policy_and_regulation",
+      defaultMessage: "Chính sách và quy định",
+    },
   });
 };
 

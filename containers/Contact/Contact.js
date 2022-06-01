@@ -4,17 +4,16 @@ import { useCallback, useState } from "react";
 import postFormData from "../../libs/postFormData";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema, defaultValues } from "../../libs/yupRegister";
-import LoadButton from "../../components/BtnButton/LoadButton";
 import TextInput from "../../components/FormInput/TextInput";
-import { useSetting } from "../../hooks";
-import { useMedia } from "../../hooks";
+import LoadButton from "../../components/BtnButton/LoadButton";
+
+import { useMedia, useSetting } from "../../hooks";
 
 export default function Contact({ initData }) {
-  const [loading, setLoading] = useState(false);
   const setting = useSetting();
+  const [loading, setLoading] = useState(false);
   const { google_map_location_embed_src } = setting;
 
-  console.log("settingsetting", google_map_location_embed_src);
   //data từ trang contact
   const data = initData[0].items[0];
   const { isSmUp, isMdUp } = useMedia();
@@ -26,7 +25,7 @@ export default function Contact({ initData }) {
     register,
     handleSubmit,
     reset,
-    getValues,
+
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -35,15 +34,15 @@ export default function Contact({ initData }) {
 
   //Hàm submit nhận value từ người dùng nhập và gửi lên sever
   const onSubmit = useCallback(async (formData) => {
-    console.log("form", formData);
     setLoading(true);
 
     try {
       await postFormData(formData); //Hàm gửi form data lên cho sever
 
-      reset(defaultValues);
+      reset(defaultValues, {
+        keepDirty: false,
+      });
     } catch (err) {
-      console.log("Đăng ký thất bại");
     } finally {
       setLoading(false);
     }
@@ -118,22 +117,25 @@ export default function Contact({ initData }) {
                 {/* Form liên hệ */}
                 <Box sx={{ width: "100%", mt: "2rem" }}>
                   <TextInput
-                    erroYup={errors.name?.message}
+                    erroYup={errors?.name?.message}
                     {...register("name")}
                     placeholder="Vui lòng nhập tên của bạn"
                     text="Tên"
+                    required={true}
                   />
                   <TextInput
-                    erroYup={errors.email?.message}
+                    erroYup={errors?.email?.message}
                     {...register("email")}
                     placeholder="Vui lòng nhập email"
                     text="Email"
+                    required={true}
                   />
                   <TextInput
                     erroYup={errors.phone_number?.message}
                     {...register("phone_number")}
                     placeholder="Vui lòng nhập số điện thoại"
                     text="số điện thoại"
+                    required={true}
                   />
                   <TextInput
                     erroYup={errors.body?.message}
@@ -141,6 +143,7 @@ export default function Contact({ initData }) {
                     placeholder="Vui lòng nhập nội dung"
                     rows={10}
                     text="nội dung"
+                    required={true}
                   />
                 </Box>
               </Box>

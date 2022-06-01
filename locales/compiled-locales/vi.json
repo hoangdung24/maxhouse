@@ -53,10 +53,16 @@
       "value": "Chính sách"
     }
   ],
-  "tax_identification_number": [
+  "policy_and_regulation": [
     {
       "type": 0,
       "value": "Chính sách và quy định"
+    }
+  ],
+  "tax_identification_number": [
+    {
+      "type": 0,
+      "value": "Mã số thuế"
     }
   ]
 }

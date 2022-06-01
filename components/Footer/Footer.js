@@ -16,7 +16,7 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
 import Link from "../Link";
-import Image from "../Image";
+
 import Container from "../Container";
 import RenderHtml from "../RenderHTML";
 
@@ -34,7 +34,9 @@ export default function Footer({}) {
   if (!setting) {
     return null;
   }
-  console.log("messagesmessagesmessages", messages);
+
+  console.log(messages["policy_and_regulation"][0]);
+
   const {
     company_name,
     tax_identification_number,
@@ -42,8 +44,7 @@ export default function Footer({}) {
     google_map_location_embed_src,
     addresses,
   } = setting;
-  // console.log(" google_map_location_embed_src", google_map_location_embed_src);
-  // console.log("POLICY_ROUTEPOLICY_ROUTE", POLICY_ROUTE);
+
   return (
     <Box
       sx={{
@@ -172,11 +173,11 @@ export default function Footer({}) {
               ]}
             >
               <Title variant={isMdUp ? "h5" : "body_large"}>
-                {messages["tax_identification_number"][0]["value"]}
+                {isMdUp
+                  ? messages["tax_identification_number"][0]["value"]
+                  : messages["policy_and_regulation"][0]["value"]}
               </Title>
-              {/* <Content>Chính sách hoạt động</Content>
 
-              <Content>Chính sách thanh toán</Content> */}
               {POLICY_ROUTE.map((el, i) => {
                 return (
                   <Link
@@ -322,34 +323,19 @@ export default function Footer({}) {
 
                 if (i === 0) {
                   return (
-                    <Link
-                      noLinkStyle={true}
-                      href={value.link}
-                      target="_blank"
-                      key={i}
-                    >
+                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
                       <FacebookOutlinedIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );
                 } else if (i === 1) {
                   return (
-                    <Link
-                      noLinkStyle={true}
-                      href={value.link}
-                      target="_blank"
-                      key={i}
-                    >
+                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
                       <YouTubeIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );
                 } else if (i === 2) {
                   return (
-                    <Link
-                      noLinkStyle={true}
-                      href={value.link}
-                      target="_blank"
-                      key={i}
-                    >
+                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
                       <PinterestIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );

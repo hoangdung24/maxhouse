@@ -3,31 +3,34 @@ import { Tab, Tabs as MuiTabs, useTheme } from "@mui/material";
 
 import { useMedia } from "../../hooks";
 
-const TabsBackground = ({ value, changeTab, data }) => {
+const TabsBackground = ({ value, changeTabHandler, data }) => {
   const theme = useTheme();
-  console.log("value", value);
-  console.log("data", data);
-  const { isSmUp } = useMedia();
+
+  const { isSmUp, isMdUp } = useMedia();
 
   const renderTab = useMemo(() => {
-    return data.map((el, index) => {
+    return data.map((el) => {
       return (
         <Tab
-          key={index}
-          label={el.left_title ? el.left_title : el.right_title}
-          value={el.id}
+          key={el.text_alignment}
+          label={el.title}
+          value={el.text_alignment}
           disableRipple
           sx={[
+            isMdUp && {
+              minWidth: "12rem",
+            },
             isSmUp && {
-              minWidth: "120px",
+              minWidth: "10rem",
             },
             {
               width: "50%",
+              whiteSpace: "nowrap",
               borderRadius: "8px",
-              "&:first-child": {
+              "&:first-of-type": {
                 borderRadius: "8px 0 0 8px",
               },
-              "&:last-child": {
+              "&:last-of-type": {
                 borderRadius: "0 8px 8px 0 !important",
               },
             },
@@ -35,25 +38,24 @@ const TabsBackground = ({ value, changeTab, data }) => {
         />
       );
     });
-  }, [data, isSmUp]);
+  }, [data, isSmUp, isMdUp]);
 
   return (
     <MuiTabs
-      className="serviceserviceservice"
       TabIndicatorProps={{
         sx: {
           display: "none",
         },
       }}
       value={value}
-      onChange={changeTab}
+      onChange={changeTabHandler}
       variant={isSmUp ? "standard" : "fullWidth"}
       sx={[
         {
           marginBottom: isSmUp ? "3rem" : "1rem",
         },
         {
-          width: isSmUp ? "30%" : "80%",
+          width: isSmUp ? "fit-content" : "80%",
           margin: "0 auto",
           mb: "5rem",
           borderRadius: "8px",

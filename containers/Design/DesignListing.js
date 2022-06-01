@@ -22,24 +22,20 @@ const DetailBlogModal = dynamic(() =>
   })
 );
 
-const LIMIT = 5;
+import { POST_LIMIT } from "../../constants";
 
 export default function Design({ initData }) {
-  // console.log("initDatainitDatainitData", initData);
-
   const router = useRouter();
   const [open, toggle] = useToggle(true);
   const [params, setParams] = useParams();
   const [selectedPost, setSelectedPost] = useState(null);
 
-  const { isSmUp } = useMedia();
+  const { isSmUp, isMdUp, isSmDown } = useMedia();
 
   const [designCategoryList, designListItem, metadataPage] = initData;
 
   const [animationState, setAnimationState] = useState(true);
-  const [currentTab, setCurrentTab] = useState(
-    designCategoryList?.items?.[0]?.id
-  );
+  const [currentTab, setCurrentTab] = useState(designCategoryList?.items?.[0]?.id);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -101,24 +97,18 @@ export default function Design({ initData }) {
     let filteredData = designListItem.items.filter((el) => {
       return el.category == currentTab;
     });
-    console.log("déginfilteredData", filteredData);
 
     if (isSmUp) {
       return designCategoryList.items.map((item, index) => {
         return (
           <TabPanel key={item.id} value={currentTab} index={item.id}>
-            <ListingBlog
-              data={filteredData}
-              selectedPostHandler={selectedPostHandler}
-            />
+            <ListingBlog data={filteredData} selectedPostHandler={selectedPostHandler} />
           </TabPanel>
         );
       });
     } else {
-      const offset = (currentPage - 1) * LIMIT;
-
-      const data = filteredData.slice(offset, offset + LIMIT);
-      console.log("dégindata", data);
+      const offset = (currentPage - 1) * POST_LIMIT;
+      const data = filteredData.slice(offset, offset + POST_LIMIT);
 
       return designCategoryList.items.map((item, index) => {
         return (
@@ -126,11 +116,7 @@ export default function Design({ initData }) {
             <Fragment>
               {data.map((el, i) => {
                 return (
-                  <CardItem
-                    key={i}
-                    {...el}
-                    selectedPostHandler={selectedPostHandler}
-                  />
+                  <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />
                 );
               })}
             </Fragment>
@@ -174,19 +160,21 @@ export default function Design({ initData }) {
         <Grid container>
           <Grid item xs={12}>
             <Box
-              className="boxxxxxx"
               sx={[
                 {
                   position: "relative",
                 },
-                isSmUp
-                  ? {
-                      paddingY: "2.5rem",
-                      marginY: "7.5rem",
-                    }
-                  : {
-                      marginY: "2rem",
-                    },
+                isSmUp && {
+                  paddingY: "2.5rem",
+                  marginY: "7.5rem",
+                  minHeight: "900px",
+                },
+                isSmDown && {
+                  marginY: "2rem",
+                },
+                isMdUp && {
+                  minHeight: "800px",
+                },
               ]}
             >
               <BackgroundListingPage />

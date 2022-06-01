@@ -5,7 +5,6 @@ import { PAGES, types } from "../api";
 import { transformUrl, prefetchData } from "../libs";
 
 export default function PageHome(props) {
-  console.log("props", props);
   return <Home {...props} />;
 }
 
@@ -22,11 +21,6 @@ export async function getServerSideProps({ params, query }) {
       },
     };
   } catch (err) {
-    console.log(
-      "🚀 ~ file: index.js ~ line 23 ~ getServerSideProps ~ err",
-      err
-    );
-
     return {
       redirect: {
         destination: "/404",

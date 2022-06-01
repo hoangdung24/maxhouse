@@ -1,3 +1,7 @@
+export const POST_LIMIT = 5;
+
+export const NEWS_POST_LIMIT = 8;
+
 export const NAVBAR = [
   { name: "Thiết kế", link: "/thiet-ke", key: "design" },
   { name: "Công trình", link: "/cong-trinh", key: "construction" },
