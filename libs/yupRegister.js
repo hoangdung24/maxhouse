@@ -4,11 +4,12 @@ export const schema = yup.object().shape({
   name: yup
     .string()
     .required("Vui lòng nhập tên")
-    .min(5, "Ít nhất 5 ký tự")
+    .min(2, "Ít nhất 2 ký tự")
     .max(20, "username tối đa 20 ký tự"),
+
   email: yup
     .string()
-    .email("Email không hợp lệ")
+    // .email("Email không hợp lệ")
     .required("Vui lòng nhập Email")
     .max(20, "mật khẩu tối đa 20 ký tự"),
 
@@ -17,6 +18,7 @@ export const schema = yup.object().shape({
     .required("Vui lòng nhập số điện thoại")
     .min(9, "Không phải số điện thoại")
     .max(10, "Không phải số điện thoại"),
+
   body: yup
     .string()
     .required("Vui lòng nhập nội dung")
@@ -25,8 +27,8 @@ export const schema = yup.object().shape({
 });
 
 export const defaultValues = {
-  name: "phi",
-  email: "phi@gmail.com",
-  phone_number: "0398813369",
-  body: "phiphiphiphi",
+  name: "maxhouse",
+  email: "maxhouse@gmail.com",
+  phone_number: "0398645472",
+  body: "Tôi muốn nhận một phản hồi",
 };

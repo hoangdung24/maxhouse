@@ -14,6 +14,7 @@ export default function Service({ initData }) {
   const [dataService, setDataService] = useState(() => {
     const initDataService = initData[0].items[0];
 
+    // cắt object chia thành 2 mảng
     let transformArr = [];
     const leftObj = {};
     const rightObj = {};

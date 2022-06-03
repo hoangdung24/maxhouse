@@ -96,6 +96,8 @@ const defaultTheme = createTheme({
 
     text: {
       primary: "#1b1b1b",
+      error: "#cb0101",
+      success: "#22bb33",
     },
     common: {
       black: "#131313",

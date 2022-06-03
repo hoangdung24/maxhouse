@@ -35,8 +35,6 @@ export default function Footer({}) {
     return null;
   }
 
-  console.log(messages["policy_and_regulation"][0]);
-
   const {
     company_name,
     tax_identification_number,
@@ -118,6 +116,7 @@ export default function Footer({}) {
               {POLICY_ROUTE.map((el, i) => {
                 return (
                   <Link
+                    className="asdasdadadaadad"
                     key={i}
                     href={el.link}
                     sx={{
@@ -125,7 +124,10 @@ export default function Footer({}) {
                       marginBottom: 4,
 
                       [theme.breakpoints.up("md")]: {
-                        marginBottom: 1,
+                        marginBottom: 2,
+                      },
+                      [theme.breakpoints.down("sm")]: {
+                        marginBottom: 5,
                       },
                     }}
                   >
@@ -133,14 +135,6 @@ export default function Footer({}) {
                   </Link>
                 );
               })}
-
-              {/* <Box
-                sx={{
-                  display: isMdUp ? "block" : "none",
-                }}
-              >
-                <Image src="/img/download (4) 1.png" width={"10rem"} height="4rem" />
-              </Box> */}
             </Box>
           </Grid>
 
@@ -154,20 +148,23 @@ export default function Footer({}) {
             <Divider />
           </Grid>
 
-          {/* phần MST cty */}
+          {/* phần MST cty mobile */}
           <Grid
             item
             md={4}
-            sx={{
-              display: isMdUp ? "none" : "block",
-            }}
+            sx={[
+              {
+                display: isMdUp ? "none" : "block",
+              },
+            ]}
           >
             <Box
+              className="asdasdas"
               sx={[
-                { display: isMdUp ? "none" : "block" },
-                !isMdUp && {
-                  ["& > p:last-child"]: {
-                    marginBottom: 0,
+                {
+                  display: isMdUp ? "none" : "block",
+                  "& a:last-child > p": {
+                    mb: 0,
                   },
                 },
               ]}
@@ -180,15 +177,7 @@ export default function Footer({}) {
 
               {POLICY_ROUTE.map((el, i) => {
                 return (
-                  <Link
-                    key={i}
-                    href={el.link}
-                    sx={{
-                      [theme.breakpoints.up("md")]: {
-                        marginBottom: 1,
-                      },
-                    }}
-                  >
+                  <Link key={i} href={el.link} sx={{ mt: 10 }}>
                     <Content>{messages[`${el.key}`][0]["value"]}</Content>
                   </Link>
                 );
@@ -217,7 +206,7 @@ export default function Footer({}) {
                 },
               ]}
             >
-              <Title variant={isMdUp ? "h5" : "body_large"}>
+              <Title variant={isMdUp ? "h6" : "body_large"}>
                 {messages["address"][0]["value"]}
               </Title>
 
@@ -323,19 +312,34 @@ export default function Footer({}) {
 
                 if (i === 0) {
                   return (
-                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
+                    <Link
+                      noLinkStyle={true}
+                      href={value.link}
+                      target="_blank"
+                      key={i}
+                    >
                       <FacebookOutlinedIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );
                 } else if (i === 1) {
                   return (
-                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
+                    <Link
+                      noLinkStyle={true}
+                      href={value.link}
+                      target="_blank"
+                      key={i}
+                    >
                       <YouTubeIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );
                 } else if (i === 2) {
                   return (
-                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
+                    <Link
+                      noLinkStyle={true}
+                      href={value.link}
+                      target="_blank"
+                      key={i}
+                    >
                       <PinterestIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );
@@ -376,10 +380,11 @@ const Title = styled(Typography)(({ theme }) => {
 const Content = styled(Typography)(({ theme }) => {
   return {
     color: theme.palette.common.neutral1,
-    marginBottom: 24,
+    marginBottom: 10,
+
     [theme.breakpoints.up("md")]: {
       color: theme.palette.common.black,
-      marginBottom: 8,
+      marginBottom: 1,
     },
   };
 });

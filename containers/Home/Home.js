@@ -5,6 +5,7 @@ import { Button, Typography, Box, useTheme } from "@mui/material";
 import { Image } from "../../components";
 
 import { useMedia } from "../../hooks";
+import { useRouter } from "next/router";
 
 const settings = {
   arrows: false,
@@ -17,6 +18,7 @@ const settings = {
 };
 
 export default function Home({ initData }) {
+  const router = useRouter();
   const { isMdUp } = useMedia();
 
   const theme = useTheme();
@@ -154,6 +156,10 @@ export default function Home({ initData }) {
               }}
             >
               <Button
+                onClick={() => {
+                  router.push("/dich-vu");
+                  console.log("trang home ne");
+                }}
                 variant={"outlined"}
                 sx={{
                   borderRadius: 0,

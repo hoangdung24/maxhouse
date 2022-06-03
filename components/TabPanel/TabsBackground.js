@@ -52,7 +52,7 @@ const TabsBackground = ({ value, changeTabHandler, data }) => {
       variant={isSmUp ? "standard" : "fullWidth"}
       sx={[
         {
-          marginBottom: isSmUp ? "3rem" : "1rem",
+          marginBottom: isSmUp ? "3rem" : "2rem",
         },
         {
           width: isSmUp ? "fit-content" : "80%",

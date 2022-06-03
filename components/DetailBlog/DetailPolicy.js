@@ -15,6 +15,7 @@ const DetailPolicy = ({ initData }) => {
     <Box
       sx={{
         marginTop: isMdUp ? 25 : 5,
+        mb: isMdUp ? "5rem" : "4rem",
       }}
     >
       <Container>
