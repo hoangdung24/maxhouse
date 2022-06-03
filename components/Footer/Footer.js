@@ -16,7 +16,7 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
 import Link from "../Link";
-import Image from "../Image";
+
 import Container from "../Container";
 import RenderHtml from "../RenderHTML";
 
@@ -34,7 +34,7 @@ export default function Footer({}) {
   if (!setting) {
     return null;
   }
-  console.log("messagesmessagesmessages", messages);
+
   const {
     company_name,
     tax_identification_number,
@@ -42,8 +42,7 @@ export default function Footer({}) {
     google_map_location_embed_src,
     addresses,
   } = setting;
-  // console.log(" google_map_location_embed_src", google_map_location_embed_src);
-  // console.log("POLICY_ROUTEPOLICY_ROUTE", POLICY_ROUTE);
+
   return (
     <Box
       sx={{
@@ -117,6 +116,7 @@ export default function Footer({}) {
               {POLICY_ROUTE.map((el, i) => {
                 return (
                   <Link
+                    className="asdasdadadaadad"
                     key={i}
                     href={el.link}
                     sx={{
@@ -124,7 +124,10 @@ export default function Footer({}) {
                       marginBottom: 4,
 
                       [theme.breakpoints.up("md")]: {
-                        marginBottom: 1,
+                        marginBottom: 2,
+                      },
+                      [theme.breakpoints.down("sm")]: {
+                        marginBottom: 5,
                       },
                     }}
                   >
@@ -132,14 +135,6 @@ export default function Footer({}) {
                   </Link>
                 );
               })}
-
-              {/* <Box
-                sx={{
-                  display: isMdUp ? "block" : "none",
-                }}
-              >
-                <Image src="/img/download (4) 1.png" width={"10rem"} height="4rem" />
-              </Box> */}
             </Box>
           </Grid>
 
@@ -153,41 +148,36 @@ export default function Footer({}) {
             <Divider />
           </Grid>
 
-          {/* phần MST cty */}
+          {/* phần MST cty mobile */}
           <Grid
             item
             md={4}
-            sx={{
-              display: isMdUp ? "none" : "block",
-            }}
+            sx={[
+              {
+                display: isMdUp ? "none" : "block",
+              },
+            ]}
           >
             <Box
+              className="asdasdas"
               sx={[
-                { display: isMdUp ? "none" : "block" },
-                !isMdUp && {
-                  ["& > p:last-child"]: {
-                    marginBottom: 0,
+                {
+                  display: isMdUp ? "none" : "block",
+                  "& a:last-child > p": {
+                    mb: 0,
                   },
                 },
               ]}
             >
               <Title variant={isMdUp ? "h5" : "body_large"}>
-                {messages["tax_identification_number"][0]["value"]}
+                {isMdUp
+                  ? messages["tax_identification_number"][0]["value"]
+                  : messages["policy_and_regulation"][0]["value"]}
               </Title>
-              {/* <Content>Chính sách hoạt động</Content>
 
-              <Content>Chính sách thanh toán</Content> */}
               {POLICY_ROUTE.map((el, i) => {
                 return (
-                  <Link
-                    key={i}
-                    href={el.link}
-                    sx={{
-                      [theme.breakpoints.up("md")]: {
-                        marginBottom: 1,
-                      },
-                    }}
-                  >
+                  <Link key={i} href={el.link} sx={{ mt: 10 }}>
                     <Content>{messages[`${el.key}`][0]["value"]}</Content>
                   </Link>
                 );
@@ -216,7 +206,7 @@ export default function Footer({}) {
                 },
               ]}
             >
-              <Title variant={isMdUp ? "h5" : "body_large"}>
+              <Title variant={isMdUp ? "h6" : "body_large"}>
                 {messages["address"][0]["value"]}
               </Title>
 
@@ -390,10 +380,11 @@ const Title = styled(Typography)(({ theme }) => {
 const Content = styled(Typography)(({ theme }) => {
   return {
     color: theme.palette.common.neutral1,
-    marginBottom: 24,
+    marginBottom: 10,
+
     [theme.breakpoints.up("md")]: {
       color: theme.palette.common.black,
-      marginBottom: 8,
+      marginBottom: 1,
     },
   };
 });

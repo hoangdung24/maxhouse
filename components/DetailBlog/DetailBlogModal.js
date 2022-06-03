@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 import {
   Dialog,
@@ -11,9 +11,14 @@ import { useMedia } from "../../hooks";
 
 import Container from "../Container";
 import DetailBlog from "./DetailBlog";
+import { useScroll, useWindowScroll } from "react-use";
 
 const PortfolioDetailDialog = ({ open, toggle, selectedPost, setParams }) => {
-  // console.log("bai viet", setParams);
+  const scrollRef = useRef(null);
+  console.log("scrollRef", scrollRef);
+  const { x, y } = useScroll(scrollRef);
+  console.log("yyyyyyyyyy", y);
+
   const theme = useTheme();
 
   const { isSmUp } = useMedia();
@@ -44,7 +49,11 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, setParams }) => {
         ],
       }}
     >
-      <DialogContent>
+      <DialogContent
+        ref={scrollRef}
+        className="asdasdasdasdasdasad"
+        sx={{ backgroundColor: "red", overflowY: "scroll" }}
+      >
         <Container>
           <DetailBlog
             {...{

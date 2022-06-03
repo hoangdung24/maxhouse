@@ -13,17 +13,23 @@ export const useParams = ({
   isUpdateRouter = true,
 } = {}) => {
   const router = useRouter();
-  // console.log("router", router);
   const [isReady, setIsReady] = useState(false);
   const [params, setParams] = useState(initState);
   const prevParams = usePrevious(params);
 
   useEffect(() => {
     setParams((prev) => {
-      return {
-        ...prev,
-        ...router.query,
-      };
+      const originalObj = { ...prev, ...router.query };
+
+      const newObj = {};
+
+      for (const key of Object.keys(originalObj)) {
+        if (!!originalObj[key]) {
+          newObj[key] = originalObj[key];
+        }
+      }
+
+      return newObj;
     });
     setIsReady(true);
   }, []);
@@ -34,7 +40,6 @@ export const useParams = ({
     }
 
     const urlParams = omit(params, [...excludeKeys]);
-
     const stringifyParams = queryString.stringify(urlParams);
     const pathname = `${router.pathname}?${stringifyParams}`;
 

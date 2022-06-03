@@ -66,7 +66,7 @@ const Header = ({}) => {
             </Link>
           </Box>
 
-          <Box sx={{ display: "flex", gap: "60px" }}>
+          <Box className="totototot" sx={{ display: "flex", gap: "60px" }}>
             {NAVBAR.map((el, index) => (
               <Link key={index} href={el.link}>
                 <Button
@@ -136,6 +136,7 @@ const Header = ({}) => {
     } else {
       const TopNav = (
         <Stack
+          className="nenenenene"
           direction={"row"}
           paddingY={3}
           justifyContent="space-between"
@@ -157,7 +158,9 @@ const Header = ({}) => {
 
       return (
         <Fragment>
-          <Container>{TopNav}</Container>
+          <Container sx={{ zIndex: 10, position: "fixed", top: 0, left: 0 }}>
+            {TopNav}
+          </Container>
 
           <Slide
             in={animationState}

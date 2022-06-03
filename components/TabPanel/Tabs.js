@@ -37,21 +37,13 @@ const Tabs = ({ value, changeTab, data }) => {
       variant={isSmUp ? "standard" : "fullWidth"}
       sx={[
         {
-          marginBottom: isSmUp ? "3rem" : "1rem",
+          marginBottom: isSmUp ? "3rem" : "2rem",
         },
         {
           "& .MuiTabs-flexContainer": {
-            width: "60vw",
+            width: "100%",
             margin: "0 auto",
-            // display: "grid",
-            // gridTemplateColumns: "repeat(5, 1fr )",
-            // [theme.breakpoints.down("sm")]: {
-            //   width: "80vw",
-            //   gridTemplateColumns: "repeat(3, 1fr )",
-            // },
-
             [theme.breakpoints.down("sm")]: {
-              width: "65vw",
               display: "flex",
               flexWrap: "wrap",
             },

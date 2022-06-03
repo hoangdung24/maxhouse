@@ -13,25 +13,24 @@ import {
 } from "../../components";
 import { useMedia, useParams } from "../../hooks";
 
-const LIMIT = 5;
+import { POST_LIMIT } from "../../constants";
+import { useRouter } from "next/router";
 
 export default function Construction({ initData }) {
+  const router = useRouter();
   const [open, toggle] = useToggle(true);
   const [params, setParams] = useParams();
   const [selectedPost, setSelectedPost] = useState(null);
-  const { isSmUp } = useMedia();
+  const { isSmUp, isMdUp, isSmDown } = useMedia();
 
   const [constructionCategoryList, constructionListItem, metadataPage] =
     initData;
-  console.log("constructionCategoryList", constructionCategoryList);
-  console.log("constructionListItem", constructionListItem);
-  console.log("metadataPage", metadataPage);
 
   const [animationState, setAnimationState] = useState(true);
   const [currentTab, setCurrentTab] = useState(
     constructionCategoryList?.items?.[0]?.id
   );
-  console.log("currentTab", currentTab);
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const animationHandler = useCallback(() => {
@@ -106,11 +105,8 @@ export default function Construction({ initData }) {
         );
       });
     } else {
-      const offset = (currentPage - 1) * LIMIT;
-
-      const data = filteredData.slice(offset, offset + LIMIT);
-      console.log("filteredData", filteredData);
-      console.log("filteredData.slice", data);
+      const offset = (currentPage - 1) * POST_LIMIT;
+      const data = filteredData.slice(offset, offset + POST_LIMIT);
 
       return constructionCategoryList.items.map((item, index) => {
         return (
@@ -176,14 +172,17 @@ export default function Construction({ initData }) {
                 {
                   position: "relative",
                 },
-                isSmUp
-                  ? {
-                      paddingY: "2.5rem",
-                      marginY: "7.5rem",
-                    }
-                  : {
-                      marginY: "4rem",
-                    },
+                isSmUp && {
+                  paddingY: "2.5rem",
+                  marginY: "7.5rem",
+                  minHeight: "900px",
+                },
+                isSmDown && {
+                  marginY: "2rem",
+                },
+                isMdUp && {
+                  minHeight: "800px",
+                },
               ]}
             >
               <BackgroundListingPage />

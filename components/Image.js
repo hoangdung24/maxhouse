@@ -8,14 +8,7 @@ const defaultImageProps = {
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
 };
 
-const Image = ({
-  WrapperProps = {},
-  src,
-  width,
-  height,
-  layout = "fill",
-  ...props
-}) => {
+const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...props }) => {
   const loader = ({ src, width, quality }) => {
     return `${src}?w=${width}&q=${quality || 75}`;
   };

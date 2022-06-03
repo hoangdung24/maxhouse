@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-import { useMedia } from "../hooks";
+import { useMedia, useSetting } from "../hooks";
 
 import Image from "./Image";
 
@@ -24,7 +24,7 @@ const BackgroundListingPage = ({ src }) => {
         }}
       >
         <Image
-          src="/img/imgNews/Component 6.png"
+          src={src || "/img/imgNews/Component 6.png"}
           layout="fill"
           width="100%"
           height="100%"

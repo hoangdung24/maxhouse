@@ -4,17 +4,22 @@ import { useCallback, useState } from "react";
 import postFormData from "../../libs/postFormData";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema, defaultValues } from "../../libs/yupRegister";
-import LoadButton from "../../components/BtnButton/LoadButton";
 import TextInput from "../../components/FormInput/TextInput";
-import { useSetting } from "../../hooks";
-import { useMedia } from "../../hooks";
+import LoadButton from "../../components/BtnButton/LoadButton";
+
+import { useMedia, useSetting } from "../../hooks";
+import axios from "axios";
+import { API_KEY, CONTACTS } from "../../api";
 
 export default function Contact({ initData }) {
-  const [loading, setLoading] = useState(false);
   const setting = useSetting();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+
   const { google_map_location_embed_src } = setting;
 
-  console.log("settingsetting", google_map_location_embed_src);
   //data từ trang contact
   const data = initData[0].items[0];
   const { isSmUp, isMdUp } = useMedia();
@@ -22,28 +27,57 @@ export default function Contact({ initData }) {
   //theme màu sắc
   const theme = useTheme();
 
+  //useForm
   const {
     register,
     handleSubmit,
     reset,
-    getValues,
+
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues,
   });
 
+  //Hàm xử lý thông báo thành công and thất bại
+  const registerError = () => {
+    setError(true);
+    setSuccess(false);
+  };
+  const registerSuccess = () => {
+    setSuccess(true);
+    setError(false);
+    // 5s sau khi đăng ký thành công sẽ mất nội dung thành công
+    setTimeout(() => {
+      setSuccess(false);
+    }, 8000);
+  };
+
   //Hàm submit nhận value từ người dùng nhập và gửi lên sever
   const onSubmit = useCallback(async (formData) => {
-    console.log("form", formData);
     setLoading(true);
 
     try {
-      await postFormData(formData); //Hàm gửi form data lên cho sever
+      // await postFormData(formData); //Hàm gửi form data lên cho sever
+      await axios
+        .post(`${process.env.NEXT_PUBLIC_DOMAIN_URL}${CONTACTS}/`, formData, {
+          headers: {
+            Authorization: process.env.NEXT_PUBLIC_AUTHORIZATION_API_KEY,
+          },
+        })
+        .then((res) => {});
 
-      reset(defaultValues);
+      reset(defaultValues, {
+        keepDirty: false,
+      });
+      registerSuccess();
     } catch (err) {
-      console.log("Đăng ký thất bại");
+      const errorPhone = err.response.data.phone_number[0];
+      console.log("lỗi", errorPhone);
+      if (errorPhone == "lỗi Số điện thoại không hợp lệ.") {
+        return;
+      }
+      registerError();
     } finally {
       setLoading(false);
     }
@@ -53,7 +87,7 @@ export default function Contact({ initData }) {
     <Box
       sx={{
         textAlign: "center",
-        pt: "9.5rem",
+        pt: isMdUp ? "9.5rem" : "2.5rem",
         width: "80vw",
         margin: "0 auto",
         mb: "5rem",
@@ -61,7 +95,7 @@ export default function Contact({ initData }) {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography
-          variant="h1"
+          variant={isMdUp ? "h1" : "h5"}
           sx={{
             mb: "4rem",
             textTransform: "uppercase",
@@ -73,12 +107,12 @@ export default function Contact({ initData }) {
         >
           {data.title}
         </Typography>
-
         <Grid container spacing={isMdUp ? 10 : 6} sx={{ flexDirection: "row" }}>
           {/* googleMap */}
-          <Grid item sm={12} md={6}>
+          <Grid item sm={12} md={6} sx={{ width: "100%" }}>
             {google_map_location_embed_src && (
               <Box
+                className="momomom"
                 sx={{
                   width: "100%",
                   height: "100%",
@@ -87,6 +121,10 @@ export default function Contact({ initData }) {
                   },
                   [theme.breakpoints.up("sm")]: {
                     height: "70vh",
+                  },
+                  [theme.breakpoints.down("sm")]: {
+                    width: "100%",
+                    height: "60vh",
                   },
                 }}
               >
@@ -118,22 +156,25 @@ export default function Contact({ initData }) {
                 {/* Form liên hệ */}
                 <Box sx={{ width: "100%", mt: "2rem" }}>
                   <TextInput
-                    erroYup={errors.name?.message}
+                    erroYup={errors?.name?.message}
                     {...register("name")}
                     placeholder="Vui lòng nhập tên của bạn"
                     text="Tên"
+                    required={true}
                   />
                   <TextInput
-                    erroYup={errors.email?.message}
+                    erroYup={errors?.email?.message}
                     {...register("email")}
                     placeholder="Vui lòng nhập email"
                     text="Email"
+                    required={true}
                   />
                   <TextInput
                     erroYup={errors.phone_number?.message}
                     {...register("phone_number")}
                     placeholder="Vui lòng nhập số điện thoại"
                     text="số điện thoại"
+                    required={true}
                   />
                   <TextInput
                     erroYup={errors.body?.message}
@@ -141,6 +182,7 @@ export default function Contact({ initData }) {
                     placeholder="Vui lòng nhập nội dung"
                     rows={10}
                     text="nội dung"
+                    required={true}
                   />
                 </Box>
               </Box>
@@ -148,10 +190,12 @@ export default function Contact({ initData }) {
           </Grid>
         </Grid>
 
+        {/* nội dung success arror và btn khi register */}
         <Box
           sx={{
             display: "flex",
             justifyContent: "flex-end",
+            alignItems: "center",
             mt: "2.5rem",
             "& .MuiLoadingButton-root": {
               [theme.breakpoints.up("md")]: {
@@ -163,7 +207,27 @@ export default function Contact({ initData }) {
             },
           }}
         >
-          <LoadButton sx={{ width: "40% !important" }} loading={loading} />
+          <Typography
+            variant="subtitle1"
+            sx={{
+              mr: "1rem",
+              display: error ? "block" : "none",
+              color: theme.palette.text.error,
+            }}
+          >
+            Đăng ký thất bại. Vui lòng thử lại...
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              mr: "1rem",
+              display: success ? "block" : "none",
+              color: theme.palette.text.success,
+            }}
+          >
+            Đăng ký thành công. Vui lòng kiểm tra email
+          </Typography>
+          <LoadButton loading={loading} />
         </Box>
       </form>
     </Box>

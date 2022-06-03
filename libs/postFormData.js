@@ -1,14 +1,12 @@
-import { API_KEY, CONTACTS } from "../api";
+import { API_KEY, CONTACTS, PREFIX } from "../api";
 import axios from "../axios.config";
 import transformUrl from "./transformUrl";
 
 export default (props) => {
-  const urls = [transformUrl(CONTACTS)];
-  //   console.log("urls", `https://maxhouse.t-solution.vn${urls}`);
   return axios
-    .post(`https://maxhouse.t-solution.vn${urls}`, props, {
+    .post(`${process.env.NEXT_PUBLIC_DOMAIN_URL}${CONTACTS}/`, props, {
       headers: {
-        Authorization: API_KEY,
+        Authorization: "Api-Key emSrWReh.sdhbfPz0W1eNksmfw6sOddzclP183ZCv",
       },
     })
     .then((res) => console.log("Đăng ký thành công"));

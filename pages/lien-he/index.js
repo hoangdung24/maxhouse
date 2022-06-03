@@ -10,9 +10,7 @@ export default function PageContact(props) {
 
 export async function getServerSideProps({ params, query }) {
   try {
-    const urls = [
-      transformUrl(PAGES, { type: types.contactPage, fields: "*" }),
-    ];
+    const urls = [transformUrl(PAGES, { type: types.contactPage, fields: "*" })];
 
     const { resList, fallback } = await prefetchData(urls);
 
@@ -23,11 +21,6 @@ export async function getServerSideProps({ params, query }) {
       },
     };
   } catch (err) {
-    console.log(
-      "🚀 ~ file: index.js ~ line 23 ~ getServerSideProps ~ err",
-      err
-    );
-
     return {
       redirect: {
         destination: "/404",

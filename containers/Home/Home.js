@@ -5,12 +5,12 @@ import { Button, Typography, Box, useTheme } from "@mui/material";
 import { Image } from "../../components";
 
 import { useMedia } from "../../hooks";
+import { useRouter } from "next/router";
 
 const settings = {
   arrows: false,
   dots: true,
   infinite: true,
-  speed: 2000,
   autoplaySpeed: 3000,
   slidesToShow: 1,
   slidesToScroll: 1,
@@ -18,13 +18,13 @@ const settings = {
 };
 
 export default function Home({ initData }) {
+  const router = useRouter();
   const { isMdUp } = useMedia();
 
   const theme = useTheme();
 
   const { items } = initData?.[0];
   const data = items?.[0];
-  console.log("first", items);
 
   const renderCarousel = useMemo(() => {
     if (!data?.banners) {
@@ -156,6 +156,10 @@ export default function Home({ initData }) {
               }}
             >
               <Button
+                onClick={() => {
+                  router.push("/dich-vu");
+                  console.log("trang home ne");
+                }}
                 variant={"outlined"}
                 sx={{
                   borderRadius: 0,

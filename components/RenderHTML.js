@@ -20,7 +20,7 @@ const renderHTML = ({ data, sx = {}, ...props }) => {
             marginLeft: "1.25rem",
           },
           ["& img"]: {
-            width: "auto",
+            width: "100%",
             height: "auto",
             maxWidth: "100%",
             objectFit: "contain",
@@ -29,7 +29,10 @@ const renderHTML = ({ data, sx = {}, ...props }) => {
         sx,
       ]}
       dangerouslySetInnerHTML={{
-        __html: DOMPurify.sanitize(body),
+        __html: DOMPurify.sanitize(body, {
+          ADD_TAGS: ["iframe"],
+          ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
+        }),
       }}
       {...props}
     ></Box>
