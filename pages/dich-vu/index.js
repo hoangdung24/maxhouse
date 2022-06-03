@@ -9,9 +9,7 @@ export default function Pageservice({ ...props }) {
 
 export async function getServerSideProps({ params, query, locale }) {
   try {
-    const urls = [
-      transformUrl(PAGES, { type: types.servicePage, fields: "*", locale }),
-    ];
+    const urls = [transformUrl(PAGES, { type: types.servicePage, fields: "*", locale })];
 
     const { resList, fallback } = await prefetchData(urls);
 
@@ -22,11 +20,6 @@ export async function getServerSideProps({ params, query, locale }) {
       },
     };
   } catch (err) {
-    console.log(
-      "🚀 ~ file: index.js ~ line 23 ~ getServerSideProps ~ err",
-      err
-    );
-
     return {
       redirect: {
         destination: "/404",

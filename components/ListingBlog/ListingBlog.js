@@ -1,10 +1,15 @@
+import { forwardRef } from "react";
 import { Grid, Box } from "@mui/material";
 
 import CardItem from "../Card/CardItem";
 import SliderListing from "../Slider/SliderListing";
 
-const ListingBlog = ({ data, selectedPostHandler, ...props }) => {
-  const length = data.length;
+const ListingBlog = forwardRef(({ data, selectedPostHandler, ...props }, ref) => {
+  const length = data?.length;
+
+  if (!length) {
+    return null;
+  }
 
   if (length < 4) {
     return (
@@ -26,7 +31,7 @@ const ListingBlog = ({ data, selectedPostHandler, ...props }) => {
     );
   } else if (length < 9) {
     return (
-      <SliderListing type={2} {...props}>
+      <SliderListing ref={ref} type={2} {...props}>
         {data.map((el, i) => {
           return <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />;
         })}
@@ -35,12 +40,12 @@ const ListingBlog = ({ data, selectedPostHandler, ...props }) => {
   }
 
   return (
-    <SliderListing {...props}>
+    <SliderListing ref={ref} {...props}>
       {data.map((el, i) => {
         return <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />;
       })}
     </SliderListing>
   );
-};
+});
 
 export default ListingBlog;

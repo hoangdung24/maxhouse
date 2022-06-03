@@ -4,7 +4,14 @@ const ConstructionDetail = ({ initData }) => {
   const [data] = initData;
 
   return (
-    <Container>
+    <Container
+      sx={[
+        {
+          marginTop: "8rem",
+          marginBottom: "5rem",
+        },
+      ]}
+    >
       <DetailBlog
         {...{
           data,

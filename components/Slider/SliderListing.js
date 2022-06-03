@@ -1,5 +1,6 @@
 import Slider from "react-slick";
 import { Box } from "@mui/material";
+import { forwardRef } from "react";
 
 const setting1 = {
   arrows: false,
@@ -41,7 +42,7 @@ const setting2 = {
   ],
 };
 
-const SliderWrapper = ({ children, type = 1, ...props }) => {
+const SliderWrapper = forwardRef(({ children, type = 1, ...props }, ref) => {
   let setting = type === 1 ? setting1 : setting2;
 
   return (
@@ -52,11 +53,11 @@ const SliderWrapper = ({ children, type = 1, ...props }) => {
         },
       }}
     >
-      <Slider {...props} {...setting}>
+      <Slider ref={ref} {...props} {...setting}>
         {children}
       </Slider>
     </Box>
   );
-};
+});
 
 export default SliderWrapper;

@@ -11,6 +11,8 @@ export const useParams = ({
   callback = () => {},
   excludeKeys = [],
   isUpdateRouter = true,
+  isShallow = true,
+  isScroll = true,
 } = {}) => {
   const router = useRouter();
   const [isReady, setIsReady] = useState(false);
@@ -47,7 +49,8 @@ export const useParams = ({
 
     if (isUpdateRouter) {
       router.push(pathname, pathname, {
-        shallow: true,
+        shallow: isShallow,
+        scroll: isScroll,
       });
     }
   }, [callback, params, prevParams]);

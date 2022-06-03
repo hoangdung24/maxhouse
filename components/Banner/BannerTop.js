@@ -1,4 +1,7 @@
+import { useState } from "react";
+
 import { Box, Typography, styled, useTheme } from "@mui/material";
+
 import Image from "../Image";
 import { useMedia } from "../../hooks";
 
@@ -42,45 +45,56 @@ const AnimationMouse = styled(Box)(({ theme }) => {
 const BannerTop = ({ src, content = "" }) => {
   const theme = useTheme();
   const { isMdUp } = useMedia();
+  const [size, setSize] = useState({
+    width: 1,
+    height: 1,
+  });
 
   if (!src) {
     return null;
   }
 
+  const imageHeight = size.height / size.width;
+
   return (
     <Box
-      sx={{
-        height: "100vh",
-        width: "100vw",
-        overflow: "hidden",
-        position: "relative",
-        pointerEvents: "none",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          width: "100%",
+      sx={[
+        {
           height: "100%",
-          top: 0,
-          left: 0,
-          bottom: 0,
-          zIndex: 1,
-          background: "rgba(255, 255, 255, 0.4)",
+          width: "100vw",
+          overflow: "hidden",
+          position: "relative",
+          pointerEvents: "none",
+          "&::before": {
+            content: '""',
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            zIndex: 1,
+            background: "rgba(255, 255, 255, 0.4)",
+            backdropFilter: "blur(1px)",
+          },
         },
-        [theme.breakpoints.down("md")]: {
-          height: "70vh",
+        isMdUp && {
+          height: "100vh",
         },
-        [theme.breakpoints.down("sm")]: {
-          height: "60vh",
-        },
-      }}
+      ]}
     >
       <Image
         src={src}
         layout="fill"
         width={"100%"}
-        height={isMdUp ? "100%" : "100%"}
-        objectFit={isMdUp ? "cover" : "fill"}
-        WrapperProps={{ filter: "grayscale(100%)" }}
+        height={`calc(${imageHeight} * 100vw)`}
+        objectFit={isMdUp ? "cover" : "cover"}
+        onLoadingComplete={({ naturalWidth, naturalHeight }) => {
+          setSize({
+            width: naturalWidth,
+            height: naturalHeight,
+          });
+        }}
       />
 
       <Typography

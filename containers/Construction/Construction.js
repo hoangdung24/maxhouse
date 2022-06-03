@@ -16,20 +16,30 @@ import { useMedia, useParams } from "../../hooks";
 import { POST_LIMIT } from "../../constants";
 import { useRouter } from "next/router";
 
+import get from "lodash/get";
+
 export default function Construction({ initData }) {
   const router = useRouter();
-  const [open, toggle] = useToggle(true);
   const [params, setParams] = useParams();
-  const [selectedPost, setSelectedPost] = useState(null);
   const { isSmUp, isMdUp, isSmDown } = useMedia();
-
-  const [constructionCategoryList, constructionListItem, metadataPage] =
-    initData;
-
   const [animationState, setAnimationState] = useState(true);
-  const [currentTab, setCurrentTab] = useState(
-    constructionCategoryList?.items?.[0]?.id
-  );
+  const [constructionCategoryList, constructionListItem, metadataPage] = initData;
+
+  const [selectedPost, setSelectedPost] = useState(() => {
+    const { id } = router.query;
+
+    if (id) {
+      return get(constructionListItem, "items").find((el) => {
+        return el.id == id;
+      });
+    } else {
+      return null;
+    }
+  });
+
+  const [open, toggle] = useToggle(!!selectedPost);
+
+  const [currentTab, setCurrentTab] = useState(constructionCategoryList?.items?.[0]?.id);
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -97,10 +107,7 @@ export default function Construction({ initData }) {
       return constructionCategoryList.items.map((item, index) => {
         return (
           <TabPanel key={item.id} value={currentTab} index={item.id}>
-            <ListingBlog
-              data={filteredData}
-              selectedPostHandler={selectedPostHandler}
-            />
+            <ListingBlog data={filteredData} selectedPostHandler={selectedPostHandler} />
           </TabPanel>
         );
       });
@@ -114,11 +121,7 @@ export default function Construction({ initData }) {
             <Fragment>
               {data.map((el, i) => {
                 return (
-                  <CardItem
-                    key={i}
-                    {...el}
-                    selectedPostHandler={selectedPostHandler}
-                  />
+                  <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />
                 );
               })}
             </Fragment>
@@ -128,13 +131,7 @@ export default function Construction({ initData }) {
     }
 
     //
-  }, [
-    constructionListItem,
-    constructionCategoryList,
-    currentTab,
-    isSmUp,
-    currentPage,
-  ]);
+  }, [constructionListItem, constructionCategoryList, currentTab, isSmUp, currentPage]);
 
   const renderPagination = useMemo(() => {
     if (!constructionListItem || isSmUp) {
@@ -173,15 +170,15 @@ export default function Construction({ initData }) {
                   position: "relative",
                 },
                 isSmUp && {
-                  paddingY: "2.5rem",
-                  marginY: "7.5rem",
+                  marginY: "6rem",
                   minHeight: "900px",
                 },
                 isSmDown && {
-                  marginY: "2rem",
+                  marginY: "4rem",
                 },
                 isMdUp && {
                   minHeight: "800px",
+                  marginY: "7.5rem",
                 },
               ]}
             >

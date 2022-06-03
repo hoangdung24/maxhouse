@@ -8,5 +8,6 @@
   "page.operation": "Operation Policy",
   "page.payment": "Payment Policy",
   "policy": "Policy",
-  "tax_identification_number": "Tax Identification Number"
+  "tax_identification_number": "Tax Identification Number",
+  "policy_and_regulation": "Policy And Regulation"
 }

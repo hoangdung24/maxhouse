@@ -1,6 +1,6 @@
 import { PAGES, types } from "../../api";
-import { transformUrl, prefetchData } from "../../libs";
 import News from "../../containers/News/News";
+import { transformUrl, prefetchData } from "../../libs";
 
 import { NEWS_POST_LIMIT } from "../../constants";
 
@@ -8,23 +8,35 @@ export default function PageNews({ ...props }) {
   return <News {...props} />;
 }
 
-export async function getServerSideProps({ params, query, locale }) {
+export async function getServerSideProps({ locale, query }) {
   try {
+    const { id } = query;
+
     const newsDetailPageURL = transformUrl(PAGES, {
       limit: NEWS_POST_LIMIT,
       type: types.newsDetailPage,
-      fields: "*",
+      fields: ["thumbnails", "title", "subtitle"].join(","),
       locale,
     });
 
     const urls = [
       transformUrl(PAGES, {
         type: types.newsListingPage,
-        fields: "*",
+        fields: "title",
         locale,
       }),
-      newsDetailPageURL,
     ];
+
+    if (id) {
+      urls.push(
+        transformUrl(`${PAGES}/${id}`, {
+          fields: "*",
+          locale,
+        })
+      );
+    }
+
+    urls.push(newsDetailPageURL);
 
     const { resList, fallback } = await prefetchData(urls);
 

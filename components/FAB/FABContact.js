@@ -50,9 +50,7 @@ const FABContact = ({}) => {
             sx={[
               {
                 fontSize: "32px",
-              },
-              isSmDown && {
-                color: theme.palette.common.black,
+                color: "common.black",
               },
             ]}
           />
@@ -81,6 +79,9 @@ const FABContact = ({}) => {
               isTarget = false;
             } else if (block_type === "hyperlink") {
               newValue = value.link;
+            } else if (block_type === "email") {
+              newValue = `mailto:${value.email}`;
+              isTarget = false;
             }
 
             return (
@@ -88,7 +89,7 @@ const FABContact = ({}) => {
                 <Link
                   href={newValue}
                   {...(isTarget && {
-                    target: "_black",
+                    target: "_blank",
                   })}
                 >
                   <Image src={value.image} width="2rem" height="2rem" />

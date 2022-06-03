@@ -8,9 +8,15 @@ export default function PageHome(props) {
   return <Home {...props} />;
 }
 
-export async function getServerSideProps({ params, query }) {
+export async function getServerSideProps({ params, query, locale }) {
   try {
-    const urls = [transformUrl(PAGES, { type: types.homePage, fields: "*" })];
+    const urls = [
+      transformUrl(PAGES, {
+        type: types.homePage,
+        fields: ["banners", "title", "subtitle"].join(","),
+        locale,
+      }),
+    ];
 
     const { resList, fallback } = await prefetchData(urls);
 

@@ -158,7 +158,6 @@ export default function Home({ initData }) {
               <Button
                 onClick={() => {
                   router.push("/dich-vu");
-                  console.log("trang home ne");
                 }}
                 variant={"outlined"}
                 sx={{

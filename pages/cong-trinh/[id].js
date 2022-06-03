@@ -10,7 +10,6 @@ export async function getServerSideProps({ params, query, locale }) {
   try {
     const { id } = params;
 
-    // http://localhost/api/v2/pages/12/
     const urls = [
       transformUrl(`${PAGES}/${id}`, {
         locale,
@@ -22,10 +21,7 @@ export async function getServerSideProps({ params, query, locale }) {
       props: { initData: resList, fallback },
     };
   } catch (err) {
-    console.log(
-      "🚀 ~ file: index.js ~ line 23 ~ getServerSideProps ~ err",
-      err
-    );
+    console.log("🚀 ~ file: index.js ~ line 23 ~ getServerSideProps ~ err", err);
 
     return {
       redirect: {

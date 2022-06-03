@@ -69,6 +69,7 @@ const settings = {
   nextArrow: <CustomNextArrow />,
   prevArrow: <CustomPreviousArrow />,
   draggable: false,
+  infinite: true,
 };
 
 const SliderWrapper = ({ children }) => {

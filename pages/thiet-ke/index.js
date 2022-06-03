@@ -10,17 +10,20 @@ export default function PageDesign({ ...props }) {
 export async function getServerSideProps({ params, query, locale }) {
   try {
     const urls = [
-      transformUrl(DESIGN_CATEGORIES, { locale }),
+      transformUrl(DESIGN_CATEGORIES, {
+        locale,
+        limit: "1000",
+        fields: ["thumbnails", "title", "subtitle", "name"].join(","),
+      }),
       transformUrl(PAGES, {
         type: types.designDetailPage,
-
-        fields: "*",
         limit: "1000",
         locale,
+        fields: "*",
       }),
       transformUrl(PAGES, {
         type: types.designListingPage,
-        fields: "*",
+        fields: ["banner", "subtitle"].join(","),
         locale,
       }),
     ];

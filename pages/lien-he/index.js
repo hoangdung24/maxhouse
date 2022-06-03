@@ -8,9 +8,9 @@ export default function PageContact(props) {
   return <Contact {...props} />;
 }
 
-export async function getServerSideProps({ params, query }) {
+export async function getServerSideProps({ params, query, locale }) {
   try {
-    const urls = [transformUrl(PAGES, { type: types.contactPage, fields: "*" })];
+    const urls = [transformUrl(PAGES, { type: types.contactPage, fields: "*", locale })];
 
     const { resList, fallback } = await prefetchData(urls);
 

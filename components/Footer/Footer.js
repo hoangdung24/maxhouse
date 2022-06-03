@@ -124,7 +124,7 @@ export default function Footer({}) {
                       marginBottom: 4,
 
                       [theme.breakpoints.up("md")]: {
-                        marginBottom: 2,
+                        marginBottom: 1,
                       },
                       [theme.breakpoints.down("sm")]: {
                         marginBottom: 5,
@@ -312,34 +312,19 @@ export default function Footer({}) {
 
                 if (i === 0) {
                   return (
-                    <Link
-                      noLinkStyle={true}
-                      href={value.link}
-                      target="_blank"
-                      key={i}
-                    >
+                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
                       <FacebookOutlinedIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );
                 } else if (i === 1) {
                   return (
-                    <Link
-                      noLinkStyle={true}
-                      href={value.link}
-                      target="_blank"
-                      key={i}
-                    >
+                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
                       <YouTubeIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );
                 } else if (i === 2) {
                   return (
-                    <Link
-                      noLinkStyle={true}
-                      href={value.link}
-                      target="_blank"
-                      key={i}
-                    >
+                    <Link noLinkStyle={true} href={value.link} target="_blank" key={i}>
                       <PinterestIcon fontSize="large" sx={sharedStyle} />
                     </Link>
                   );

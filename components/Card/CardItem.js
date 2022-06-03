@@ -1,6 +1,6 @@
 import { format, parseISO } from "date-fns";
 import { useState, useEffect, Fragment } from "react";
-import { Box, Stack, Typography, Skeleton } from "@mui/material";
+import { Box, Stack, Typography, Skeleton, Fade } from "@mui/material";
 import { useMeasure, useWindowSize, useUpdateEffect } from "react-use";
 
 import Image from "../Image";
@@ -25,6 +25,7 @@ const SkeletonCard = ({ size, imageSize }) => {
 
 const CardItem = ({ ...props }) => {
   const { isMdUp, isSmUp } = useMedia();
+  const [isCompleteLoaded, setIsCompleteLoaded] = useState(false);
   const { width: windowWidth, height: windowHeight } = useWindowSize();
   const { thumbnails, title, subtitle, meta, selectedPostHandler, isPlaceholder } = props;
 
@@ -99,14 +100,25 @@ const CardItem = ({ ...props }) => {
                   <SliderThumbnailInListingPage>
                     {thumbnails.map((el, i) => {
                       return (
-                        <Fragment key={i}>
-                          <Image
-                            src={el.value}
-                            width={imageSize.width}
-                            height={imageSize.height}
-                            objectFit="cover"
-                          />
-                        </Fragment>
+                        <Fade
+                          key={i}
+                          in={isCompleteLoaded}
+                          timeout={{
+                            enter: 300,
+                          }}
+                        >
+                          <Box>
+                            <Image
+                              src={el.value}
+                              width={imageSize.width}
+                              height={imageSize.height}
+                              objectFit="cover"
+                              onLoadingComplete={() => {
+                                setIsCompleteLoaded(true);
+                              }}
+                            />
+                          </Box>
+                        </Fade>
                       );
                     })}
                   </SliderThumbnailInListingPage>

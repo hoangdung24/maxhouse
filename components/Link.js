@@ -31,20 +31,11 @@ const Link = forwardRef(function (props, ref) {
     if (noLinkStyle) {
       return <a className={className} href={href} ref={ref} {...others} />;
     } else {
-      return (
-        <MuiLink className={className} href={href} ref={ref} {...others} />
-      );
+      return <MuiLink className={className} href={href} ref={ref} {...others} />;
     }
   } else {
     if (noLinkStyle) {
-      return (
-        <NextLinkComposed
-          className={className}
-          ref={ref}
-          href={href}
-          {...others}
-        />
-      );
+      return <NextLinkComposed className={className} ref={ref} href={href} {...others} />;
     } else {
       return (
         <MuiLink
@@ -60,17 +51,8 @@ const Link = forwardRef(function (props, ref) {
 });
 
 const NextLinkComposed = forwardRef((props, ref) => {
-  const {
-    href,
-    linkAs,
-    replace,
-    scroll,
-    passHref,
-    shallow,
-    prefetch,
-    locale,
-    ...other
-  } = props;
+  const { href, linkAs, replace, scroll, passHref, shallow, prefetch, locale, ...other } =
+    props;
 
   return (
     <NextLink

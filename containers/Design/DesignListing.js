@@ -3,7 +3,7 @@ import { useToggle } from "react-use";
 import { useRouter } from "next/router";
 
 import { Box, Container, Grid, Fade } from "@mui/material";
-import { useState, useMemo, useCallback, Fragment } from "react";
+import { useState, useMemo, useCallback, Fragment, useEffect } from "react";
 
 import { useParams, useMedia } from "../../hooks";
 import {
@@ -16,6 +16,8 @@ import {
   BackgroundListingPage,
 } from "../../components";
 
+import get from "lodash/get";
+
 const DetailBlogModal = dynamic(() =>
   import("../../components").then((Component) => {
     return Component.DetailBlogModal;
@@ -26,18 +28,26 @@ import { POST_LIMIT } from "../../constants";
 
 export default function Design({ initData }) {
   const router = useRouter();
-  const [open, toggle] = useToggle(true);
   const [params, setParams] = useParams();
-  const [selectedPost, setSelectedPost] = useState(null);
-
   const { isSmUp, isMdUp, isSmDown } = useMedia();
-
+  const [animationState, setAnimationState] = useState(true);
   const [designCategoryList, designListItem, metadataPage] = initData;
 
-  const [animationState, setAnimationState] = useState(true);
-  const [currentTab, setCurrentTab] = useState(designCategoryList?.items?.[0]?.id);
+  const [selectedPost, setSelectedPost] = useState(() => {
+    const { id } = router.query;
+
+    if (id) {
+      return get(designListItem, "items").find((el) => {
+        return el.id == id;
+      });
+    } else {
+      return null;
+    }
+  });
 
   const [currentPage, setCurrentPage] = useState(1);
+  const [open, toggle] = useToggle(!!selectedPost);
+  const [currentTab, setCurrentTab] = useState(designCategoryList?.items?.[0]?.id);
 
   const animationHandler = useCallback(() => {
     setAnimationState(false);
@@ -92,7 +102,7 @@ export default function Design({ initData }) {
       return null;
     }
     // FORMULA: OFFSET = (PAGE - 1) * LIMIT
-    // FORMUAL PAGE = (OFFSET / LIMIT) + 1
+    // FORMULA PAGE = (OFFSET / LIMIT) + 1
 
     let filteredData = designListItem.items.filter((el) => {
       return el.category == currentTab;
@@ -165,15 +175,15 @@ export default function Design({ initData }) {
                   position: "relative",
                 },
                 isSmUp && {
-                  paddingY: "2.5rem",
-                  marginY: "7.5rem",
+                  marginY: "6rem",
                   minHeight: "900px",
                 },
                 isSmDown && {
-                  marginY: "2rem",
+                  marginY: "4rem",
                 },
                 isMdUp && {
                   minHeight: "800px",
+                  marginY: "7.5rem",
                 },
               ]}
             >

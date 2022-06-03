@@ -53,6 +53,12 @@
       "value": "Policy"
     }
   ],
+  "policy_and_regulation": [
+    {
+      "type": 0,
+      "value": "Policy And Regulation"
+    }
+  ],
   "tax_identification_number": [
     {
       "type": 0,

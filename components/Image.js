@@ -21,7 +21,7 @@ const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...prop
     return (
       <Wrapper width={width} height={height} {...WrapperProps}>
         <NextImage
-          sx={{ objectFit: "cover" }}
+          objectFit="cover"
           {...{
             ...defaultImageProps,
             ...(src.includes("http") && {
@@ -37,13 +37,14 @@ const Image = ({ WrapperProps = {}, src, width, height, layout = "fill", ...prop
   } else {
     return (
       <NextImage
-        sx={{ objectFit: "cover" }}
+        objectFit="cover"
         {...{
           ...defaultImageProps,
           src,
           layout,
           width,
           height,
+
           ...(src.includes("http") && {
             loader,
           }),

@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import {
   Dialog,
@@ -11,13 +11,13 @@ import { useMedia } from "../../hooks";
 
 import Container from "../Container";
 import DetailBlog from "./DetailBlog";
-import { useScroll, useWindowScroll } from "react-use";
+
+const ADJUST_SIZE = 2.5;
 
 const PortfolioDetailDialog = ({ open, toggle, selectedPost, setParams }) => {
   const scrollRef = useRef(null);
-  console.log("scrollRef", scrollRef);
-  const { x, y } = useScroll(scrollRef);
-  console.log("yyyyyyyyyy", y);
+  const stickryRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
 
   const theme = useTheme();
 
@@ -41,24 +41,35 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, setParams }) => {
       PaperProps={{
         sx: [
           isSmUp && {
-            width: "calc(100vw - 5rem)",
+            width: `calc(100vw - ${ADJUST_SIZE * 2}rem )`,
             maxWidth: `calc(${theme.breakpoints.values["xl"]}px)`,
-            height: "calc(100vh - 5rem)",
+            height: `calc(100vh - ${ADJUST_SIZE * 2}rem)`,
             padding: "1rem 0",
           },
         ],
       }}
     >
       <DialogContent
-        ref={scrollRef}
-        className="asdasdasdasdasdasad"
-        sx={{ backgroundColor: "red", overflowY: "scroll" }}
+        onScroll={(e) => {
+          if (stickryRef.current) {
+            const contentOffset = e.target.scrollTop;
+            const stickyOffset = stickryRef.current.offsetTop;
+            if (contentOffset > stickyOffset && !isSticky) {
+              setIsSticky(true);
+            } else if (contentOffset < stickyOffset) {
+              setIsSticky(false);
+            }
+          }
+        }}
       >
-        <Container>
+        <Container ref={scrollRef}>
           <DetailBlog
             {...{
               data: selectedPost,
               closeHandler,
+              ref: stickryRef,
+              isSticky,
+              adjustSize: ADJUST_SIZE,
             }}
           />
         </Container>
