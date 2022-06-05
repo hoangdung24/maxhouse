@@ -1,6 +1,9 @@
+import get from "lodash/get";
+import { useToggle } from "react-use";
+import { useRouter } from "next/router";
 import { Box, Container, Grid, Fade } from "@mui/material";
 import { useState, useMemo, useCallback, Fragment } from "react";
-import { useToggle } from "react-use";
+
 import {
   Tabs,
   TabPanel,
@@ -11,18 +14,15 @@ import {
   BackgroundListingPage,
   DetailBlogModal,
 } from "../../components";
-import { useMedia, useParams } from "../../hooks";
-
 import { POST_LIMIT } from "../../constants";
-import { useRouter } from "next/router";
-
-import get from "lodash/get";
+import { useMedia, useParams } from "../../hooks";
 
 export default function Construction({ initData }) {
   const router = useRouter();
   const [params, setParams] = useParams();
   const { isSmUp, isMdUp, isSmDown } = useMedia();
   const [animationState, setAnimationState] = useState(true);
+  const [minWrapperHeight, setMinWrapperHeight] = useState(0);
   const [constructionCategoryList, constructionListItem, metadataPage] = initData;
 
   const [selectedPost, setSelectedPost] = useState(() => {
@@ -107,7 +107,12 @@ export default function Construction({ initData }) {
       return constructionCategoryList.items.map((item, index) => {
         return (
           <TabPanel key={item.id} value={currentTab} index={item.id}>
-            <ListingBlog data={filteredData} selectedPostHandler={selectedPostHandler} />
+            <ListingBlog
+              data={filteredData}
+              selectedPostHandler={selectedPostHandler}
+              minWrapperHeight={minWrapperHeight}
+              setMinWrapperHeight={setMinWrapperHeight}
+            />
           </TabPanel>
         );
       });
@@ -121,7 +126,13 @@ export default function Construction({ initData }) {
             <Fragment>
               {data.map((el, i) => {
                 return (
-                  <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />
+                  <CardItem
+                    key={i}
+                    {...el}
+                    selectedPostHandler={selectedPostHandler}
+                    minWrapperHeight={minWrapperHeight}
+                    setMinWrapperHeight={setMinWrapperHeight}
+                  />
                 );
               })}
             </Fragment>
@@ -168,17 +179,19 @@ export default function Construction({ initData }) {
               sx={[
                 {
                   position: "relative",
+                  minHeight: "800px",
+                },
+
+                isSmDown && {
+                  marginTop: 8,
+                  marginBottom: 4,
                 },
                 isSmUp && {
-                  marginY: "6rem",
-                  minHeight: "900px",
+                  marginTop: 8,
                 },
-                isSmDown && {
-                  marginY: "4rem",
-                },
+
                 isMdUp && {
-                  minHeight: "800px",
-                  marginY: "7.5rem",
+                  marginTop: "7.5rem",
                 },
               ]}
             >

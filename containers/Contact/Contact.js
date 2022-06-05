@@ -1,137 +1,137 @@
-import { Box, Typography, useTheme, Grid } from "@mui/material";
+import { useIntl } from "react-intl";
 import { useForm } from "react-hook-form";
-import { useCallback, useState } from "react";
-import postFormData from "../../libs/postFormData";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { schema, defaultValues } from "../../libs/yupRegister";
-import TextInput from "../../components/FormInput/TextInput";
-import LoadButton from "../../components/BtnButton/LoadButton";
+import { useCallback, useEffect, useState } from "react";
+import { isValidPhoneNumber } from "react-phone-number-input/input";
+import { Box, Typography, useTheme, Grid, Alert, Stack, Fade } from "@mui/material";
 
+import { CONTACTS } from "../../api";
+import axios from "../../axios.config";
+import {
+  OffsetTop,
+  Container,
+  Input,
+  LoadingButton,
+  InputPhoneNumber,
+} from "../../components";
 import { useMedia, useSetting } from "../../hooks";
-import axios from "axios";
-import { API_KEY, CONTACTS } from "../../api";
+import { schema, defaultValues } from "../../libs/yupRegister";
 
 export default function Contact({ initData }) {
   const setting = useSetting();
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
-
+  const { messages } = useIntl();
   const { google_map_location_embed_src } = setting;
 
-  //data từ trang contact
+  const [message, setMessage] = useState({
+    severity: "success",
+    content: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
   const data = initData[0].items[0];
-  const { isSmUp, isMdUp } = useMedia();
-
-  //theme màu sắc
   const theme = useTheme();
+  const { isMdUp, isSmDown } = useMedia();
 
-  //useForm
-  const {
-    register,
-    handleSubmit,
-    reset,
-
-    formState: { errors },
-  } = useForm({
+  const { handleSubmit, reset, control, setError } = useForm({
     resolver: yupResolver(schema),
     defaultValues,
   });
 
-  //Hàm xử lý thông báo thành công and thất bại
-  const registerError = () => {
-    setError(true);
-    setSuccess(false);
-  };
-  const registerSuccess = () => {
-    setSuccess(true);
-    setError(false);
-    // 5s sau khi đăng ký thành công sẽ mất nội dung thành công
-    setTimeout(() => {
-      setSuccess(false);
-    }, 8000);
-  };
+  useEffect(() => {
+    let timer;
 
-  //Hàm submit nhận value từ người dùng nhập và gửi lên sever
-  const onSubmit = useCallback(async (formData) => {
-    setLoading(true);
+    if (isSuccess) {
+      timer = setTimeout(() => {
+        setIsSuccess(false);
+      }, 3000);
+    }
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isSuccess]);
+
+  const onSubmit = useCallback(async (data) => {
+    const { phone_number } = data;
 
     try {
-      // await postFormData(formData); //Hàm gửi form data lên cho sever
-      await axios
-        .post(`${process.env.NEXT_PUBLIC_DOMAIN_URL}${CONTACTS}/`, formData, {
-          headers: {
-            Authorization: process.env.NEXT_PUBLIC_AUTHORIZATION_API_KEY,
-          },
-        })
-        .then((res) => {});
+      if (!isValidPhoneNumber(phone_number)) {
+        setError("phone_number", {
+          type: "validate",
+        });
+        return;
+      }
+
+      setLoading(true);
+
+      await axios.post(`${CONTACTS}/`, data);
 
       reset(defaultValues, {
         keepDirty: false,
       });
-      registerSuccess();
+
+      setIsSuccess(true);
+
+      setMessage({
+        severity: "success",
+        content: messages["form.message.success"][0]["value"],
+      });
     } catch (err) {
-      const errorPhone = err.response.data.phone_number[0];
-      console.log("lỗi", errorPhone);
-      if (errorPhone == "lỗi Số điện thoại không hợp lệ.") {
-        return;
-      }
-      registerError();
+      setIsSuccess(true);
+      setMessage({
+        severity: "error",
+        content: err.response.data.message,
+      });
     } finally {
       setLoading(false);
     }
   }, []);
 
   return (
-    <Box
-      sx={{
-        textAlign: "center",
-        pt: isMdUp ? "9.5rem" : "2.5rem",
-        width: "80vw",
-        margin: "0 auto",
-        mb: "5rem",
-      }}
-    >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography
-          variant={isMdUp ? "h1" : "h5"}
-          sx={{
-            mb: "4rem",
-            textTransform: "uppercase",
-            textAlign: "center",
-            [theme.breakpoints.up("sm")]: {
-              mb: "4rem",
-            },
-          }}
-        >
-          {data.title}
-        </Typography>
-        <Grid container spacing={isMdUp ? 10 : 6} sx={{ flexDirection: "row" }}>
-          {/* googleMap */}
-          <Grid item sm={12} md={6} sx={{ width: "100%" }}>
+    <OffsetTop>
+      <Container>
+        <Grid container justifyContent="space-between" columnSpacing={10}>
+          <Grid item xs={12}>
+            <Typography
+              variant={isMdUp ? "h1" : "h5"}
+              sx={[
+                {
+                  textAlign: "center",
+                  marginBottom: 8,
+                },
+                isMdUp && {
+                  marginBottom: 10,
+                },
+              ]}
+            >
+              {data.title}
+            </Typography>
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={[
+              isSmDown && {
+                marginBottom: 5,
+              },
+            ]}
+          >
             {google_map_location_embed_src && (
               <Box
-                className="momomom"
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  [theme.breakpoints.up("md")]: {
+                sx={[
+                  {
+                    width: "100%",
                     height: "100%",
                   },
-                  [theme.breakpoints.up("sm")]: {
-                    height: "70vh",
-                  },
-                  [theme.breakpoints.down("sm")]: {
-                    width: "100%",
-                    height: "60vh",
-                  },
-                }}
+                ]}
               >
                 <iframe
                   src={google_map_location_embed_src}
-                  width="100%"
-                  height="100%"
+                  width={"100%"}
+                  height={isMdUp ? 500 : 300}
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
@@ -140,96 +140,103 @@ export default function Contact({ initData }) {
               </Box>
             )}
           </Grid>
-
-          {/* from */}
-          <Grid item sm={12} md={6}>
+          <Grid item xs={12} md={6}>
             <Box>
-              <Box sx={{ width: "100%" }}>
-                {/* tit liên hệ */}
-                <Typography
-                  variant="body_large"
-                  sx={{ fontSize: theme.typography.h6, textAlign: "justify" }}
-                >
-                  {data.description}
-                </Typography>
+              <Typography
+                variant="body_large"
+                sx={{ fontSize: theme.typography.h6, textAlign: "justify" }}
+              >
+                {data.description}
+              </Typography>
 
-                {/* Form liên hệ */}
-                <Box sx={{ width: "100%", mt: "2rem" }}>
-                  <TextInput
-                    erroYup={errors?.name?.message}
-                    {...register("name")}
-                    placeholder="Vui lòng nhập tên của bạn"
-                    text="Tên"
-                    required={true}
+              <Box
+                component={"form"}
+                sx={{ width: "100%", mt: "2rem" }}
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <Input
+                  control={control}
+                  name="name"
+                  InputProps={{
+                    placeholder: messages["form.placeholder.name"][0]["value"],
+                  }}
+                  FormLabelProps={{
+                    children: messages["form.label.name"][0]["value"],
+                  }}
+                />
+
+                <Input
+                  control={control}
+                  name="email"
+                  InputProps={{
+                    placeholder: messages["form.placeholder.email"][0]["value"],
+                  }}
+                  FormLabelProps={{
+                    children: messages["form.label.email"][0]["value"],
+                  }}
+                />
+
+                <InputPhoneNumber
+                  control={control}
+                  name="phone_number"
+                  InputProps={{
+                    placeholder: messages["form.placeholder.phone_number"][0]["value"],
+                  }}
+                  FormLabelProps={{
+                    children: messages["form.label.phone_number"][0]["value"],
+                  }}
+                />
+
+                <Input
+                  control={control}
+                  name="body"
+                  InputProps={{
+                    placeholder: messages["form.placeholder.body"][0]["value"],
+                    multiline: true,
+                    rows: 10,
+                  }}
+                  FormLabelProps={{
+                    children: messages["form.label.body"][0]["value"],
+                  }}
+                />
+
+                <Stack flexDirection="row" justifyContent="space-between">
+                  <Fade
+                    in={isSuccess}
+                    timeout={{
+                      enter: 500,
+                      exit: 500,
+                    }}
+                    onExited={() => {
+                      setMessage("");
+                    }}
+                  >
+                    <Alert
+                      severity={message.severity}
+                      icon={false}
+                      sx={{
+                        "& .MuiAlert-message": {
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        },
+                      }}
+                    >
+                      {message.content}
+                    </Alert>
+                  </Fade>
+
+                  <LoadingButton
+                    children={messages["button.contact"][0]["value"]}
+                    loading={loading}
+                    disabled={loading}
                   />
-                  <TextInput
-                    erroYup={errors?.email?.message}
-                    {...register("email")}
-                    placeholder="Vui lòng nhập email"
-                    text="Email"
-                    required={true}
-                  />
-                  <TextInput
-                    erroYup={errors.phone_number?.message}
-                    {...register("phone_number")}
-                    placeholder="Vui lòng nhập số điện thoại"
-                    text="số điện thoại"
-                    required={true}
-                  />
-                  <TextInput
-                    erroYup={errors.body?.message}
-                    {...register("body")}
-                    placeholder="Vui lòng nhập nội dung"
-                    rows={10}
-                    text="nội dung"
-                    required={true}
-                  />
-                </Box>
+                </Stack>
               </Box>
             </Box>
           </Grid>
         </Grid>
-
-        {/* nội dung success arror và btn khi register */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            mt: "2.5rem",
-            "& .MuiLoadingButton-root": {
-              [theme.breakpoints.up("md")]: {
-                width: "10% !important",
-              },
-              [theme.breakpoints.up("sm")]: {
-                width: "20% !important",
-              },
-            },
-          }}
-        >
-          <Typography
-            variant="subtitle1"
-            sx={{
-              mr: "1rem",
-              display: error ? "block" : "none",
-              color: theme.palette.text.error,
-            }}
-          >
-            Đăng ký thất bại. Vui lòng thử lại...
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            sx={{
-              mr: "1rem",
-              display: success ? "block" : "none",
-              color: theme.palette.text.success,
-            }}
-          >
-            Đăng ký thành công. Vui lòng kiểm tra email
-          </Typography>
-          <LoadButton loading={loading} />
-        </Box>
-      </form>
-    </Box>
+      </Container>
+    </OffsetTop>
   );
 }

@@ -1,20 +1,25 @@
-import RenderHTML from "../../components/RenderHTML";
-
-import { Box, Container, Grid, Fade } from "@mui/material";
 import { useState, useMemo, useCallback } from "react";
 
-import { useMedia } from "../../hooks";
-import { TabPanel } from "../../components";
+import { Box, Container, Grid, Fade } from "@mui/material";
+
+import { useMedia, useSetting } from "../../hooks";
+import RenderHTML from "../../components/RenderHTML";
+import { TabPanel, OffsetTop, Image } from "../../components";
 import TabsBackground from "../../components/TabPanel/TabsBackground";
 
 export default function Service({ initData }) {
   const { isSmUp } = useMedia();
+  const { logo_2 } = useSetting();
+  const [size, setSize] = useState({
+    width: 1,
+    height: 1,
+  });
+
   const [currentTab, setCurrentTab] = useState("left");
 
   const [dataService, setDataService] = useState(() => {
     const initDataService = initData[0].items[0];
 
-    // cắt object chia thành 2 mảng
     let transformArr = [];
     const leftObj = {};
     const rightObj = {};
@@ -87,8 +92,10 @@ export default function Service({ initData }) {
     //
   }, [dataService, currentTab, isSmUp]);
 
+  const imageHeight = size.height / size.width;
+
   return (
-    <Box>
+    <OffsetTop>
       <Container>
         <Grid container>
           <Grid item xs={12}>
@@ -97,14 +104,6 @@ export default function Service({ initData }) {
                 {
                   position: "relative",
                 },
-                isSmUp
-                  ? {
-                      paddingY: "2.5rem",
-                      marginY: "7.5rem",
-                    }
-                  : {
-                      marginY: "2rem",
-                    },
               ]}
             >
               <Box>
@@ -116,13 +115,38 @@ export default function Service({ initData }) {
                     enter: 500,
                   }}
                 >
-                  <Box className="tabpanel">{renderTabPanel}</Box>
+                  <Box>
+                    {renderTabPanel}
+
+                    <Box
+                      sx={{
+                        overflow: "hidden",
+                      }}
+                    >
+                      <Image
+                        width={"100%"}
+                        WrapperProps={{
+                          sx: {
+                            marginX: "auto",
+                          },
+                        }}
+                        height={`calc(${imageHeight} * 100vh)`}
+                        src={logo_2}
+                        onLoadingComplete={({ naturalWidth, naturalHeight }) => {
+                          setSize({
+                            width: naturalWidth,
+                            height: naturalHeight,
+                          });
+                        }}
+                      />
+                    </Box>
+                  </Box>
                 </Fade>
               </Box>
             </Box>
           </Grid>
         </Grid>
       </Container>
-    </Box>
+    </OffsetTop>
   );
 }

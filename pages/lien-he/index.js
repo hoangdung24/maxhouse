@@ -12,7 +12,9 @@ export async function getServerSideProps({ params, query, locale }) {
   try {
     const urls = [transformUrl(PAGES, { type: types.contactPage, fields: "*", locale })];
 
-    const { resList, fallback } = await prefetchData(urls);
+    const { resList, fallback } = await prefetchData(urls, {
+      locale,
+    });
 
     return {
       props: {

@@ -1,9 +1,15 @@
 import axios from "../axios.config";
 import { SETTINGS } from "../api";
 
-export default async (originalUrlList) => {
+import transformUrl from "./transformUrl";
+
+export default async (originalUrlList, { locale }) => {
   try {
-    const additionalUrlList = [SETTINGS];
+    const additionalUrlList = [
+      transformUrl(SETTINGS, {
+        locale,
+      }),
+    ];
 
     const mergedUrlList = [...originalUrlList, ...additionalUrlList];
     // const resList = await Promise.all(
@@ -36,6 +42,6 @@ export default async (originalUrlList) => {
       fallback: fallbackList,
     };
   } catch (err) {
-    throw new Error("");
+    throw new Error(err);
   }
 };

@@ -21,10 +21,14 @@ const DesignDetail = forwardRef(
     let videoId;
 
     if (youtube_link) {
-      const { query } = queryString.parseUrl(youtube_link);
+      const { url, query } = queryString.parseUrl(youtube_link);
+
+      const { pathname } = new URL(url);
 
       if (query.v) {
         videoId = query.v;
+      } else {
+        videoId = pathname.replace("/", "");
       }
     }
 

@@ -5,6 +5,84 @@
       "value": "Địa chỉ"
     }
   ],
+  "button.contact": [
+    {
+      "type": 0,
+      "value": "Gửi thông tin"
+    }
+  ],
+  "form.email": [
+    {
+      "type": 0,
+      "value": "Vui lòng nhập đúng định dạng email"
+    }
+  ],
+  "form.label.body": [
+    {
+      "type": 0,
+      "value": "Nội dung"
+    }
+  ],
+  "form.label.email": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "form.label.name": [
+    {
+      "type": 0,
+      "value": "Tên"
+    }
+  ],
+  "form.label.phone_number": [
+    {
+      "type": 0,
+      "value": "Số điện thoại"
+    }
+  ],
+  "form.message.success": [
+    {
+      "type": 0,
+      "value": "Gửi thông tin thành công"
+    }
+  ],
+  "form.placeholder.body": [
+    {
+      "type": 0,
+      "value": "Vui lòng nhập nội dung"
+    }
+  ],
+  "form.placeholder.email": [
+    {
+      "type": 0,
+      "value": "Vui lòng nhập email"
+    }
+  ],
+  "form.placeholder.name": [
+    {
+      "type": 0,
+      "value": "Vui lòng nhập tên của bạn"
+    }
+  ],
+  "form.placeholder.phone_number": [
+    {
+      "type": 0,
+      "value": "Vui lòng nhập số điện thoại"
+    }
+  ],
+  "form.required": [
+    {
+      "type": 0,
+      "value": "Trường thông tin này không được bỏ trống"
+    }
+  ],
+  "form.validate.phone_number": [
+    {
+      "type": 0,
+      "value": "Số điện thoại không hợp lệ"
+    }
+  ],
   "navbar.construction": [
     {
       "type": 0,
@@ -33,6 +111,18 @@
     {
       "type": 0,
       "value": "Dịch vụ"
+    }
+  ],
+  "page.detailPagel.relatedPost": [
+    {
+      "type": 0,
+      "value": "Các dự án khác"
+    }
+  ],
+  "page.home.detailButton": [
+    {
+      "type": 0,
+      "value": "Chi tiết"
     }
   ],
   "page.operation": [

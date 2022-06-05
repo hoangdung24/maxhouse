@@ -72,7 +72,7 @@ const settings = {
   infinite: true,
 };
 
-const SliderWrapper = ({ children }) => {
+const SliderWrapper = ({ children, ...props }) => {
   const { isMdUp } = useMedia();
 
   const ref = useRef(null);
@@ -99,7 +99,9 @@ const SliderWrapper = ({ children }) => {
         },
       }}
     >
-      <Slider {...settings}>{children}</Slider>
+      <Slider {...settings} {...props}>
+        {children}
+      </Slider>
     </Box>
   );
 };

@@ -9,5 +9,19 @@
   "page.payment": "Payment Policy",
   "policy": "Policy",
   "tax_identification_number": "Tax Identification Number",
-  "policy_and_regulation": "Policy And Regulation"
+  "policy_and_regulation": "Policy And Regulation",
+  "form.validate.phone_number": "Phone number is invalid",
+  "form.required": "This field is required",
+  "form.email": "Please input email format correctly",
+  "button.contact": "Send Message",
+  "form.label.body": "Message",
+  "form.label.email": "Email",
+  "form.label.name": "Full Name",
+  "form.label.phone_number": "Phone Number",
+  "form.placeholder.body": "Please input message",
+  "form.placeholder.email": "Please input email",
+  "form.placeholder.name": "Please input name",
+  "form.placeholder.phone_number": "Please input phone number",
+  "page.home.detailButton": "Detail",
+  "page.detailPagel.relatedPost": "Related Projects"
 }

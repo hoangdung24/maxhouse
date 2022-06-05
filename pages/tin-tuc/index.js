@@ -38,7 +38,9 @@ export async function getServerSideProps({ locale, query }) {
 
     urls.push(newsDetailPageURL);
 
-    const { resList, fallback } = await prefetchData(urls);
+    const { resList, fallback } = await prefetchData(urls, {
+      locale,
+    });
 
     const newsDetailPageList = resList.pop();
 

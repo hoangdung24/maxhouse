@@ -1,12 +1,21 @@
 import useSWR from "swr";
+import { useRouter } from "next/router";
 import { createContext, useState, useEffect } from "react";
 
 import { SETTINGS } from "../api";
 
+import { transformUrl } from "../libs";
+
 export const Context = createContext({});
 
 const Setting = ({ children }) => {
-  const { data: resData } = useSWR(SETTINGS);
+  const router = useRouter();
+
+  const { data: resData } = useSWR(
+    transformUrl(SETTINGS, {
+      locale: router.locale,
+    })
+  );
 
   const [contextValue, setContextValue] = useState(() => {
     if (resData) {

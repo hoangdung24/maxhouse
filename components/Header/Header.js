@@ -79,28 +79,37 @@ const Header = ({}) => {
         }}
       >
         <Stack direction={"row"} justifyContent="space-between">
-          <Box>
+          <Box
+            sx={{
+              userSelect: "none",
+            }}
+          >
             <Link href="/">
               <Image src={logo_1} width="100px" height="75px" />
             </Link>
           </Box>
 
           <Box sx={{ display: "flex", gap: "60px" }}>
-            {NAVBAR.map((el, index) => (
-              <Link key={index} href={el.link}>
-                <Button
-                  sx={{
-                    my: 2,
-                    color: theme.palette.common.black,
-                    display: "block",
-                  }}
-                >
-                  <Typography variant="title">
-                    {messages[`navbar.${el.key}`][0].value}
-                  </Typography>
-                </Button>
-              </Link>
-            ))}
+            {NAVBAR.map((el, index) => {
+              return (
+                <Link key={index} href={el.link}>
+                  <Button
+                    sx={{
+                      my: 2,
+                      color:
+                        el.link === router.pathname
+                          ? theme.palette.primary.main
+                          : theme.palette.common.black,
+                      display: "block",
+                    }}
+                  >
+                    <Typography variant="title">
+                      {messages[`navbar.${el.key}`][0].value}
+                    </Typography>
+                  </Button>
+                </Link>
+              );
+            })}
           </Box>
           <IconButton {...bindToggle(popupState)}>
             <LanguageIcon />
@@ -108,7 +117,7 @@ const Header = ({}) => {
         </Stack>
       </Container>
     );
-  }, [NAVBAR, setting, popupState, messages]);
+  }, [NAVBAR, setting, popupState, messages, router]);
 
   const staticNav = useMemo(() => {
     if (y < 200) {

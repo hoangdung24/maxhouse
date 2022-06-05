@@ -53,7 +53,7 @@ const SliderWrapper = forwardRef(({ children, type = 1, ...props }, ref) => {
         },
       }}
     >
-      <Slider ref={ref} {...props} {...setting}>
+      <Slider ref={ref} {...setting} {...props}>
         {children}
       </Slider>
     </Box>

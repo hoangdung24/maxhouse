@@ -1,7 +1,9 @@
 import { format, parseISO } from "date-fns";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect, Fragment, useRef } from "react";
 import { Box, Stack, Typography, Skeleton, Fade } from "@mui/material";
 import { useMeasure, useWindowSize, useUpdateEffect } from "react-use";
+
+import truncate from "lodash/truncate";
 
 import Image from "../Image";
 import SliderThumbnailInListingPage from "../Slider/SliderThumbnailInListingPage";
@@ -27,7 +29,16 @@ const CardItem = ({ ...props }) => {
   const { isMdUp, isSmUp } = useMedia();
   const [isCompleteLoaded, setIsCompleteLoaded] = useState(false);
   const { width: windowWidth, height: windowHeight } = useWindowSize();
-  const { thumbnails, title, subtitle, meta, selectedPostHandler, isPlaceholder } = props;
+  const {
+    thumbnails,
+    title,
+    subtitle,
+    meta,
+    selectedPostHandler,
+    isPlaceholder,
+    minWrapperHeight,
+    setMinWrapperHeight,
+  } = props;
 
   const [ref, { width, height }] = useMeasure();
 
@@ -37,6 +48,22 @@ const CardItem = ({ ...props }) => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const contentRef = useRef(null);
+
+  const [contentHeight, setContentHeight] = useState(48);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setMinWrapperHeight(contentRef.current.offsetHeight);
+    }
+  }, []);
+
+  useEffect(() => {
+    setContentHeight((prev) => {
+      return Math.max(prev, minWrapperHeight);
+    });
+  }, [minWrapperHeight]);
 
   useEffect(() => {
     if (width > 0 && !isLoading) {
@@ -58,9 +85,10 @@ const CardItem = ({ ...props }) => {
 
   return (
     <Box
+      className="slider-wrapper"
       sx={[
         {
-          padding: "10px",
+          padding: 1,
         },
         !isSmUp && {
           marginBottom: 3,
@@ -129,11 +157,24 @@ const CardItem = ({ ...props }) => {
                 sx={{
                   marginTop: 1,
                   cursor: "pointer",
+                  minHeight: contentHeight,
+                  display: "flex",
+                  flexDirection: "column",
                 }}
                 onClick={selectedPostHandler(props, isMdUp)}
+                ref={contentRef}
               >
-                <Typography variant="title">
-                  {title.length > 25 ? title.substr(0, 25) + "..." : title}
+                <Typography
+                  variant="title"
+                  sx={{
+                    flexGrow: 1,
+                  }}
+                >
+                  {truncate(title, {
+                    separator: " ",
+                    length: 50,
+                    omission: "...",
+                  })}
                 </Typography>
 
                 <Stack

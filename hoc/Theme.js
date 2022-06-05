@@ -190,6 +190,7 @@ const theme = createTheme({
           borderStyle: "solid",
           borderRadius: "0.75rem",
           transition: `all ${defaultTheme.transitions.duration.short}ms ${defaultTheme.transitions.easing.easeOut}`,
+          overflow: "hidden",
           ["& input"]: {
             padding: "0.75rem 1rem",
           },
@@ -202,6 +203,9 @@ const theme = createTheme({
             color: defaultTheme.palette.common.neutral3,
             opacity: 1,
           },
+        },
+        inputMultiline: {
+          padding: "0.75rem 1rem",
         },
       },
       defaultProps: {

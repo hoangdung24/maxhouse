@@ -1,9 +1,9 @@
-import RenderHTML from "../RenderHTML";
-import Container from "../Container";
-
 import { Box, Grid, Typography } from "@mui/material";
 
+import OffsetTop from "../OffsetTop";
+import Container from "../Container";
 import { useMedia } from "../../hooks";
+import RenderHTML from "../RenderHTML";
 
 const DetailPolicy = ({ initData }) => {
   const [data] = initData;
@@ -11,12 +11,7 @@ const DetailPolicy = ({ initData }) => {
 
   const { isMdUp } = useMedia();
   return (
-    <Box
-      sx={{
-        marginTop: isMdUp ? 25 : 5,
-        mb: isMdUp ? "5rem" : "4rem",
-      }}
-    >
+    <OffsetTop>
       <Container>
         <Grid container>
           <Grid item xs={12}>
@@ -36,7 +31,7 @@ const DetailPolicy = ({ initData }) => {
           </Grid>
         </Grid>
       </Container>
-    </Box>
+    </OffsetTop>
   );
 };
 

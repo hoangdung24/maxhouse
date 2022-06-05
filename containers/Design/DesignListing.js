@@ -3,7 +3,7 @@ import { useToggle } from "react-use";
 import { useRouter } from "next/router";
 
 import { Box, Container, Grid, Fade } from "@mui/material";
-import { useState, useMemo, useCallback, Fragment, useEffect } from "react";
+import { useState, useMemo, useCallback, Fragment } from "react";
 
 import { useParams, useMedia } from "../../hooks";
 import {
@@ -31,6 +31,7 @@ export default function Design({ initData }) {
   const [params, setParams] = useParams();
   const { isSmUp, isMdUp, isSmDown } = useMedia();
   const [animationState, setAnimationState] = useState(true);
+  const [minWrapperHeight, setMinWrapperHeight] = useState(0);
   const [designCategoryList, designListItem, metadataPage] = initData;
 
   const [selectedPost, setSelectedPost] = useState(() => {
@@ -112,7 +113,12 @@ export default function Design({ initData }) {
       return designCategoryList.items.map((item, index) => {
         return (
           <TabPanel key={item.id} value={currentTab} index={item.id}>
-            <ListingBlog data={filteredData} selectedPostHandler={selectedPostHandler} />
+            <ListingBlog
+              data={filteredData}
+              selectedPostHandler={selectedPostHandler}
+              minWrapperHeight={minWrapperHeight}
+              setMinWrapperHeight={setMinWrapperHeight}
+            />
           </TabPanel>
         );
       });
@@ -126,7 +132,13 @@ export default function Design({ initData }) {
             <Fragment>
               {data.map((el, i) => {
                 return (
-                  <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />
+                  <CardItem
+                    key={i}
+                    {...el}
+                    selectedPostHandler={selectedPostHandler}
+                    minWrapperHeight={minWrapperHeight}
+                    setMinWrapperHeight={setMinWrapperHeight}
+                  />
                 );
               })}
             </Fragment>
@@ -173,17 +185,19 @@ export default function Design({ initData }) {
               sx={[
                 {
                   position: "relative",
+                  minHeight: "800px",
+                },
+
+                isSmDown && {
+                  marginTop: 8,
+                  marginBottom: 4,
                 },
                 isSmUp && {
-                  marginY: "6rem",
-                  minHeight: "900px",
+                  marginTop: 8,
                 },
-                isSmDown && {
-                  marginY: "4rem",
-                },
+
                 isMdUp && {
-                  minHeight: "800px",
-                  marginY: "7.5rem",
+                  marginTop: "7.5rem",
                 },
               ]}
             >

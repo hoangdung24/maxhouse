@@ -15,7 +15,9 @@ export async function getServerSideProps({ params, locale }) {
         locale,
       }),
     ];
-    const { resList, fallback } = await prefetchData(urls);
+    const { resList, fallback } = await prefetchData(urls, {
+      locale,
+    });
 
     return {
       props: { initData: resList, fallback },

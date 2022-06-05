@@ -8,21 +8,18 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useMeasure } from "react-use";
 import { useIntl } from "react-intl";
+import { useMeasure } from "react-use";
 
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
 import Link from "../Link";
-
 import Container from "../Container";
 import RenderHtml from "../RenderHTML";
-
-import { useSetting, useMedia } from "../../hooks";
-
 import { POLICY_ROUTE } from "../../constants";
+import { useSetting, useMedia } from "../../hooks";
 
 export default function Footer({}) {
   const theme = useTheme();
@@ -45,15 +42,20 @@ export default function Footer({}) {
 
   return (
     <Box
-      sx={{
-        marginBottom: 4,
-      }}
+      className="footer"
+      sx={[
+        {
+          marginBottom: 4,
+        },
+      ]}
     >
       <MuiDivider
-        sx={{
-          marginBottom: 4,
-          display: isMdUp ? "block" : "none",
-        }}
+        sx={[
+          {
+            marginTop: 8,
+            marginBottom: 4,
+          },
+        ]}
       />
 
       <Container
@@ -116,7 +118,6 @@ export default function Footer({}) {
               {POLICY_ROUTE.map((el, i) => {
                 return (
                   <Link
-                    className="asdasdadadaadad"
                     key={i}
                     href={el.link}
                     sx={{
@@ -148,7 +149,6 @@ export default function Footer({}) {
             <Divider />
           </Grid>
 
-          {/* phần MST cty mobile */}
           <Grid
             item
             md={4}
@@ -159,7 +159,6 @@ export default function Footer({}) {
             ]}
           >
             <Box
-              className="asdasdas"
               sx={[
                 {
                   display: isMdUp ? "none" : "block",
@@ -195,7 +194,6 @@ export default function Footer({}) {
             <Divider />
           </Grid>
 
-          {/* phần địa chỉ cty */}
           <Grid item md={4}>
             <Box
               sx={[

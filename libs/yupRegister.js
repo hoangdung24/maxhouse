@@ -1,34 +1,24 @@
-import * as yup from "yup";
+import { string, object, setLocale } from "yup";
 
-export const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required("Vui lòng nhập tên")
-    .min(2, "Ít nhất 2 ký tự")
-    .max(20, "username tối đa 20 ký tự"),
+setLocale({
+  mixed: {
+    required: "form.required",
+  },
+  string: {
+    email: "form.email",
+  },
+});
 
-  email: yup
-    .string()
-    // .email("Email không hợp lệ")
-    .required("Vui lòng nhập Email")
-    .max(20, "mật khẩu tối đa 20 ký tự"),
-
-  phone_number: yup
-    .string()
-    .required("Vui lòng nhập số điện thoại")
-    .min(9, "Không phải số điện thoại")
-    .max(10, "Không phải số điện thoại"),
-
-  body: yup
-    .string()
-    .required("Vui lòng nhập nội dung")
-    .min(10, "Ít nhất 10 ký tự")
-    .max(200),
+export const schema = object().shape({
+  name: string().required(),
+  email: string().required().email(),
+  phone_number: string().required(),
+  body: string().required(),
 });
 
 export const defaultValues = {
-  name: "maxhouse",
-  email: "maxhouse@gmail.com",
-  phone_number: "0398645472",
-  body: "Tôi muốn nhận một phản hồi",
+  name: undefined,
+  email: undefined,
+  phone_number: undefined,
+  body: undefined,
 };

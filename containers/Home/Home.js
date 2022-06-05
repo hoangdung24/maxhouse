@@ -1,4 +1,5 @@
 import Slider from "react-slick";
+import { useIntl } from "react-intl";
 import { useMemo, Fragment } from "react";
 import { Button, Typography, Box, useTheme } from "@mui/material";
 
@@ -20,6 +21,7 @@ const settings = {
 export default function Home({ initData }) {
   const router = useRouter();
   const { isMdUp } = useMedia();
+  const { messages } = useIntl();
 
   const theme = useTheme();
 
@@ -167,7 +169,7 @@ export default function Home({ initData }) {
                   fontWeight: 300,
                 }}
               >
-                CHI TIẾT
+                {messages["page.home.detailButton"]?.[0]?.["value"]}
               </Button>
             </Box>
           </Box>

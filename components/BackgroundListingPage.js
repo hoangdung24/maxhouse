@@ -1,15 +1,11 @@
 import { Box } from "@mui/material";
 
-import { useMedia, useSetting } from "../hooks";
+import { useMedia } from "../hooks";
 
 import Image from "./Image";
 
 const BackgroundListingPage = ({ src }) => {
   const { isSmUp } = useMedia();
-
-  // if (!src) {
-  //   return null;
-  // }
 
   if (isSmUp) {
     return (

@@ -5,6 +5,78 @@
       "value": "Address"
     }
   ],
+  "button.contact": [
+    {
+      "type": 0,
+      "value": "Send Message"
+    }
+  ],
+  "form.email": [
+    {
+      "type": 0,
+      "value": "Please input email format correctly"
+    }
+  ],
+  "form.label.body": [
+    {
+      "type": 0,
+      "value": "Message"
+    }
+  ],
+  "form.label.email": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "form.label.name": [
+    {
+      "type": 0,
+      "value": "Full Name"
+    }
+  ],
+  "form.label.phone_number": [
+    {
+      "type": 0,
+      "value": "Phone Number"
+    }
+  ],
+  "form.placeholder.body": [
+    {
+      "type": 0,
+      "value": "Please input message"
+    }
+  ],
+  "form.placeholder.email": [
+    {
+      "type": 0,
+      "value": "Please input email"
+    }
+  ],
+  "form.placeholder.name": [
+    {
+      "type": 0,
+      "value": "Please input name"
+    }
+  ],
+  "form.placeholder.phone_number": [
+    {
+      "type": 0,
+      "value": "Please input phone number"
+    }
+  ],
+  "form.required": [
+    {
+      "type": 0,
+      "value": "This field is required"
+    }
+  ],
+  "form.validate.phone_number": [
+    {
+      "type": 0,
+      "value": "Phone number is invalid"
+    }
+  ],
   "navbar.construction": [
     {
       "type": 0,
@@ -33,6 +105,18 @@
     {
       "type": 0,
       "value": "Service"
+    }
+  ],
+  "page.detailPagel.relatedPost": [
+    {
+      "type": 0,
+      "value": "Related Projects"
+    }
+  ],
+  "page.home.detailButton": [
+    {
+      "type": 0,
+      "value": "Detail"
     }
   ],
   "page.operation": [

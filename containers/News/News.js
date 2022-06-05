@@ -9,6 +9,7 @@ import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { useParams, useMedia } from "../../hooks";
 import {
   CardItem,
+  OffsetTop,
   Pagination,
   ListingBlog,
   BackgroundListingPage,
@@ -33,10 +34,14 @@ export default function News({ initData }) {
   const [animationState, setAnimationState] = useState(true);
   const [metadataPage, prefetchSelectedPost] = initData;
 
+  console.log(metadataPage?.items?.[0]);
+
   const [open, toggle] = useToggle(!!prefetchSelectedPost);
   const [params, setParams] = useParams({
     isScroll: false,
   });
+
+  const [minWrapperHeight, setMinWrapperHeight] = useState(0);
 
   const [currentOffset, setCurrentOffset] = useState(0);
 
@@ -171,16 +176,31 @@ export default function News({ initData }) {
           }}
           data={newsDataList}
           selectedPostHandler={selectedPostHandler}
+          minWrapperHeight={minWrapperHeight}
+          setMinWrapperHeight={setMinWrapperHeight}
         />
       );
     } else {
       const data = newsDataList.slice(currentOffset, currentOffset + NEWS_POST_LIMIT);
 
-      return data.map((el, i) => {
-        return <CardItem key={i} {...el} selectedPostHandler={selectedPostHandler} />;
-      });
+      return (
+        <Grid container>
+          {data.map((el, i) => {
+            return (
+              <Grid item xs={6} key={i}>
+                <CardItem
+                  {...el}
+                  selectedPostHandler={selectedPostHandler}
+                  minWrapperHeight={minWrapperHeight}
+                  setMinWrapperHeight={setMinWrapperHeight}
+                />
+              </Grid>
+            );
+          })}
+        </Grid>
+      );
     }
-  }, [newsDataList, slickRef, totalCount, isSmUp, currentOffset]);
+  }, [newsDataList, slickRef, totalCount, isSmUp, currentOffset, minWrapperHeight]);
 
   const renderPagination = useMemo(() => {
     if (!newsDataList || isSmUp) {
@@ -205,7 +225,7 @@ export default function News({ initData }) {
   }, [newsDataList, currentOffset, isSmUp]);
 
   return (
-    <Box>
+    <OffsetTop>
       <Container>
         <Grid container>
           <Grid item xs={12}>
@@ -213,21 +233,15 @@ export default function News({ initData }) {
               sx={[
                 {
                   position: "relative",
-                },
-                isSmUp && {
-                  paddingY: "2.5rem",
-                  marginY: "7.5rem",
-                  minHeight: "900px",
-                },
-                isSmDown && {
-                  marginY: "2rem",
-                },
-                isMdUp && {
                   minHeight: "800px",
+                },
+
+                isSmDown && {
+                  marginBottom: 4,
                 },
               ]}
             >
-              <BackgroundListingPage />
+              <BackgroundListingPage src={"/news-background.png"} />
 
               <Box>
                 <Typography
@@ -237,9 +251,6 @@ export default function News({ initData }) {
                       mb: "5rem",
                       textTransform: "uppercase",
                       textAlign: "center",
-                    },
-                    isSmDown && {
-                      marginTop: "8rem",
                     },
                   ]}
                 >
@@ -270,6 +281,6 @@ export default function News({ initData }) {
           selectedPost,
         }}
       />
-    </Box>
+    </OffsetTop>
   );
 }

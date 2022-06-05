@@ -1,4 +1,3 @@
-import React from "react";
 import { PAGES, types } from "../../api";
 import Service from "../../containers/Service/Service";
 import { prefetchData, transformUrl } from "../../libs";
@@ -11,7 +10,9 @@ export async function getServerSideProps({ params, query, locale }) {
   try {
     const urls = [transformUrl(PAGES, { type: types.servicePage, fields: "*", locale })];
 
-    const { resList, fallback } = await prefetchData(urls);
+    const { resList, fallback } = await prefetchData(urls, {
+      locale,
+    });
 
     return {
       props: {
