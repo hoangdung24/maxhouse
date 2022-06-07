@@ -23,5 +23,6 @@
   "form.placeholder.name": "Please input name",
   "form.placeholder.phone_number": "Please input phone number",
   "page.home.detailButton": "Detail",
-  "page.detailPagel.relatedPost": "Related Projects"
+  "page.detailPagel.relatedPost": "Related Projects",
+  "form.message.success": "Send message successfully"
 }

@@ -12,9 +12,9 @@ const TabsBackground = ({ value, changeTabHandler, data }) => {
     return data.map((el) => {
       return (
         <Tab
-          key={el.text_alignment}
+          key={el.id}
           label={el.title}
-          value={el.text_alignment}
+          value={el.id}
           disableRipple
           sx={[
             isMdUp && {

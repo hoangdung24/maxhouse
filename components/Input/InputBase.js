@@ -38,10 +38,7 @@ const InputBase = forwardRef(
         <FormLabel {...FormLabelProps} />
         <Input inputRef={ref} {...props} {...InputProps} />
 
-        <FormHelperText
-          {...restFormHelperTextProps}
-          children={(type && message) || " "}
-        />
+        <FormHelperText {...restFormHelperTextProps} children={message || " "} />
       </FormControl>
     );
   }

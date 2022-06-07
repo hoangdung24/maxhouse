@@ -41,6 +41,12 @@
       "value": "Phone Number"
     }
   ],
+  "form.message.success": [
+    {
+      "type": 0,
+      "value": "Send message successfully"
+    }
+  ],
   "form.placeholder.body": [
     {
       "type": 0,

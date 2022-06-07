@@ -21,8 +21,8 @@ export default function Service({ initData }) {
     const initDataService = initData[0].items[0];
 
     let transformArr = [];
-    const leftObj = {};
-    const rightObj = {};
+    const leftObj = { id: "left" };
+    const rightObj = { id: "right" };
 
     for (const key of Object.keys(initDataService)) {
       if (key.includes("left")) {
@@ -79,11 +79,7 @@ export default function Service({ initData }) {
   const renderTabPanel = useMemo(() => {
     return dataService.map((item, index) => {
       return (
-        <TabPanel
-          key={item.text_alignment}
-          value={currentTab}
-          index={item.text_alignment}
-        >
+        <TabPanel key={item.id} value={currentTab} index={item.id}>
           <RenderHTML data={item} />
         </TabPanel>
       );

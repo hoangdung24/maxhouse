@@ -23,13 +23,13 @@ html {
   color: #e6e8ec !important;
 }
 .slick-slider .slick-dots li button:before {
-  opacity: 1;
   width: 1rem;
   height: 1rem;
   font-size: 1rem;
   line-height: 1rem;
   color: #e6e8ec !important;
   transition: 250ms;
+  opacity: 0.35;
 }
 .slick-dots li.slick-active button:before {
   color: #b1b5c3 !important;

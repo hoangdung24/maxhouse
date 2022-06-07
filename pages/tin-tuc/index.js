@@ -15,7 +15,7 @@ export async function getServerSideProps({ locale, query }) {
     const newsDetailPageURL = transformUrl(PAGES, {
       limit: NEWS_POST_LIMIT,
       type: types.newsDetailPage,
-      fields: ["thumbnails", "title", "subtitle"].join(","),
+      fields: "*",
       locale,
     });
 

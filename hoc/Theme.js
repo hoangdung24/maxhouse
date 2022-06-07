@@ -198,7 +198,7 @@ const theme = createTheme({
             borderColor: defaultTheme.palette.common.neutral1,
           },
 
-          ["& input::placeholder"]: {
+          ["& .MuiInput-input::placeholder"]: {
             ...defaultTheme.typography.body1,
             color: defaultTheme.palette.common.neutral3,
             opacity: 1,

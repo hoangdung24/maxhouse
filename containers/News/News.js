@@ -34,8 +34,6 @@ export default function News({ initData }) {
   const [animationState, setAnimationState] = useState(true);
   const [metadataPage, prefetchSelectedPost] = initData;
 
-  console.log(metadataPage?.items?.[0]);
-
   const [open, toggle] = useToggle(!!prefetchSelectedPost);
   const [params, setParams] = useParams({
     isScroll: false,
@@ -49,7 +47,7 @@ export default function News({ initData }) {
     return transformUrl(PAGES, {
       limit: NEWS_POST_LIMIT,
       type: types.newsDetailPage,
-      fields: ["thumbnails", "title", "subtitle"].join(","),
+      fields: "*",
       locale: router.locale,
       ...(currentOffset && {
         offset: currentOffset,
@@ -249,7 +247,7 @@ export default function News({ initData }) {
                   sx={[
                     {
                       mb: "5rem",
-                      textTransform: "uppercase",
+
                       textAlign: "center",
                     },
                   ]}

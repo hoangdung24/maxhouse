@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Slider from "react-slick";
 import { useIntl } from "react-intl";
 import { Box, Typography } from "@mui/material";
@@ -18,7 +18,7 @@ const setting = {
 const RelatedBlog = ({ data, selectedPostHandler, ...props }) => {
   const length = data?.length;
   const { messages } = useIntl();
-
+  const [minWrapperHeight, setMinWrapperHeight] = useState(0);
   if (!length) {
     return null;
   }
@@ -60,6 +60,8 @@ const RelatedBlog = ({ data, selectedPostHandler, ...props }) => {
                 {...el}
                 thumbnails={firstThumb}
                 selectedPostHandler={selectedPostHandler}
+                minWrapperHeight={minWrapperHeight}
+                setMinWrapperHeight={setMinWrapperHeight}
               />
             );
           })}

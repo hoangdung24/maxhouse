@@ -64,6 +64,19 @@ const Header = ({}) => {
     }
   }, [isMdUp]);
 
+  useEffect(() => {
+    const handleRouteStart = (url, { shallow }) => {
+      setIsToggle(false);
+      popupState.close();
+    };
+    router.events.on("routeChangeStart", handleRouteStart);
+    router.events.on("routeChangeError", handleRouteStart);
+    return () => {
+      router.events.off("routeChangeStart", handleRouteStart);
+      router.events.off("routeChangeError", handleRouteStart);
+    };
+  }, []);
+
   const Navbar = useMemo(() => {
     if (!setting) {
       return null;

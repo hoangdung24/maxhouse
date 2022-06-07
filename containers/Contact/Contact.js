@@ -33,7 +33,13 @@ export default function Contact({ initData }) {
   const theme = useTheme();
   const { isMdUp, isSmDown } = useMedia();
 
-  const { handleSubmit, reset, control, setError } = useForm({
+  const {
+    handleSubmit,
+    reset,
+    control,
+    setError,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
     defaultValues,
   });
@@ -79,10 +85,11 @@ export default function Contact({ initData }) {
       });
     } catch (err) {
       setIsSuccess(true);
-      setMessage({
-        severity: "error",
-        content: err.response.data.message,
-      });
+
+      // setMessage({
+      //   severity: "error",
+      //   content: err.response.data.message,
+      // });
     } finally {
       setLoading(false);
     }
