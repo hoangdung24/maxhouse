@@ -2,9 +2,11 @@ import { useState, useMemo, useCallback } from "react";
 
 import { Box, Container, Grid, Fade } from "@mui/material";
 
+import get from "lodash/get";
+
 import { useMedia, useSetting } from "../../hooks";
 import RenderHTML from "../../components/RenderHTML";
-import { TabPanel, OffsetTop, Image } from "../../components";
+import { TabPanel, OffsetTop, Image, SEO } from "../../components";
 import TabsBackground from "../../components/TabPanel/TabsBackground";
 
 export default function Service({ initData }) {
@@ -92,6 +94,8 @@ export default function Service({ initData }) {
 
   return (
     <OffsetTop>
+      <SEO data={get(initData, "[0].items.[0].meta")} />
+
       <Container>
         <Grid container>
           <Grid item xs={12}>

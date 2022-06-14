@@ -3,10 +3,12 @@ import { useIntl } from "react-intl";
 import { useMemo, Fragment } from "react";
 import { Button, Typography, Box, useTheme } from "@mui/material";
 
-import { Image } from "../../components";
+import { Image, SEO } from "../../components";
 
 import { useMedia } from "../../hooks";
 import { useRouter } from "next/router";
+
+import get from "lodash/get";
 
 const settings = {
   arrows: false,
@@ -71,6 +73,8 @@ export default function Home({ initData }) {
         },
       }}
     >
+      <SEO data={get(data, "meta")} />
+
       <Slider {...settings}>{renderCarousel}</Slider>
 
       <Box

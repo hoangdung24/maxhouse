@@ -1,6 +1,6 @@
 import { format, parseISO } from "date-fns";
 import { useState, useEffect, Fragment, useRef } from "react";
-import { Box, Stack, Typography, Skeleton, Fade } from "@mui/material";
+import { Box, Stack, Typography, Skeleton, Fade, useTheme } from "@mui/material";
 import { useMeasure, useWindowSize, useUpdateEffect } from "react-use";
 
 import truncate from "lodash/truncate";
@@ -26,6 +26,7 @@ const SkeletonCard = ({ size, imageSize }) => {
 };
 
 const CardItem = ({ ...props }) => {
+  const theme = useTheme();
   const { isMdUp, isSmUp } = useMedia();
   const [isCompleteLoaded, setIsCompleteLoaded] = useState(false);
   const { width: windowWidth, height: windowHeight } = useWindowSize();
@@ -55,7 +56,15 @@ const CardItem = ({ ...props }) => {
 
   useEffect(() => {
     if (contentRef.current) {
-      setMinWrapperHeight(contentRef.current.offsetHeight);
+      setMinWrapperHeight((prev) => {
+        let offsetHeight = contentRef.current.offsetHeight;
+
+        if (offsetHeight > 100) {
+          return prev;
+        }
+
+        return Math.max(prev, offsetHeight);
+      });
     }
   }, []);
 
@@ -160,19 +169,25 @@ const CardItem = ({ ...props }) => {
                   minHeight: contentHeight,
                   display: "flex",
                   flexDirection: "column",
+
+                  "&:hover .card--title": {
+                    color: theme.palette.primary.main,
+                  },
                 }}
                 onClick={selectedPostHandler(props, isMdUp)}
                 ref={contentRef}
               >
                 <Typography
                   variant="title"
+                  className="card--title"
                   sx={{
                     flexGrow: 1,
+                    transition: `${theme.transitions.duration.standard}ms`,
                   }}
                 >
                   {truncate(title, {
                     separator: " ",
-                    length: 50,
+                    length: 45,
                     omission: "...",
                   })}
                 </Typography>

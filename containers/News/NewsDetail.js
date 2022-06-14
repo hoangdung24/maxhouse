@@ -1,4 +1,6 @@
-import { Container, DetailBlog } from "../../components";
+import get from "lodash/get";
+
+import { Container, DetailBlog, SEO } from "../../components";
 
 const DesignDetail = ({ initData }) => {
   const [data] = initData;
@@ -12,6 +14,8 @@ const DesignDetail = ({ initData }) => {
         },
       ]}
     >
+      <SEO data={get(data, "items[0].meta")} />
+
       <DetailBlog
         {...{
           data,

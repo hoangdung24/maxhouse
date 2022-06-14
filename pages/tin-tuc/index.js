@@ -17,12 +17,13 @@ export async function getServerSideProps({ locale, query }) {
       type: types.newsDetailPage,
       fields: "*",
       locale,
+      order: "-first_published_at",
     });
 
     const urls = [
       transformUrl(PAGES, {
         type: types.newsListingPage,
-        fields: "title",
+        fields: "*",
         locale,
       }),
     ];

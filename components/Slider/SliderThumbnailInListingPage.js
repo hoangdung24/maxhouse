@@ -6,59 +6,8 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 import { useMedia } from "../../hooks";
 
-function CustomPreviousArrow(props) {
-  const { className, style, onClick } = props;
-
-  return (
-    <Box
-      className={className}
-      sx={{
-        ...style,
-        display: "block",
-        left: "8px !important",
-        zIndex: 1,
-
-        ["&:before"]: {
-          display: "none",
-        },
-      }}
-      onClick={onClick}
-    >
-      <KeyboardArrowDownIcon
-        sx={{
-          color: "#FFF !important",
-          transform: "rotate(90deg)",
-        }}
-      />
-    </Box>
-  );
-}
-
-function CustomNextArrow(props) {
-  const { className, style, onClick } = props;
-
-  return (
-    <Box
-      className={className}
-      sx={{
-        ...style,
-        display: "block",
-        right: "8px !important",
-        ["&:before"]: {
-          display: "none",
-        },
-      }}
-      onClick={onClick}
-    >
-      <KeyboardArrowDownIcon
-        sx={{
-          color: "#FFF !important",
-          transform: "rotate(-90deg)",
-        }}
-      />
-    </Box>
-  );
-}
+import PreviousArrow from "./PreviousArrow";
+import NextArrow from "./NextArrow";
 
 const settings = {
   infinite: false,
@@ -66,8 +15,8 @@ const settings = {
   slidesToShow: 1,
   dots: false,
   arrows: true,
-  nextArrow: <CustomNextArrow />,
-  prevArrow: <CustomPreviousArrow />,
+  prevArrow: <PreviousArrow />,
+  nextArrow: <NextArrow />,
   draggable: false,
   infinite: true,
 };

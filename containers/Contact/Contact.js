@@ -2,8 +2,11 @@ import { useIntl } from "react-intl";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCallback, useEffect, useState } from "react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { isValidPhoneNumber } from "react-phone-number-input/input";
 import { Box, Typography, useTheme, Grid, Alert, Stack, Fade } from "@mui/material";
+
+import get from "lodash/get";
 
 import { CONTACTS } from "../../api";
 import axios from "../../axios.config";
@@ -13,6 +16,7 @@ import {
   Input,
   LoadingButton,
   InputPhoneNumber,
+  SEO,
 } from "../../components";
 import { useMedia, useSetting } from "../../hooks";
 import { schema, defaultValues } from "../../libs/yupRegister";
@@ -28,6 +32,7 @@ export default function Contact({ initData }) {
   });
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const data = initData[0].items[0];
   const theme = useTheme();
@@ -58,45 +63,56 @@ export default function Contact({ initData }) {
     };
   }, [isSuccess]);
 
-  const onSubmit = useCallback(async (data) => {
-    const { phone_number } = data;
+  const onSubmit = useCallback(
+    async (data) => {
+      const { phone_number } = data;
 
-    try {
-      if (!isValidPhoneNumber(phone_number)) {
-        setError("phone_number", {
-          type: "validate",
+      try {
+        if (!executeRecaptcha) {
+          return;
+        }
+
+        const token = await executeRecaptcha();
+
+        if (!isValidPhoneNumber(phone_number)) {
+          setError("phone_number", {
+            type: "validate",
+          });
+          return;
+        }
+
+        setLoading(true);
+
+        await axios.post(`${CONTACTS}/`, data);
+
+        reset(defaultValues, {
+          keepDirty: false,
         });
-        return;
+
+        setIsSuccess(true);
+
+        setMessage({
+          severity: "success",
+          content: messages["form.message.success"][0]["value"],
+        });
+      } catch (err) {
+        setIsSuccess(true);
+
+        setMessage({
+          severity: "error",
+          content: err.response.data.message,
+        });
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(true);
-
-      await axios.post(`${CONTACTS}/`, data);
-
-      reset(defaultValues, {
-        keepDirty: false,
-      });
-
-      setIsSuccess(true);
-
-      setMessage({
-        severity: "success",
-        content: messages["form.message.success"][0]["value"],
-      });
-    } catch (err) {
-      setIsSuccess(true);
-
-      // setMessage({
-      //   severity: "error",
-      //   content: err.response.data.message,
-      // });
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+    },
+    [executeRecaptcha]
+  );
 
   return (
     <OffsetTop>
+      <SEO data={get(data, "meta")} />
+
       <Container>
         <Grid container justifyContent="space-between" columnSpacing={10}>
           <Grid item xs={12}>

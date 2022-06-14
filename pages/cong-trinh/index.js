@@ -14,6 +14,8 @@ export async function getServerSideProps({ params, query, locale }) {
         type: types.constructionDetailPage,
         fields: "*",
         locale,
+        order: "-first_published_at",
+        limit: "1000",
       }),
       transformUrl(PAGES, {
         type: types.constructionListingPage,

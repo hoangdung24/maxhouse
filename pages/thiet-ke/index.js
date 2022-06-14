@@ -20,10 +20,11 @@ export async function getServerSideProps({ params, query, locale }) {
         limit: "1000",
         locale,
         fields: "*",
+        order: "-first_published_at",
       }),
       transformUrl(PAGES, {
         type: types.designListingPage,
-        fields: ["banner", "subtitle"].join(","),
+        fields: "*",
         locale,
       }),
     ];

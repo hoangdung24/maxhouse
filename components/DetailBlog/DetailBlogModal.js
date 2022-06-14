@@ -7,10 +7,13 @@ import {
   useTheme,
 } from "@mui/material";
 
+import get from "lodash/get";
+
 import { useMedia } from "../../hooks";
 
 import Container from "../Container";
 import DetailBlog from "./DetailBlog";
+import SEO from "../SEO";
 
 const ADJUST_SIZE = 2.5;
 
@@ -63,6 +66,7 @@ const PortfolioDetailDialog = ({ open, toggle, selectedPost, setParams }) => {
         }}
       >
         <Container ref={scrollRef}>
+          <SEO data={get(selectedPost, "meta")} />
           <DetailBlog
             {...{
               data: selectedPost,

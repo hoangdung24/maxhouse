@@ -31,7 +31,7 @@ export async function getServerSideProps({ params, query, locale }) {
         transformUrl(PAGES, {
           type: types.designDetailPage,
           fields: "*",
-          order: "first_published_at",
+          order: "-first_published_at",
           limit: 6,
           category: categoryId,
         })

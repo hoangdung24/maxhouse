@@ -1,34 +1,63 @@
 import { NextSeo } from "next-seo";
+import { useSetting } from "../hooks";
 
 const SEO = ({ data = {} }) => {
-  const { seo_title, search_description } = data;
+  const setting = useSetting();
+
+  const {
+    favicon,
+    og_image: originalImage,
+    seo_title: originalTitle,
+    search_description: originalSearchDescription,
+  } = setting;
+
+  let { seo_title, search_description, og_image } = data;
+
+  if (!seo_title) {
+    seo_title = originalTitle || "Max House";
+  }
+
+  if (!search_description) {
+    search_description = originalSearchDescription || "Max House Description";
+  }
+
+  if (!og_image) {
+    og_image = originalImage;
+  }
+
+  if (!setting) {
+    return null;
+  }
 
   return (
     <NextSeo
-      title={seo_title || "Trinix"}
-      description={search_description || "Trinix"}
+      title={seo_title}
+      description={search_description}
       openGraph={{
-        url: "https://www.url.ie/a",
-        title: seo_title || "Trinix",
-        description: search_description || "Trinix",
+        url: "https://www.url.ie/",
+        title: seo_title,
+        description: search_description,
         images: [
           {
-            url: "https://www.example.ie/og-image-01.jpg",
+            url: og_image,
             width: 800,
             height: 600,
-            alt: "Og Image Alt",
+            alt: "Max House",
             type: "image/jpeg",
           },
-          { url: "https://www.example.ie/og-image-03.jpg" },
-          { url: "https://www.example.ie/og-image-04.jpg" },
         ],
-        site_name: "Trinix",
+        site_name: seo_title,
       }}
-      twitter={{
-        handle: "@handle",
-        site: "@site",
-        cardType: "summary_large_image",
-      }}
+      additionalLinkTags={[
+        {
+          rel: "icon",
+          href: favicon,
+        },
+        {
+          rel: "apple-touch-icon",
+          href: favicon,
+        },
+      ]}
     />
   );
 };

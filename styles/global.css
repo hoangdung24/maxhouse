@@ -7,6 +7,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
 .slick-dots li {
   width: 1rem !important;
   height: 1rem !important;

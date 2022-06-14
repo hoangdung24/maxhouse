@@ -5,7 +5,10 @@ import { useRouter } from "next/router";
 import { Box, Container, Grid, Fade } from "@mui/material";
 import { useState, useMemo, useCallback, Fragment } from "react";
 
+import get from "lodash/get";
+
 import { useParams, useMedia } from "../../hooks";
+
 import {
   Tabs,
   TabPanel,
@@ -14,9 +17,8 @@ import {
   Pagination,
   ListingBlog,
   BackgroundListingPage,
+  SEO,
 } from "../../components";
-
-import get from "lodash/get";
 
 const DetailBlogModal = dynamic(() =>
   import("../../components").then((Component) => {
@@ -28,7 +30,9 @@ import { POST_LIMIT } from "../../constants";
 
 export default function Design({ initData }) {
   const router = useRouter();
-  const [params, setParams] = useParams();
+  const [params, setParams] = useParams({
+    isScroll: false,
+  });
   const { isSmUp, isMdUp, isSmDown } = useMedia();
   const [animationState, setAnimationState] = useState(true);
   const [minWrapperHeight, setMinWrapperHeight] = useState(0);
@@ -148,7 +152,14 @@ export default function Design({ initData }) {
     }
 
     //
-  }, [designListItem, designCategoryList, currentTab, isSmUp, currentPage]);
+  }, [
+    designListItem,
+    designCategoryList,
+    currentTab,
+    isSmUp,
+    currentPage,
+    minWrapperHeight,
+  ]);
 
   const renderPagination = useMemo(() => {
     if (!designListItem || isSmUp) {
@@ -173,6 +184,7 @@ export default function Design({ initData }) {
 
   return (
     <Box>
+      <SEO data={get(metadataPage, "items.[0].meta")} />
       <BannerTop
         src={metadataPage?.items?.[0]?.banner}
         content={metadataPage?.items?.[0]?.subtitle}
@@ -222,7 +234,6 @@ export default function Design({ initData }) {
         </Grid>
       </Container>
 
-      {/* Bài viết khi click vào designcatelogories */}
       <DetailBlogModal
         {...{
           open,

@@ -1,8 +1,9 @@
-import get from "lodash/get";
 import { useToggle } from "react-use";
 import { useRouter } from "next/router";
 import { Box, Container, Grid, Fade } from "@mui/material";
 import { useState, useMemo, useCallback, Fragment } from "react";
+
+import get from "lodash/get";
 
 import {
   Tabs,
@@ -13,13 +14,16 @@ import {
   ListingBlog,
   BackgroundListingPage,
   DetailBlogModal,
+  SEO,
 } from "../../components";
 import { POST_LIMIT } from "../../constants";
 import { useMedia, useParams } from "../../hooks";
 
 export default function Construction({ initData }) {
   const router = useRouter();
-  const [params, setParams] = useParams();
+  const [params, setParams] = useParams({
+    isScroll: false,
+  });
   const { isSmUp, isMdUp, isSmDown } = useMedia();
   const [animationState, setAnimationState] = useState(true);
   const [minWrapperHeight, setMinWrapperHeight] = useState(0);
@@ -167,6 +171,8 @@ export default function Construction({ initData }) {
 
   return (
     <Box>
+      <SEO data={get(metadataPage, "items[0].meta")} />
+
       <BannerTop
         src={metadataPage?.items?.[0]?.banner}
         content={metadataPage?.items?.[0]?.subtitle}

@@ -2,7 +2,9 @@ import { useCallback } from "react";
 import { useRouter } from "next/router";
 
 import { useMedia } from "../../hooks";
-import { Container, DetailBlog, RelatedBlog, OffsetTop } from "../../components";
+import { Container, DetailBlog, RelatedBlog, OffsetTop, SEO } from "../../components";
+
+import get from "lodash/get";
 
 const DesignDetail = ({ initData }) => {
   const router = useRouter();
@@ -26,6 +28,8 @@ const DesignDetail = ({ initData }) => {
   return (
     <OffsetTop>
       <Container>
+        <SEO data={get(data, "meta")} />
+
         <DetailBlog
           {...{
             data,
@@ -34,7 +38,9 @@ const DesignDetail = ({ initData }) => {
 
         {isSmDown && (
           <RelatedBlog
-            data={relatedData?.items}
+            data={relatedData?.items?.filter((el) => {
+              return el.id != router.query.id;
+            })}
             selectedPostHandler={selectedPostHandler}
           />
         )}

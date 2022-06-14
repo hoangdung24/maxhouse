@@ -17,6 +17,7 @@ const DesignDetail = forwardRef(
     const { isMdUp } = useMedia();
     const { title, subtitle, youtube_link } = data;
     const [stickyRef, { width }] = useMeasure();
+    const [containerRef, { width: contentWidth }] = useMeasure();
 
     let videoId;
 
@@ -39,19 +40,21 @@ const DesignDetail = forwardRef(
             {title}
           </Typography>
 
-          {isMdUp && !router.pathname.includes("[id]") && (
-            <IconButton onClick={closeHandler}>
-              <CloseIcon />
-            </IconButton>
-          )}
+          {isMdUp &&
+            !router.pathname.includes("[id]") &&
+            !router.pathname.includes("preview") && (
+              <IconButton onClick={closeHandler}>
+                <CloseIcon />
+              </IconButton>
+            )}
         </Stack>
 
         <Typography variant="h5" sx={[{ marginBottom: 7 }]}>
           {subtitle}
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={youtube_link ? 8 : 12}>
-            <RenderHTML data={data} />
+          <Grid item xs={12} md={youtube_link ? 8 : 12} ref={containerRef}>
+            <RenderHTML data={data} containerWidth={contentWidth} />
           </Grid>
 
           {videoId && (
@@ -78,7 +81,7 @@ const DesignDetail = forwardRef(
                   videoId={videoId}
                   opts={{
                     width: "100%",
-                    height: "200",
+                    height: (width * 9) / 16,
                   }}
                 />
               </Box>

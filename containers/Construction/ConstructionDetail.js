@@ -1,8 +1,10 @@
 import { useCallback } from "react";
 import { useRouter } from "next/router";
 
+import get from "lodash/get";
+
 import { useMedia } from "../../hooks";
-import { Container, DetailBlog, RelatedBlog, OffsetTop } from "../../components";
+import { Container, DetailBlog, RelatedBlog, OffsetTop, SEO } from "../../components";
 
 const ConstructionDetail = ({ initData }) => {
   const router = useRouter();
@@ -26,6 +28,8 @@ const ConstructionDetail = ({ initData }) => {
   return (
     <OffsetTop>
       <Container>
+        <SEO data={get(data, "meta")} />
+
         <DetailBlog
           {...{
             data,

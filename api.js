@@ -5,6 +5,7 @@ const settings = "settings";
 const contacts = "contacts";
 const design_categories = "design-categories";
 const construction_categories = "construction-categories";
+const preview = "preview";
 
 const generatePathname = (data) => {
   const arr = [PREFIX, ...data];
@@ -47,3 +48,4 @@ export const PAGES = generatePathname([pages]);
 export const DESIGN_CATEGORIES = generatePathname([design_categories]);
 export const CONSTRUCTION_CATEGORIES = generatePathname([construction_categories]);
 export const CONTACTS = generatePathname([contacts]);
+export const PREVIEW = generatePathname([preview]);

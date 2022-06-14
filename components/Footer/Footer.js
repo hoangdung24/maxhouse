@@ -1,3 +1,5 @@
+import DOMPurify from "isomorphic-dompurify";
+
 import {
   Stack,
   useTheme,
@@ -17,7 +19,7 @@ import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
 import Link from "../Link";
 import Container from "../Container";
-import RenderHtml from "../RenderHTML";
+
 import { POLICY_ROUTE } from "../../constants";
 import { useSetting, useMedia } from "../../hooks";
 
@@ -87,20 +89,22 @@ export default function Footer({}) {
                 },
               ]}
             >
-              <RenderHtml
-                data={{
-                  body: company_name,
-                }}
-                sx={{
-                  ["& p"]: {
-                    ...theme.typography.h6,
+              <Box
+                sx={[
+                  {
+                    ["& p"]: {
+                      ...theme.typography.h6,
+                    },
+                    marginBottom: 4,
+                    [theme.breakpoints.up("md")]: {
+                      marginBottom: 1,
+                    },
                   },
-                  marginBottom: 4,
-                  [theme.breakpoints.up("md")]: {
-                    marginBottom: 1,
-                  },
+                ]}
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(company_name, {}),
                 }}
-              />
+              ></Box>
 
               <Content
                 sx={{

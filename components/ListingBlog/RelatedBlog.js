@@ -7,7 +7,7 @@ import CardItem from "../Card/CardItem";
 
 const setting = {
   autoplay: true,
-  infinite: false,
+  infinite: true,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,

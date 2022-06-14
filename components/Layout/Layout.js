@@ -4,16 +4,16 @@ import { useRouter } from "next/router";
 
 import { Box } from "@mui/material";
 
+import SEO from "../SEO";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-
-import { SETTINGS } from "../../api";
+import BackToTop from "../BackToTop";
 
 const FABContact = dynamic(() => import("../FAB/FABContact"), {
   ssr: false,
 });
 
-const Layout = ({ fallback, children }) => {
+const Layout = ({ children }) => {
   const router = useRouter();
 
   const FooterMemo = useMemo(() => {
@@ -31,10 +31,12 @@ const Layout = ({ fallback, children }) => {
         minHeight: "100vh",
       }}
     >
+      <SEO />
       <Header />
       {children}
       {FooterMemo}
       <FABContact />
+      <BackToTop />
     </Box>
   );
 };

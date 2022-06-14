@@ -13,6 +13,7 @@ import {
   Pagination,
   ListingBlog,
   BackgroundListingPage,
+  SEO,
 } from "../../components";
 import { transformUrl } from "../../libs";
 
@@ -49,6 +50,7 @@ export default function News({ initData }) {
       type: types.newsDetailPage,
       fields: "*",
       locale: router.locale,
+      order: "-first_published_at",
       ...(currentOffset && {
         offset: currentOffset,
       }),
@@ -224,7 +226,18 @@ export default function News({ initData }) {
 
   return (
     <OffsetTop>
-      <Container>
+      <SEO data={get(metadataPage, "items[0].meta")} />
+
+      <Container
+        sx={[
+          isMdUp && {
+            marginBottom: 18,
+          },
+          isSmUp && {
+            marginBottom: 15,
+          },
+        ]}
+      >
         <Grid container>
           <Grid item xs={12}>
             <Box
