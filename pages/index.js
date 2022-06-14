@@ -13,7 +13,7 @@ export async function getServerSideProps({ params, query, locale }) {
     const urls = [
       transformUrl(PAGES, {
         type: types.homePage,
-        fields: ["banners", "title", "subtitle"].join(","),
+        fields: "*",
         locale,
       }),
     ];

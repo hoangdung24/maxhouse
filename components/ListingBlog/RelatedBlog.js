@@ -33,7 +33,7 @@ const RelatedBlog = ({ data, selectedPostHandler, ...props }) => {
       >
         <Typography
           variant="h5"
-          children={messages["page.detailPagel.relatedPost"]?.[0]?.["value"]}
+          children={messages["page.detailPage.relatedPost"]?.[0]?.["value"]}
           sx={{
             textTransform: "uppercase",
           }}

@@ -102,9 +102,17 @@ const Messages = () => {
       id: "page.home.detailButton",
       defaultMessage: "Chi tiết",
     },
-    "page.detailPagel.relatedPost": {
-      id: "page.detailPagel.relatedPost",
+    "page.detailPage.relatedPost": {
+      id: "page.detailPage.relatedPost",
       defaultMessage: "Các dự án khác",
+    },
+    "page.404.message": {
+      id: "page.404.message",
+      defaultMessage: "Trang bạn đang tìm không thể tìm thấy!",
+    },
+    "page.404.backButton": {
+      id: "page.404.backButton",
+      defaultMessage: "Quay lại trang chủ",
     },
   });
 };

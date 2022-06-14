@@ -23,6 +23,8 @@
   "form.placeholder.name": "Please input name",
   "form.placeholder.phone_number": "Please input phone number",
   "page.home.detailButton": "Detail",
-  "page.detailPagel.relatedPost": "Related Projects",
-  "form.message.success": "Send message successfully"
+  "page.detailPage.relatedPost": "Related Projects",
+  "form.message.success": "Send message successfully",
+  "page.404.backButton": "Back to homepage",
+  "page.404.message": "The page you're looking for can't be found"
 }

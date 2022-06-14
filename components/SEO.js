@@ -4,6 +4,10 @@ import { useSetting } from "../hooks";
 const SEO = ({ data = {} }) => {
   const setting = useSetting();
 
+  if (!setting) {
+    return null;
+  }
+
   const {
     favicon,
     og_image: originalImage,
@@ -23,10 +27,6 @@ const SEO = ({ data = {} }) => {
 
   if (!og_image) {
     og_image = originalImage;
-  }
-
-  if (!setting) {
-    return null;
   }
 
   return (

@@ -22,7 +22,7 @@ const settings = {
 
 export default function Home({ initData }) {
   const router = useRouter();
-  const { isMdUp } = useMedia();
+  const { isMdUp, isSmDown } = useMedia();
   const { messages } = useIntl();
 
   const theme = useTheme();
@@ -31,11 +31,29 @@ export default function Home({ initData }) {
   const data = items?.[0];
 
   const renderCarousel = useMemo(() => {
-    if (!data?.banners) {
+    if (!data) {
       return null;
     }
 
-    return data.banners.map((el, index) => {
+    const { banners, mobile_banners } = data;
+
+    if (isSmDown && mobile_banners) {
+      return mobile_banners.map((el, index) => {
+        return (
+          <Fragment key={index}>
+            <Image
+              src={el.value}
+              layout="fill"
+              objectFit="cover"
+              width="100vw"
+              height={`calc(100vw * 16 / 9)`}
+            />
+          </Fragment>
+        );
+      });
+    }
+
+    return banners.map((el, index) => {
       return (
         <Fragment key={index}>
           <Image
@@ -48,7 +66,7 @@ export default function Home({ initData }) {
         </Fragment>
       );
     });
-  }, [data]);
+  }, [data, isSmDown]);
 
   if (!data) {
     return null;

@@ -113,7 +113,19 @@
       "value": "Service"
     }
   ],
-  "page.detailPagel.relatedPost": [
+  "page.404.backButton": [
+    {
+      "type": 0,
+      "value": "Back to homepage"
+    }
+  ],
+  "page.404.message": [
+    {
+      "type": 0,
+      "value": "The page you're looking for can't be found"
+    }
+  ],
+  "page.detailPage.relatedPost": [
     {
       "type": 0,
       "value": "Related Projects"

@@ -113,7 +113,19 @@
       "value": "Dịch vụ"
     }
   ],
-  "page.detailPagel.relatedPost": [
+  "page.404.backButton": [
+    {
+      "type": 0,
+      "value": "Quay lại trang chủ"
+    }
+  ],
+  "page.404.message": [
+    {
+      "type": 0,
+      "value": "Trang bạn đang tìm không thể tìm thấy!"
+    }
+  ],
+  "page.detailPage.relatedPost": [
     {
       "type": 0,
       "value": "Các dự án khác"
