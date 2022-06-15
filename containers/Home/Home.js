@@ -20,7 +20,9 @@ const settings = {
   autoplay: true,
 };
 
-export default function Home({ initData }) {
+export default function Home(props) {
+  const { initData } = props;
+
   const router = useRouter();
   const { isMdUp, isSmDown } = useMedia();
   const { messages } = useIntl();
@@ -28,7 +30,8 @@ export default function Home({ initData }) {
   const theme = useTheme();
 
   const { items } = initData?.[0];
-  const data = items?.[0];
+
+  const data = items?.[0] || initData?.[0];
 
   const renderCarousel = useMemo(() => {
     if (!data) {
@@ -46,7 +49,8 @@ export default function Home({ initData }) {
               layout="fill"
               objectFit="cover"
               width="100vw"
-              height={`calc(100vw * 16 / 9)`}
+              // height={`calc(100vw * 16 / 9)`}
+              height={"100vh"}
             />
           </Fragment>
         );

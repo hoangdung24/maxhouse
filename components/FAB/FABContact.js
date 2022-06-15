@@ -75,7 +75,7 @@ const FABContact = ({}) => {
             let newValue;
             let isTarget = true;
             if (block_type === "telephone") {
-              newValue = `tel:${value.phone.replaceAll(" ", "")}`;
+              newValue = `tel:${value.phone}`;
               isTarget = false;
             } else if (block_type === "hyperlink") {
               newValue = value.link;

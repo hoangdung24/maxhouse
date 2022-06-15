@@ -9,6 +9,8 @@ import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import BackToTop from "../BackToTop";
 
+import { types } from "../../api";
+
 const FABContact = dynamic(() => import("../FAB/FABContact"), {
   ssr: false,
 });
@@ -17,12 +19,15 @@ const Layout = ({ children }) => {
   const router = useRouter();
 
   const FooterMemo = useMemo(() => {
-    if (router.pathname === "/") {
+    if (
+      router.pathname === "/" ||
+      (router.pathname === "/preview" && router.query.type === types.homePage)
+    ) {
       return null;
     }
 
     return <Footer />;
-  }, [router.pathname]);
+  }, [router]);
 
   return (
     <Box

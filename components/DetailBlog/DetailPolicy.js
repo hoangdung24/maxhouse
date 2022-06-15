@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 import OffsetTop from "../OffsetTop";
 import Container from "../Container";
@@ -6,10 +6,26 @@ import { useMedia } from "../../hooks";
 import RenderHTML from "../RenderHTML";
 
 const DetailPolicy = ({ initData }) => {
-  const [data] = initData;
-  const { title } = data.items[0];
-
   const { isMdUp } = useMedia();
+  let [data] = initData;
+
+  data = data?.items?.[0] || data;
+
+  let { title, text_alignment, body } = data;
+
+  if (!text_alignment) {
+    text_alignment = "left";
+  }
+
+  if (typeof body === "string") {
+    body = [
+      {
+        block_type: "richtext",
+        value: body,
+      },
+    ];
+  }
+
   return (
     <OffsetTop>
       <Container>
@@ -27,7 +43,12 @@ const DetailPolicy = ({ initData }) => {
               {title}
             </Typography>
 
-            <RenderHTML data={data.items[0]} />
+            <RenderHTML
+              data={{
+                body,
+                text_alignment,
+              }}
+            />
           </Grid>
         </Grid>
       </Container>

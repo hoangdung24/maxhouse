@@ -20,7 +20,7 @@ export default function Service({ initData }) {
   const [currentTab, setCurrentTab] = useState("left");
 
   const [dataService, setDataService] = useState(() => {
-    const initDataService = initData[0].items[0];
+    const initDataService = initData?.[0]?.items?.[0] || initData?.[0];
 
     let transformArr = [];
     const leftObj = { id: "left" };

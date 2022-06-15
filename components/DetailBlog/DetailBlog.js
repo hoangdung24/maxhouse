@@ -11,7 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useMedia } from "../../hooks";
 import RenderHTML from "../RenderHTML";
 
-const DesignDetail = forwardRef(
+const DetailBlog = forwardRef(
   ({ data, closeHandler = () => {}, isSticky, adjustSize }, ref) => {
     const router = useRouter();
     const { isMdUp } = useMedia();
@@ -93,4 +93,4 @@ const DesignDetail = forwardRef(
   }
 );
 
-export default DesignDetail;
+export default DetailBlog;

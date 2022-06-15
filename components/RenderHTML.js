@@ -4,7 +4,7 @@ import DOMPurify from "isomorphic-dompurify";
 import { useState, useEffect } from "react";
 
 const renderHTML = ({ data, sx = {}, containerWidth, ...props }) => {
-  const { text_alignment, body } = data;
+  let { body, text_alignment } = data;
 
   const [transformedBody, setTransformedBody] = useState(() => {
     if (!body) {
@@ -30,6 +30,13 @@ const renderHTML = ({ data, sx = {}, containerWidth, ...props }) => {
             }
 
             const parsedData = await extract(value.src).then((oembed) => {
+              if (oembed === null) {
+                return {
+                  ...el,
+                  isParsed: false,
+                };
+              }
+
               const { html } = oembed;
 
               return {

@@ -1,88 +1,42 @@
-import { PREVIEW } from "../api";
-import { transformUrl, prefetchData } from "../libs";
-import { OffsetTop, Container, DetailBlog } from "../components";
+import { useRouter } from "next/router";
 
-const PreviewPage = ({ initData = {} }) => {
-  const [previewPostData] = initData;
+import { PREVIEW, types } from "../api";
+import { transformUrl, prefetchData } from "../libs";
+import { OffsetTop, Container, DetailBlog, DetailPolicy } from "../components";
+
+import Home from "../containers/Home/Home";
+import Service from "../containers/Service/Service";
+
+const PreviewPage = (props) => {
+  const { initData } = props;
+
+  const router = useRouter();
+
+  const { type } = router.query;
+
+  if (type === types.homePage) {
+    return <Home {...props} />;
+  }
+
+  if (type === types.servicePage) {
+    return <Service {...props} />;
+  }
+
+  if (type === types.operationPolicy || type === types.paymentPolicy) {
+    return <DetailPolicy {...props} />;
+  }
 
   return (
     <OffsetTop>
       <Container>
         <DetailBlog
           {...{
-            data: previewPostData,
+            data: initData?.[0],
           }}
         />
       </Container>
     </OffsetTop>
   );
-
-  // return (
-  //   <Box
-  //     sx={{
-  //       marginTop: `${context?.state?.headerHeight}px`,
-  //       paddingY: 3,
-  //     }}
-  //   >
-  //     {body?.map((el, idx) => {
-  //       const { block_type, value } = el;
-
-  //       if (block_type === "richtext") {
-  //         const { content, text_color, text_alignment } = value;
-
-  //         return (
-  //           <GridContainer
-  //             key={idx}
-  //             OuterProps={{
-  //               ...(isMobile && {
-  //                 sx: {
-  //                   maxWidth: 1,
-  //                   paddingX: 0,
-  //                 },
-  //               }),
-  //             }}
-  //           >
-  //             <Box
-  //               sx={{
-  //                 color: text_color,
-  //                 textAlign: text_alignment,
-  //                 wordWrap: "break-word",
-  //                 ["& iframe"]: {
-  //                   width: "100%",
-  //                 },
-  //               }}
-  //               dangerouslySetInnerHTML={{
-  //                 __html: DOMPurify.sanitize(content, {
-  //                   ADD_TAGS: ["iframe"],
-  //                   ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
-  //                 }),
-  //               }}
-  //             ></Box>
-  //           </GridContainer>
-  //         );
-  //       } else if (block_type === "images") {
-  //         return (
-  //           <Stack key={idx} direction="row">
-  //             {value.map((el, idx) => {
-  //               return (
-  //                 <img
-  //                   key={idx}
-  //                   src={el}
-  //                   style={{
-  //                     width: `${100 / value.length}%`,
-  //                     objectFit: "contain",
-  //                   }}
-  //                 />
-  //               );
-  //             })}
-  //           </Stack>
-  //         );
-  //       } else {
-  //         return null;
-  //       }
-  //     })}
-  //   </Box>
-  // );
 };
 
 export default PreviewPage;
@@ -109,14 +63,10 @@ export async function getServerSideProps({ query, locale }) {
     };
   } catch (err) {
     return {
-      props: {},
+      redirect: {
+        destination: "/404",
+        permanent: false,
+      },
     };
-
-    // return {
-    //   redirect: {
-    //     destination: "/404",
-    //     permanent: false,
-    //   },
-    // };
   }
 }
