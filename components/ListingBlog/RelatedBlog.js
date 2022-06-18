@@ -1,6 +1,6 @@
-import { Fragment, useState } from "react";
 import Slider from "react-slick";
 import { useIntl } from "react-intl";
+import { Fragment, useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import CardItem from "../Card/CardItem";
@@ -15,7 +15,7 @@ const setting = {
   centerPadding: "18px",
 };
 
-const RelatedBlog = ({ data, selectedPostHandler, ...props }) => {
+const RelatedBlog = ({ data, selectedPostHandler, title, ...props }) => {
   const length = data?.length;
   const { messages } = useIntl();
   const [minWrapperHeight, setMinWrapperHeight] = useState(0);
@@ -33,7 +33,7 @@ const RelatedBlog = ({ data, selectedPostHandler, ...props }) => {
       >
         <Typography
           variant="h5"
-          children={messages["page.detailPage.relatedPost"]?.[0]?.["value"]}
+          children={title || messages["page.detailPage.relatedPost"]?.[0]?.["value"]}
           sx={{
             textTransform: "uppercase",
           }}

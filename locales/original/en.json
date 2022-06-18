@@ -26,5 +26,6 @@
   "page.detailPage.relatedPost": "Related Projects",
   "form.message.success": "Send message successfully",
   "page.404.backButton": "Back to homepage",
-  "page.404.message": "The page you're looking for can't be found"
+  "page.404.message": "The page you're looking for can't be found",
+  "page.detailPage.relatedNews": "Related News"
 }

@@ -125,6 +125,12 @@
       "value": "Trang bạn đang tìm không thể tìm thấy!"
     }
   ],
+  "page.detailPage.relatedNews": [
+    {
+      "type": 0,
+      "value": "Các bài viết liên quan"
+    }
+  ],
   "page.detailPage.relatedPost": [
     {
       "type": 0,

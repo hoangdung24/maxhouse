@@ -125,6 +125,12 @@
       "value": "The page you're looking for can't be found"
     }
   ],
+  "page.detailPage.relatedNews": [
+    {
+      "type": 0,
+      "value": "Related News"
+    }
+  ],
   "page.detailPage.relatedPost": [
     {
       "type": 0,

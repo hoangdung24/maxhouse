@@ -70,7 +70,10 @@ const renderHTML = ({ data, sx = {}, containerWidth, ...props }) => {
                 textAlign: text_alignment,
               }),
               wordWrap: "break-word",
-              overflow: "hidden",
+
+              ["& *"]: {
+                marginBottom: "0.75rem",
+              },
               ["& ol"]: {
                 marginLeft: "1rem",
               },

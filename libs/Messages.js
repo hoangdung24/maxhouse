@@ -106,6 +106,12 @@ const Messages = () => {
       id: "page.detailPage.relatedPost",
       defaultMessage: "Các dự án khác",
     },
+
+    "page.detailPage.relatedNews": {
+      id: "page.detailPage.relatedNews",
+      defaultMessage: "Các bài viết liên quan",
+    },
+
     "page.404.message": {
       id: "page.404.message",
       defaultMessage: "Trang bạn đang tìm không thể tìm thấy!",
