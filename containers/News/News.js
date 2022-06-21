@@ -1,7 +1,7 @@
 import useSWR from "swr";
 import dynamic from "next/dynamic";
-import { useToggle } from "react-use";
 import { useRouter } from "next/router";
+import { useToggle } from "react-use";
 
 import { Box, Container, Grid, Fade, Typography } from "@mui/material";
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
@@ -31,8 +31,11 @@ const DetailBlogModal = dynamic(() =>
 export default function News({ initData }) {
   const router = useRouter();
   const slickRef = useRef();
+
   const { isSmUp, isSmDown, isMdUp } = useMedia();
+
   const [animationState, setAnimationState] = useState(true);
+
   const [metadataPage, prefetchSelectedPost] = initData;
 
   const [open, toggle] = useToggle(!!prefetchSelectedPost);

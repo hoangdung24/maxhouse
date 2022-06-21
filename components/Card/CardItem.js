@@ -1,7 +1,7 @@
 import { format, parseISO } from "date-fns";
 import { useState, useEffect, Fragment, useRef } from "react";
+import { useMeasure, useWindowSize, useUpdateEffect, useUpdate } from "react-use";
 import { Box, Stack, Typography, Skeleton, Fade, useTheme } from "@mui/material";
-import { useMeasure, useWindowSize, useUpdateEffect } from "react-use";
 
 import truncate from "lodash/truncate";
 
@@ -27,7 +27,7 @@ const SkeletonCard = ({ size, imageSize }) => {
 
 const CardItem = ({ ...props }) => {
   const theme = useTheme();
-  const { isMdUp, isSmUp } = useMedia();
+  const { isMdUp, isSmUp, isSmDown } = useMedia();
   const [isCompleteLoaded, setIsCompleteLoaded] = useState(false);
   const { width: windowWidth, height: windowHeight } = useWindowSize();
   const {
@@ -49,30 +49,27 @@ const CardItem = ({ ...props }) => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-
   const contentRef = useRef(null);
 
-  const [contentHeight, setContentHeight] = useState(48);
+  useUpdateEffect(() => {
+    if (isMdUp) {
+      setMinWrapperHeight(104);
+    } else if (isMdUp) {
+      setMinWrapperHeight(72);
+    } else {
+      setMinWrapperHeight(72);
+    }
+  }, [isMdUp, isSmUp, isSmDown]);
 
   useEffect(() => {
     if (contentRef.current) {
       setMinWrapperHeight((prev) => {
         let offsetHeight = contentRef.current.offsetHeight;
 
-        if (offsetHeight > 100) {
-          return prev;
-        }
-
         return Math.max(prev, offsetHeight);
       });
     }
-  }, []);
-
-  useEffect(() => {
-    setContentHeight((prev) => {
-      return Math.max(prev, minWrapperHeight);
-    });
-  }, [minWrapperHeight]);
+  }, [windowWidth]);
 
   useEffect(() => {
     if (width > 0 && !isLoading) {
@@ -166,7 +163,7 @@ const CardItem = ({ ...props }) => {
                 sx={{
                   marginTop: 1,
                   cursor: "pointer",
-                  minHeight: contentHeight,
+                  minHeight: minWrapperHeight,
                   display: "flex",
                   flexDirection: "column",
 
