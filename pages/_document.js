@@ -42,11 +42,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link
             href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600&display=swap"
             rel="stylesheet"
@@ -54,8 +50,8 @@ class MyDocument extends Document {
 
           {process.env.NODE_ENV === "production" && (
             <meta
-              http-equiv="Content-Security-Policy"
-              content="upgrade-insecure-requests"
+              httpEquiv="Content-Security-Policy"
+              content="upgrade-insecure-requests, initial-scale=1, maximum-scale=1"
             ></meta>
           )}
           {this.props.emotionStyleTags}

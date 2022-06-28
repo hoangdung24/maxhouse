@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+import { useRouter } from "next/router";
 import DOMPurify from "isomorphic-dompurify";
 
 import {
@@ -26,9 +28,90 @@ import { useSetting, useMedia } from "../../hooks";
 export default function Footer({}) {
   const theme = useTheme();
   const setting = useSetting();
+  const router = useRouter();
   const { isMdUp } = useMedia();
   const { messages } = useIntl();
   const [ref, { width }] = useMeasure();
+
+  const powerByMemo = useMemo(() => {
+    if (router.locale === "en") {
+      return (
+        <Typography
+          sx={{
+            textAlign: "center",
+            marginTop: 1,
+          }}
+        >
+          {"© Copyright by "}
+          <Typography
+            variant="body_regular_bold"
+            sx={{
+              fontWeight: 400,
+            }}
+          >
+            <Typography
+              variant="body_regular_bold"
+              sx={{
+                color: "primary.main",
+              }}
+            >
+              {"Maxhouse"}
+            </Typography>
+            {" Viet Nam."}
+          </Typography>
+          {" Power by "}
+
+          <Link
+            href="https://t-solution.vn/"
+            target="_blank"
+            sx={{
+              color: "primary.main",
+            }}
+          >
+            T-Solution
+          </Link>
+        </Typography>
+      );
+    } else {
+      return (
+        <Typography
+          sx={{
+            textAlign: "center",
+            marginTop: 1,
+          }}
+        >
+          {"© Bản quyền thuộc về "}
+          <Typography
+            variant="body_regular_bold"
+            sx={{
+              fontWeight: 400,
+            }}
+          >
+            <Typography
+              variant="body_regular_bold"
+              sx={{
+                color: "primary.main",
+              }}
+            >
+              {"Maxhouse"}
+            </Typography>
+            {" Việt Nam."}
+          </Typography>
+          {" Thiết kế bởi "}
+
+          <Link
+            href="https://t-solution.vn/"
+            target="_blank"
+            sx={{
+              color: "primary.main",
+            }}
+          >
+            T-Solution
+          </Link>
+        </Typography>
+      );
+    }
+  }, [router]);
 
   if (!setting) {
     return null;
@@ -296,7 +379,6 @@ export default function Footer({}) {
             </Box>
           </Grid>
 
-          {/* 3 icon face youtube pinterest */}
           <Grid item xs={12}>
             <Stack direction="row" justifyContent="center" spacing={2}>
               {social_links.map((el, i) => {
@@ -334,6 +416,8 @@ export default function Footer({}) {
               })}
             </Stack>
 
+            {powerByMemo}
+            {/* © Copyright by MaxHouse */}
             {/* <Box
               sx={{
                 display: "flex",

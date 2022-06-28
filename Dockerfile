@@ -13,7 +13,6 @@ RUN npm run build
 FROM node:16-alpine AS production
 WORKDIR /app
 COPY --from=build ./build/package*.json ./
-COPY --from=build ./build/.next ./.next
 COPY --from=build ./build/public ./public
 RUN npm install next
 
